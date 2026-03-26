@@ -1,0 +1,14 @@
+{
+  "home": "Home",
+  "about": "About us",
+  "projects": "Projects",
+  "events": "Events",
+  "contacts": "Contacts",
+  "heroTitle": "Design connecting people and places",
+  "homeIntro": "This homepage uses the video inside 01.Home as main cover.",
+  "aboutPlaceholder": "Add text or images inside 02.About us to populate this section.",
+  "projectsPlaceholder": "No projects available yet.",
+  "eventsPlaceholder": "Add content in 04.Events to display your events list.",
+  "contactsPlaceholder": "Add a text file in 05.Contacts with email, phone and address.",
+  "footer": "Glem Studio - All rights reserved"
+}
