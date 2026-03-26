@@ -24,4 +24,3 @@ Open `http://localhost:3000`.
 
 - `/it` and `/en` (language switch available in header)
 - Home, About, Projects, Events, Contacts
-- prova
