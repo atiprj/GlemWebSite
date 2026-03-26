@@ -1,0 +1,14 @@
+{
+  "home": "Home",
+  "about": "Chi siamo",
+  "projects": "Progetti",
+  "events": "Eventi",
+  "contacts": "Contatti",
+  "heroTitle": "Design che connette persone e luoghi",
+  "homeIntro": "Questa homepage usa il video presente nella cartella 01.Home come copertina principale.",
+  "aboutPlaceholder": "Aggiungi testi o immagini nella cartella 02.About us per popolare questa sezione.",
+  "projectsPlaceholder": "Nessun progetto disponibile in questo momento.",
+  "eventsPlaceholder": "Aggiungi contenuti nella cartella 04.Events per vedere la lista eventi.",
+  "contactsPlaceholder": "Inserisci un file di testo in 05.Contacts con mail, telefono e indirizzo.",
+  "footer": "Glem Studio - Tutti i diritti riservati"
+}
