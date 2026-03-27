@@ -24,6 +24,7 @@ export interface Project {
   year: number;
   cover: MediaAsset | null;
   assets: MediaAsset[];
+  searchText: string;
 }
 
 function toWebPath(absoluteFilePath: string) {
@@ -155,13 +156,51 @@ function pickCopCover(assets: MediaAsset[]) {
 export async function getProjects(): Promise<Project[]> {
   const galleries = await getProjectGalleries();
 
-  const mapped = galleries.map((project) => ({
-    slug: project.slug,
-    title: project.title,
-    year: parseYearFromSlug(project.slug) ?? 0,
-    cover: pickCopCover(project.assets),
-    assets: project.assets
-  }));
+  const mapped = await Promise.all(
+    galleries.map(async (project) => {
+      const projectRootCandidates = ["03.Projects", "03.Project"].map((folder) =>
+        path.join(process.cwd(), "public", "assets", folder, project.slug)
+      );
+
+      let projectPath: string | null = null;
+      for (const candidate of projectRootCandidates) {
+        const exists = await fs
+          .access(candidate)
+          .then(() => true)
+          .catch(() => false);
+        if (exists) {
+          projectPath = candidate;
+          break;
+        }
+      }
+
+      let descriptionText = "";
+      if (projectPath) {
+        const files = await listFilesRecursive(projectPath).catch(() => []);
+        const textFiles = files.filter((file) => TEXT_EXT.some((ext) => file.toLowerCase().endsWith(ext)));
+        const textChunks = await Promise.all(
+          textFiles.map((file) =>
+            fs
+              .readFile(file, "utf8")
+              .then((content) => content.trim())
+              .catch(() => "")
+          )
+        );
+        descriptionText = textChunks.filter(Boolean).join(" ");
+      }
+
+      const year = parseYearFromSlug(project.slug) ?? 0;
+
+      return {
+        slug: project.slug,
+        title: project.title,
+        year,
+        cover: pickCopCover(project.assets),
+        assets: project.assets,
+        searchText: `${project.title} ${project.slug} ${year} ${descriptionText}`.toLowerCase()
+      } satisfies Project;
+    })
+  );
 
   return mapped.sort((a, b) => b.year - a.year || a.title.localeCompare(b.title));
 }
