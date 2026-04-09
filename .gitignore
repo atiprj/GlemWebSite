@@ -4,3 +4,7 @@ out
 *.log
 *.tsbuildinfo
 node_modules
+
+# Media over GitHub limits; host elsewhere or use Git LFS
+public/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/Timelapse 240624.MOV
+public/assets/03.Project/24.MDW24-Material&Data/DEV/2024.05_PULSE_MakingOf.mp4
