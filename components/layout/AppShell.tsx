@@ -1,8 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { AppSidebar } from "@/components/navigation/AppSidebar";
 import { GlobalFooter } from "@/components/layout/GlobalFooter";
@@ -12,20 +13,23 @@ interface AppShellProps {
   children: ReactNode;
 }
 
+const INTRO_SESSION_KEY = "glem-intro-seen";
+
 export function AppShell({ children }: AppShellProps) {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [showIntro, setShowIntro] = useState(() => {
-    if (typeof window === "undefined") return false;
-    if (window.location.pathname !== "/") return false;
-    const key = "glem-intro-seen";
-    const alreadySeen = window.sessionStorage.getItem(key) === "1";
-    if (alreadySeen) return false;
-    window.sessionStorage.setItem(key, "1");
-    return true;
-  });
+  const [showIntro, setShowIntro] = useState(false);
+
   const handleIntroComplete = useCallback(() => {
     setShowIntro(false);
   }, []);
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+    if (window.sessionStorage.getItem(INTRO_SESSION_KEY) === "1") return;
+    window.sessionStorage.setItem(INTRO_SESSION_KEY, "1");
+    setShowIntro(true);
+  }, [pathname]);
 
   return (
     <div className="min-h-screen bg-[#f6f6f2] text-neutral-900">

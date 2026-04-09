@@ -18,7 +18,7 @@ function ProjectStackCard({ project, index }: { project: Project; index: number 
   });
 
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1, 0.96]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.85, 1], [0.45, 1, 1, 0.25]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.85, 1], [1, 1, 1, 0.25]);
   const x = useTransform(scrollYProgress, [0, 1], [index * 18, index * 6]);
 
   return (
@@ -50,10 +50,10 @@ function ProjectStackCard({ project, index }: { project: Project; index: number 
         ) : (
           <motion.div style={{ scale }} className="h-full w-full bg-neutral-800" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
         <div className="absolute bottom-12 left-8 z-10 md:left-12">
-          <p className="mb-2 text-xs tracking-[0.25em] text-white/70">{project.year || "N/A"}</p>
-          <h2 className="text-balance text-3xl font-semibold text-white md:text-5xl">{project.title}</h2>
+          <p className="mb-2 text-xs tracking-[0.25em] text-white/80">{project.year || "N/A"}</p>
+          <h2 className="text-balance text-3xl font-semibold text-white drop-shadow-md md:text-5xl">{project.title}</h2>
         </div>
       </motion.article>
     </div>

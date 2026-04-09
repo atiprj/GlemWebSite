@@ -71,6 +71,7 @@ export function ProjectControls({ projects }: ProjectControlsProps) {
       </div>
 
       <div className="mx-auto w-full max-w-6xl px-6 py-10 md:px-10">
+        <h2 className="mb-8 text-2xl font-semibold tracking-tight text-black md:text-3xl">Project index</h2>
         {filteredProjects.length === 0 ? (
           <p className="text-sm text-black/65">No projects match your search.</p>
         ) : null}
@@ -81,11 +82,11 @@ export function ProjectControls({ projects }: ProjectControlsProps) {
               <motion.article
                 key={project.slug}
                 layout
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 1, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 16 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="group relative overflow-hidden rounded-sm bg-neutral-200"
+                exit={{ opacity: 0, y: 12 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="group relative overflow-hidden rounded-sm border border-black/10 bg-neutral-200 shadow-sm"
               >
                 <div className="relative aspect-[6/10]">
                   {project.cover?.type === "image" ? (
@@ -95,12 +96,12 @@ export function ProjectControls({ projects }: ProjectControlsProps) {
                   ) : (
                     <div className="h-full w-full bg-neutral-300" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
-                    <p className="mb-1 text-[10px] tracking-[0.2em] text-white/75">
+                    <p className="mb-1 text-[10px] tracking-[0.2em] text-white/85">
                       {project.year > 0 ? project.year : "N/A"}
                     </p>
-                    <h3 className="text-sm font-medium text-white md:text-base">{project.title}</h3>
+                    <h3 className="text-sm font-medium text-white drop-shadow-sm md:text-base">{project.title}</h3>
                   </div>
                 </div>
               </motion.article>

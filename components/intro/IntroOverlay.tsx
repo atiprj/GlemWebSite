@@ -3,20 +3,21 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-type IntroPhase = "drop" | "slide" | "reveal";
+type IntroPhase = "hold" | "move" | "fade";
 
 interface IntroOverlayProps {
   onComplete: () => void;
 }
 
 const INTRO_TIMING = {
-  dropMs: 1500,
-  slideMs: 750,
-  revealMs: 650
+  holdMs: 2000,
+  moveMs: 900,
+  fadeMs: 900
 } as const;
 
 export function IntroOverlay({ onComplete }: IntroOverlayProps) {
-  const [phase, setPhase] = useState<IntroPhase>("drop");
+  const [phase, setPhase] = useState<IntroPhase>("hold");
+  const [target, setTarget] = useState({ x: 0, y: 0, scale: 0.58 });
   const onCompleteRef = useRef(onComplete);
 
   useEffect(() => {
@@ -24,87 +25,72 @@ export function IntroOverlay({ onComplete }: IntroOverlayProps) {
   }, [onComplete]);
 
   useEffect(() => {
-    const t1 = window.setTimeout(() => setPhase("slide"), INTRO_TIMING.dropMs);
-    const t3 = window.setTimeout(
-      () => setPhase("reveal"),
-      INTRO_TIMING.dropMs + INTRO_TIMING.slideMs
-    );
+    const updateTarget = () => {
+      const horizontalPadding = window.innerWidth >= 768 ? 40 : 24;
+      const verticalPadding = 16;
+      const logoCenterX = horizontalPadding + 40;
+      const logoCenterY = verticalPadding + 14;
+      setTarget({
+        x: -window.innerWidth / 2 + logoCenterX,
+        y: -window.innerHeight / 2 + logoCenterY,
+        scale: window.innerWidth >= 768 ? 0.56 : 0.6
+      });
+    };
+
+    updateTarget();
+    window.addEventListener("resize", updateTarget);
+    return () => window.removeEventListener("resize", updateTarget);
+  }, []);
+
+  useEffect(() => {
+    const t1 = window.setTimeout(() => setPhase("move"), INTRO_TIMING.holdMs);
+    const t2 = window.setTimeout(() => setPhase("fade"), INTRO_TIMING.holdMs + INTRO_TIMING.moveMs);
     const t4 = window.setTimeout(
       () => onCompleteRef.current(),
-      INTRO_TIMING.dropMs + INTRO_TIMING.slideMs + INTRO_TIMING.revealMs
+      INTRO_TIMING.holdMs + INTRO_TIMING.moveMs + INTRO_TIMING.fadeMs
     );
 
     return () => {
       window.clearTimeout(t1);
-      window.clearTimeout(t3);
+      window.clearTimeout(t2);
       window.clearTimeout(t4);
     };
   }, []);
 
   return (
-    <motion.div
-      className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-black"
-      initial={false}
-      animate={
-        phase === "reveal"
-          ? { x: "100%", opacity: 0 }
-          : { x: "0%", opacity: 1 }
-      }
-      transition={
-        phase === "reveal"
-          ? {
-              duration: INTRO_TIMING.revealMs / 1000,
-              ease: [0.55, 0.06, 0.68, 0.19]
-            }
-          : undefined
-      }
-    >
+    <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center">
       <motion.div
-        className="h-28 w-28 will-change-transform md:h-36 md:w-36"
+        className="absolute inset-0 bg-white"
+        initial={false}
+        animate={
+          phase === "fade"
+            ? { opacity: [1, 0.78, 0], scale: [1, 1.006, 1.015] }
+            : { opacity: 1, scale: 1 }
+        }
+        transition={{ duration: INTRO_TIMING.fadeMs / 1000, ease: [0.33, 1, 0.68, 1] }}
+      />
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-b from-white via-white to-[#f2f2ef]"
+        initial={false}
+        animate={phase === "fade" ? { opacity: [0.95, 0.55, 0] } : { opacity: 0.95 }}
+        transition={{ duration: INTRO_TIMING.fadeMs / 1000, ease: [0.25, 1, 0.5, 1] }}
+      />
+      <motion.div
+        className="relative z-10 select-none text-4xl font-bold tracking-[0.22em] text-black will-change-transform md:text-5xl"
         animate={{
-          y:
-            phase === "drop"
-              ? ["-58vh", "0vh", "-14vh", "0vh", "-6vh", "0vh", "-2.5vh", "0vh"]
-              : 0,
-          x: phase === "slide" || phase === "reveal" ? "42vw" : "0vw",
-          scaleX:
-            phase === "drop"
-              ? [1, 1, 1.14, 1, 1.07, 1, 1.03, 1]
-              : phase === "slide"
-              ? 1.01
-              : 1,
-          scaleY:
-            phase === "drop"
-              ? [1, 1, 0.86, 1, 0.93, 1, 0.97, 1]
-              : phase === "slide"
-              ? 0.99
-              : 1
+          x: phase === "hold" ? 0 : target.x,
+          y: phase === "hold" ? 0 : target.y,
+          scale: phase === "hold" ? 1 : target.scale,
+          opacity: phase === "fade" ? [1, 0.97, 0.88] : 1
         }}
         transition={{
-          y:
-            phase === "drop"
-              ? {
-                  duration: INTRO_TIMING.dropMs / 1000,
-                  times: [0, 0.5, 0.64, 0.76, 0.86, 0.93, 0.97, 1],
-                  ease: ["easeIn", "easeOut", "easeIn", "easeOut", "easeIn", "easeOut", "easeOut"]
-                }
-              : { duration: 0.2 },
-          x:
-            phase === "slide"
-              ? { duration: INTRO_TIMING.slideMs / 1000, ease: [0.33, 1, 0.68, 1] }
-              : { duration: 0.3, ease: "linear" },
-          scaleX:
-            phase === "drop"
-              ? { duration: INTRO_TIMING.dropMs / 1000, times: [0, 0.5, 0.64, 0.76, 0.86, 0.93, 0.97, 1] }
-              : { duration: 0.25, ease: "easeOut" },
-          scaleY:
-            phase === "drop"
-              ? { duration: INTRO_TIMING.dropMs / 1000, times: [0, 0.5, 0.64, 0.76, 0.86, 0.93, 0.97, 1] }
-              : { duration: 0.25, ease: "easeOut" }
+          duration:
+            phase === "fade" ? INTRO_TIMING.fadeMs / 1000 : phase === "hold" ? 0 : INTRO_TIMING.moveMs / 1000,
+          ease: phase === "fade" ? [0.25, 1, 0.5, 1] : [0.22, 1, 0.36, 1]
         }}
       >
-        <div className="h-full w-full rounded-full bg-white" />
+        GLEM
       </motion.div>
-    </motion.div>
+    </div>
   );
 }

@@ -2,6 +2,8 @@ import { ProjectControls } from "@/components/projects/ProjectControls";
 import { ProjectsStacking } from "@/components/projects/ProjectsStacking";
 import { getProjects } from "@/lib/site-assets";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProjectsPage() {
   const projects = await getProjects();
 

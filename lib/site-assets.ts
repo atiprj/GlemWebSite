@@ -4,6 +4,7 @@ import fs from "node:fs/promises";
 const IMAGE_EXT = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
 const VIDEO_EXT = [".mp4", ".webm", ".mov"];
 const TEXT_EXT = [".txt", ".md"];
+const LIST_MAX_DEPTH = 40;
 
 type MediaType = "image" | "video";
 
@@ -27,9 +28,17 @@ export interface Project {
   searchText: string;
 }
 
-function toWebPath(absoluteFilePath: string) {
-  const relative = path.relative(path.join(process.cwd(), "public"), absoluteFilePath);
-  return `/${relative.replaceAll("\\", "/")}`;
+function toWebPath(absoluteFilePath: string): string | null {
+  try {
+    const publicDir = path.join(process.cwd(), "public");
+    const relative = path.relative(publicDir, absoluteFilePath);
+    if (!relative || relative.startsWith("..") || path.isAbsolute(relative)) {
+      return null;
+    }
+    return `/${relative.replaceAll("\\", "/")}`;
+  } catch {
+    return null;
+  }
 }
 
 function detectType(filePath: string): MediaType | null {
@@ -39,105 +48,134 @@ function detectType(filePath: string): MediaType | null {
   return null;
 }
 
-async function listFilesRecursive(dir: string): Promise<string[]> {
-  const entries = await fs.readdir(dir, { withFileTypes: true }).catch(() => []);
-  const nested = await Promise.all(
-    entries.map(async (entry) => {
-      const absolute = path.join(dir, entry.name);
-      if (entry.isDirectory()) {
-        return listFilesRecursive(absolute);
-      }
-      return [absolute];
-    })
-  );
-  return nested.flat();
+async function listFilesRecursive(dir: string, depth = 0): Promise<string[]> {
+  if (depth > LIST_MAX_DEPTH) return [];
+  try {
+    const entries = await fs.readdir(dir, { withFileTypes: true }).catch(() => []);
+    const nested = await Promise.all(
+      entries.map(async (entry) => {
+        try {
+          const absolute = path.join(dir, entry.name);
+          if (entry.isDirectory()) {
+            return listFilesRecursive(absolute, depth + 1);
+          }
+          return [absolute];
+        } catch {
+          return [];
+        }
+      })
+    );
+    return nested.flat();
+  } catch {
+    return [];
+  }
 }
 
 export async function getHomeHeroAsset(): Promise<MediaAsset | null> {
-  const root = path.join(process.cwd(), "public", "assets");
-  const homeFolder = path.join(root, "01.Home");
-  const candidates = [homeFolder, root];
+  try {
+    const root = path.join(process.cwd(), "public", "assets");
+    const homeFolder = path.join(root, "01.Home");
+    const candidates = [homeFolder, root];
 
-  for (const candidate of candidates) {
-    const files = await listFilesRecursive(candidate).catch(() => []);
-    const mediaFile = files.find((file) => detectType(file) === "image") ?? files.find((file) => detectType(file) === "video");
-    if (mediaFile) {
-      const type = detectType(mediaFile);
-      if (type) return { src: toWebPath(mediaFile), type };
+    for (const candidate of candidates) {
+      const files = await listFilesRecursive(candidate);
+      const mediaFile =
+        files.find((file) => detectType(file) === "image") ?? files.find((file) => detectType(file) === "video");
+      if (mediaFile) {
+        const type = detectType(mediaFile);
+        const src = toWebPath(mediaFile);
+        if (type && src) return { src, type };
+      }
     }
+  } catch {
+    /* ignore */
   }
 
   return null;
 }
 
 export async function getFolderText(folderName: string, fallback: string) {
-  const folder = path.join(process.cwd(), "public", "assets", folderName);
-  const files = await listFilesRecursive(folder).catch(() => []);
-  const textFile = files.find((file) => TEXT_EXT.some((ext) => file.toLowerCase().endsWith(ext)));
-  if (!textFile) return fallback;
-  const content = await fs.readFile(textFile, "utf8").catch(() => "");
-  return content.trim() || fallback;
+  try {
+    const folder = path.join(process.cwd(), "public", "assets", folderName);
+    const files = await listFilesRecursive(folder);
+    const textFile = files.find((file) => TEXT_EXT.some((ext) => file.toLowerCase().endsWith(ext)));
+    if (!textFile) return fallback;
+    const content = await fs.readFile(textFile, "utf8").catch(() => "");
+    return content.trim() || fallback;
+  } catch {
+    return fallback;
+  }
 }
 
 export async function getFolderMedia(folderName: string): Promise<MediaAsset[]> {
-  const folder = path.join(process.cwd(), "public", "assets", folderName);
-  const files = await listFilesRecursive(folder).catch(() => []);
-  return files
-    .map((file) => {
-      const type = detectType(file);
-      if (!type) return null;
-      return { src: toWebPath(file), type } satisfies MediaAsset;
-    })
-    .filter((item): item is MediaAsset => item !== null);
+  try {
+    const folder = path.join(process.cwd(), "public", "assets", folderName);
+    const files = await listFilesRecursive(folder);
+    return files
+      .map((file) => {
+        const type = detectType(file);
+        const src = toWebPath(file);
+        if (!type || !src) return null;
+        return { src, type } satisfies MediaAsset;
+      })
+      .filter((item): item is MediaAsset => item !== null);
+  } catch {
+    return [];
+  }
 }
 
 export async function getProjectGalleries(): Promise<ProjectGalleryItem[]> {
-  const projectRoots = ["03.Projects", "03.Project"].map((folder) =>
-    path.join(process.cwd(), "public", "assets", folder)
-  );
+  try {
+    const projectRoots = ["03.Projects", "03.Project"].map((folder) =>
+      path.join(process.cwd(), "public", "assets", folder)
+    );
 
-  let rootToUse: string | null = null;
-  for (const root of projectRoots) {
-    const exists = await fs
-      .access(root)
-      .then(() => true)
-      .catch(() => false);
-    if (exists) {
-      rootToUse = root;
-      break;
+    let rootToUse: string | null = null;
+    for (const root of projectRoots) {
+      const exists = await fs
+        .access(root)
+        .then(() => true)
+        .catch(() => false);
+      if (exists) {
+        rootToUse = root;
+        break;
+      }
     }
+    if (!rootToUse) return [];
+
+    const projectDirs = await fs.readdir(rootToUse, { withFileTypes: true }).catch(() => []);
+    const mapped = await Promise.all(
+      projectDirs
+        .filter((entry) => entry.isDirectory())
+        .map(async (entry) => {
+          try {
+            const slug = entry.name;
+            const fullPath = path.join(rootToUse as string, slug);
+            const files = await listFilesRecursive(fullPath);
+            const assets = files
+              .map((file) => {
+                const type = detectType(file);
+                const src = toWebPath(file);
+                if (!type || !src) return null;
+                return { src, type } satisfies MediaAsset;
+              })
+              .filter((item): item is MediaAsset => item !== null);
+
+            return {
+              slug,
+              title: slug.replace(/[._-]/g, " ").replace(/\s+/g, " ").trim(),
+              assets
+            } satisfies ProjectGalleryItem;
+          } catch {
+            return null;
+          }
+        })
+    );
+
+    return mapped.filter((item): item is ProjectGalleryItem => item !== null && item.assets.length > 0);
+  } catch {
+    return [];
   }
-  if (!rootToUse) return [];
-
-  const projectDirs = await fs.readdir(rootToUse, { withFileTypes: true }).catch(() => []);
-  const mapped = await Promise.all(
-    projectDirs
-      .filter((entry) => entry.isDirectory())
-      .map(async (entry) => {
-        try {
-          const slug = entry.name;
-          const fullPath = path.join(rootToUse as string, slug);
-          const files = await listFilesRecursive(fullPath).catch(() => []);
-          const assets = files
-            .map((file) => {
-              const type = detectType(file);
-              if (!type) return null;
-              return { src: toWebPath(file), type } satisfies MediaAsset;
-            })
-            .filter((item): item is MediaAsset => item !== null);
-
-          return {
-            slug,
-            title: slug.replace(/[._-]/g, " ").replace(/\s+/g, " ").trim(),
-            assets
-          } satisfies ProjectGalleryItem;
-        } catch {
-          return null;
-        }
-      })
-  );
-
-  return mapped.filter((item): item is ProjectGalleryItem => item !== null && item.assets.length > 0);
 }
 
 function parseYearFromSlug(slug: string) {
@@ -154,53 +192,63 @@ function pickCopCover(assets: MediaAsset[]) {
 }
 
 export async function getProjects(): Promise<Project[]> {
-  const galleries = await getProjectGalleries();
+  try {
+    const galleries = await getProjectGalleries();
 
-  const mapped = await Promise.all(
-    galleries.map(async (project) => {
-      const projectRootCandidates = ["03.Projects", "03.Project"].map((folder) =>
-        path.join(process.cwd(), "public", "assets", folder, project.slug)
-      );
+    const mapped = await Promise.all(
+      galleries.map(async (project) => {
+        try {
+          const projectRootCandidates = ["03.Projects", "03.Project"].map((folder) =>
+            path.join(process.cwd(), "public", "assets", folder, project.slug)
+          );
 
-      let projectPath: string | null = null;
-      for (const candidate of projectRootCandidates) {
-        const exists = await fs
-          .access(candidate)
-          .then(() => true)
-          .catch(() => false);
-        if (exists) {
-          projectPath = candidate;
-          break;
+          let projectPath: string | null = null;
+          for (const candidate of projectRootCandidates) {
+            const exists = await fs
+              .access(candidate)
+              .then(() => true)
+              .catch(() => false);
+            if (exists) {
+              projectPath = candidate;
+              break;
+            }
+          }
+
+          let descriptionText = "";
+          if (projectPath) {
+            const files = await listFilesRecursive(projectPath);
+            const textFiles = files.filter((file) => TEXT_EXT.some((ext) => file.toLowerCase().endsWith(ext)));
+            const textChunks = await Promise.all(
+              textFiles.map((file) =>
+                fs
+                  .readFile(file, "utf8")
+                  .then((content) => content.trim())
+                  .catch(() => "")
+              )
+            );
+            descriptionText = textChunks.filter(Boolean).join(" ");
+          }
+
+          const year = parseYearFromSlug(project.slug) ?? 0;
+
+          const row: Project = {
+            slug: project.slug,
+            title: project.title,
+            year,
+            cover: pickCopCover(project.assets),
+            assets: project.assets,
+            searchText: `${project.title} ${project.slug} ${year} ${descriptionText}`.toLowerCase()
+          };
+          return row;
+        } catch {
+          return null;
         }
-      }
+      })
+    );
 
-      let descriptionText = "";
-      if (projectPath) {
-        const files = await listFilesRecursive(projectPath).catch(() => []);
-        const textFiles = files.filter((file) => TEXT_EXT.some((ext) => file.toLowerCase().endsWith(ext)));
-        const textChunks = await Promise.all(
-          textFiles.map((file) =>
-            fs
-              .readFile(file, "utf8")
-              .then((content) => content.trim())
-              .catch(() => "")
-          )
-        );
-        descriptionText = textChunks.filter(Boolean).join(" ");
-      }
-
-      const year = parseYearFromSlug(project.slug) ?? 0;
-
-      return {
-        slug: project.slug,
-        title: project.title,
-        year,
-        cover: pickCopCover(project.assets),
-        assets: project.assets,
-        searchText: `${project.title} ${project.slug} ${year} ${descriptionText}`.toLowerCase()
-      } satisfies Project;
-    })
-  );
-
-  return mapped.sort((a, b) => b.year - a.year || a.title.localeCompare(b.title));
+    const filtered: Project[] = mapped.filter((p): p is Project => p !== null);
+    return filtered.sort((a, b) => b.year - a.year || a.title.localeCompare(b.title));
+  } catch {
+    return [];
+  }
 }

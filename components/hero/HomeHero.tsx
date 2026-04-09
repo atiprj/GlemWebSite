@@ -12,7 +12,7 @@ export function HomeHero({ heroSrc }: HomeHeroProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section className="relative h-screen w-screen overflow-hidden">
+    <section className="relative h-screen w-full overflow-hidden bg-neutral-800">
       {heroSrc ? (
         <Image
           src={heroSrc}
