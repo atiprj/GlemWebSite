@@ -1,6 +1,7 @@
 import path from "node:path";
 import fs from "node:fs/promises";
 import { imageSize } from "image-size";
+import * as XLSX from "xlsx";
 
 const IMAGE_EXT = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
 const VIDEO_EXT = [".mp4", ".webm", ".mov"];
@@ -28,6 +29,8 @@ export interface Project {
   slug: string;
   title: string;
   year: number;
+  articleLink: string;
+  tags: string[];
   cover: MediaAsset | null;
   assets: MediaAsset[];
   devContentPath: string;
@@ -254,9 +257,69 @@ function parseDevTextSections(content: string) {
   };
 }
 
+interface ProjectSpreadsheetMeta {
+  articleLink: string;
+  tags: string[];
+}
+
+async function getProjectSpreadsheetMeta() {
+  try {
+    const excelPath = path.join(process.cwd(), "public", "assets", "03.Project", "Projects List.xlsx");
+    const excelBuffer = await fs.readFile(excelPath);
+    const workbook = XLSX.read(excelBuffer, { type: "buffer" });
+    const sheetName = workbook.SheetNames[0];
+    if (!sheetName) return new Map<string, ProjectSpreadsheetMeta>();
+
+    const rows = XLSX.utils.sheet_to_json<(string | null)[]>(workbook.Sheets[sheetName], {
+      header: 1,
+      blankrows: false
+    });
+
+    const metaMap = new Map<string, ProjectSpreadsheetMeta>();
+    rows.slice(1).forEach((row) => {
+      const rawFolder = typeof row[0] === "string" ? row[0].trim() : "";
+      const rawLink = typeof row[1] === "string" ? row[1].trim() : "";
+      const tags = row
+        .slice(3)
+        .map((value) => (typeof value === "string" ? value.trim() : ""))
+        .filter(Boolean);
+
+      if (!rawFolder) return;
+      metaMap.set(rawFolder, { articleLink: rawLink, tags });
+    });
+
+    return metaMap;
+  } catch {
+    return new Map<string, ProjectSpreadsheetMeta>();
+  }
+}
+
+function normalizeProjectKey(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+function resolveSpreadsheetMeta(project: ProjectGalleryItem, metaMap: Map<string, ProjectSpreadsheetMeta>) {
+  const exactBySlug = metaMap.get(project.slug);
+  if (exactBySlug) return exactBySlug;
+
+  const normalizedSlug = normalizeProjectKey(project.slug);
+  const normalizedTitle = normalizeProjectKey(project.title);
+
+  for (const [key, meta] of metaMap.entries()) {
+    const normalizedKey = normalizeProjectKey(key);
+    if (!normalizedKey) continue;
+    if (normalizedKey === normalizedSlug || normalizedKey === normalizedTitle) {
+      return meta;
+    }
+  }
+
+  return { articleLink: "", tags: [] };
+}
+
 export async function getProjects(): Promise<Project[]> {
   try {
     const galleries = await getProjectGalleries();
+    const spreadsheetMeta = await getProjectSpreadsheetMeta();
 
     const mapped = await Promise.all(
       galleries.map(async (project) => {
@@ -294,6 +357,7 @@ export async function getProjects(): Promise<Project[]> {
 
           const year = parseYearFromSlug(project.slug) ?? 0;
           const devContentPath = `/assets/03.Project/${project.slug}/DEV`;
+          const projectMeta = resolveSpreadsheetMeta(project, spreadsheetMeta);
 
           const devAssets: MediaAsset[] = project.assets.filter((asset) => asset.src.includes("/DEV/"));
 
@@ -316,6 +380,8 @@ export async function getProjects(): Promise<Project[]> {
             slug: project.slug,
             title: project.title,
             year,
+            articleLink: projectMeta.articleLink,
+            tags: projectMeta.tags,
             cover: pickCopCover(project.assets),
             assets: project.assets,
             devContentPath,

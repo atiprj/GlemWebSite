@@ -1,11 +1,14 @@
 "use client";
 
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, X } from "lucide-react";
 
 import InfinitePhotoStrip from "@/components/ui/InfinitePhotoStrip";
+import BlurText from "@/components/ui/BlurText";
+import SplitText from "@/components/ui/SplitText";
 import type { MediaAsset, Project } from "@/lib/site-assets";
 import type { Photo } from "@/types/carousel";
 
@@ -41,7 +44,13 @@ function briefDescription(text: string) {
 }
 
 function projectLeadText(project: Project) {
-  return project.devText.intro || project.devText.conclusions || project.devText.description || "";
+  const introOnly = project.devText.intro || "";
+  const firstParagraph = introOnly
+    .split(/\n\s*\n/)
+    .map((chunk) => chunk.trim())
+    .filter(Boolean)[0];
+
+  return firstParagraph || "";
 }
 
 function toCarouselPhotos(images: MediaAsset[], title: string): Photo[] {
@@ -55,47 +64,123 @@ function toCarouselPhotos(images: MediaAsset[], title: string): Photo[] {
   }));
 }
 
-function ScrollRevealLine({
-  text,
-  progress,
-  start,
-  end
-}: {
-  text: string;
-  progress: MotionValue<number>;
-  start: number;
-  end: number;
-}) {
-  const opacity = useTransform(progress, [start, end], [0, 1]);
-  const y = useTransform(progress, [start, end], [28, 0]);
+function lineLengthByViewport(viewportWidth: number) {
+  if (viewportWidth <= 640) return 42;
+  if (viewportWidth <= 1024) return 68;
+  return 92;
+}
 
-  return (
-    <motion.p
-      className="text-[clamp(1.25rem,2.2vw,2.1rem)] font-bold leading-[1.45] text-neutral-800"
-      style={{ opacity, y }}
-    >
-      {text}
-    </motion.p>
-  );
+function leadTextForSplitAnimation(text: string, viewportWidth: number) {
+  const normalized = text.replace(/\s+/g, " ").trim();
+  if (!normalized) return "";
+
+  const words = normalized.split(" ");
+  const lines: string[] = [];
+  const maxLines = 5;
+  const minCharsPerLine = lineLengthByViewport(viewportWidth);
+  const requiredCharsPerLine = Math.ceil(normalized.length / maxLines);
+  const maxCharsPerLine = Math.max(minCharsPerLine, requiredCharsPerLine);
+  let currentLine = "";
+
+  for (const word of words) {
+    const candidate = currentLine ? `${currentLine} ${word}` : word;
+    if (candidate.length <= maxCharsPerLine) {
+      currentLine = candidate;
+      continue;
+    }
+
+    if (currentLine) {
+      lines.push(currentLine);
+    }
+    currentLine = word;
+
+  }
+
+  const finalLine = currentLine || "";
+  if (finalLine) {
+    lines.push(finalLine);
+  }
+
+  if (lines.length <= maxLines) {
+    return lines.join("\n");
+  }
+
+  const keptLines = lines.slice(0, maxLines - 1);
+  const lastMergedLine = lines.slice(maxLines - 1).join(" ");
+  return [...keptLines, lastMergedLine].join("\n");
 }
 
 export function ProjectArticle({ project }: ProjectArticleProps) {
+  const [viewportWidth, setViewportWidth] = useState(1440);
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
+  const [liveDescription, setLiveDescription] = useState(project.devText.description.trim());
+  const [liveArticleLink, setLiveArticleLink] = useState(project.articleLink || "");
+  const [liveTags, setLiveTags] = useState<string[]>(project.tags || []);
+
+  useEffect(() => {
+    const updateViewportWidth = () => {
+      setViewportWidth(window.innerWidth || 1440);
+    };
+
+    updateViewportWidth();
+    window.addEventListener("resize", updateViewportWidth);
+    return () => {
+      window.removeEventListener("resize", updateViewportWidth);
+    };
+  }, []);
+
+  useEffect(() => {
+    let isUnmounted = false;
+
+    const fetchDescription = async () => {
+      try {
+        const response = await fetch(`/api/projects/${project.slug}/description`, { cache: "no-store" });
+        if (!response.ok) return;
+        const data = (await response.json()) as { description?: string; articleLink?: string; tags?: string[] };
+        if (!isUnmounted) {
+          if (typeof data.description === "string") {
+            setLiveDescription(data.description.trim());
+          }
+          if (typeof data.articleLink === "string") {
+            setLiveArticleLink(data.articleLink.trim());
+          }
+          if (Array.isArray(data.tags)) {
+            setLiveTags(data.tags.filter((tag) => typeof tag === "string" && tag.trim().length > 0));
+          }
+        }
+      } catch {
+        /* keep current description */
+      }
+    };
+
+    fetchDescription();
+    const intervalMs = process.env.NODE_ENV === "development" ? 2000 : 30000;
+    const intervalId = window.setInterval(fetchDescription, intervalMs);
+
+    return () => {
+      isUnmounted = true;
+      window.clearInterval(intervalId);
+    };
+  }, [project.slug]);
+
   const images = sortedImages(project.devAssets);
   const carouselPhotos = toCarouselPhotos(images, project.title);
   const leadText = projectLeadText(project);
-  const leadLines = textLines(leadText);
-  const shortDescription = briefDescription(project.devText.description);
+  const animatedLeadText = leadTextForSplitAnimation(leadText, viewportWidth);
+  const descriptionText =
+    liveDescription ||
+    "Il prototipo è il risultato della collaborazione con eccellenze italiane, ognuna protagonista della trasformazione di MIRA in esperienza sensoriale.";
+  const resolvedArticleLink =
+    project.slug === "25.MDW25-MiraConceptAI"
+      ? "https://atiproject.com/news/fuorisalone-2025-ati-presenta-mira-al-dot-materica/"
+      : liveArticleLink || project.articleLink || "";
+  const resolvedTags = liveTags.length > 0 ? liveTags : project.tags;
   const teamLines = textLines(project.devText.team);
   const awardsLines = textLines(project.devText.awards);
   const videos = project.devAssets
     .filter((asset) => asset.type === "video")
     .sort((a, b) => a.src.localeCompare(b.src, undefined, { numeric: true }));
   const mainVideo = videos[0];
-  const leadSectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: leadSectionRef,
-    offset: ["start 80%", "end 30%"]
-  });
 
   return (
     <div className="bg-[#f6f6f2] text-neutral-900 antialiased min-h-screen">
@@ -128,6 +213,20 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
             {project.year > 0 ? (
               <p className="mt-6 text-[10px] tracking-[0.28em] text-neutral-400">{project.year}</p>
             ) : null}
+            {resolvedTags.length > 0 ? (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {resolvedTags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-black/15 bg-black/[0.03] px-2.5 py-1 text-[10px] font-medium tracking-[0.08em] text-neutral-700"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-4 text-[11px] text-neutral-500">No tags loaded yet.</p>
+            )}
           </div>
 
           {/* cover */}
@@ -160,16 +259,24 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
           )}
         </div>
         {leadText ? (
-          <div ref={leadSectionRef} className="mt-8 mx-auto max-w-4xl text-center space-y-1">
-            {leadLines.map((line, index) => (
-              <ScrollRevealLine
-                key={`${line}-${index}`}
-                text={line}
-                progress={scrollYProgress}
-                start={index / Math.max(leadLines.length, 1)}
-                end={(index + 0.85) / Math.max(leadLines.length, 1)}
-              />
-            ))}
+          <div className="mt-8 mx-auto max-w-5xl">
+            <SplitText
+              text={animatedLeadText}
+              className="text-[clamp(1.05rem,1.9vw,1.8rem)] font-bold leading-[1.35] text-neutral-800"
+              delay={90}
+              duration={0.95}
+              ease="power3.out"
+              splitType="lines"
+              from={{ opacity: 0, y: 34 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-90px"
+              textAlign="center"
+              showCallback
+              onLetterAnimationComplete={() => {
+                console.log("Lead text lines animation complete");
+              }}
+            />
           </div>
         ) : null}
         {images.length > 0 ? (
@@ -182,15 +289,26 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
             />
           </div>
         ) : null}
+
+        <div className="mt-8 border-t border-black/[0.07] pt-7">
+          <button
+            type="button"
+            onClick={() => setIsDescriptionOpen(true)}
+            className="group block w-full cursor-pointer rounded-lg px-4 py-3 text-left transition duration-300 hover:-translate-y-0.5 hover:bg-black/[0.02]"
+            aria-label="Open project description"
+          >
+            <h2 className="text-[clamp(1.05rem,1.8vw,1.35rem)] font-medium leading-tight underline-offset-4 group-hover:underline">
+              Description
+            </h2>
+            <p className="mt-3 line-clamp-2 max-w-4xl text-[15px] leading-[1.8] text-neutral-700">
+              {descriptionText}
+              ...
+            </p>
+          </button>
+        </div>
       </section>
 
       <section aria-label="Project details" className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pt-10 pb-16">
-        {shortDescription ? (
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[15px] leading-[1.8] text-neutral-700">{shortDescription}</p>
-          </div>
-        ) : null}
-
         {mainVideo ? (
           <div className="mt-8">
             <video src={mainVideo.src} controls className="w-full rounded-xl bg-neutral-900" />
@@ -199,14 +317,16 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
 
         <div className="mt-12 border-t border-black/[0.07] pt-10">
           <p className="text-[10px] tracking-[0.28em] text-neutral-400 mb-8">KEY INFORMATION</p>
-          <dl className="grid grid-cols-2 md:grid-cols-4 gap-px bg-black/[0.06]">
+          <dl className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-black/[0.06]">
             {[
               { label: "Project", value: project.title },
               { label: "Year", value: project.year > 0 ? String(project.year) : "N/A" },
-              { label: "Images", value: String(images.length) },
-              { label: "Videos", value: String(videos.length) }
+              { label: "Tags", value: resolvedTags.length > 0 ? resolvedTags.join(" • ") : "N/A" }
             ].map((item) => (
-              <div key={item.label} className="bg-[#f6f6f2] p-5">
+              <div
+                key={item.label}
+                className={`bg-[#f6f6f2] p-5 ${item.label === "Tags" ? "md:col-span-2 lg:col-span-2" : ""}`}
+              >
                 <dt className="text-[10px] tracking-[0.2em] text-neutral-400 mb-2">{item.label}</dt>
                 <dd className="text-[14px] leading-snug">{item.value}</dd>
               </div>
@@ -244,6 +364,63 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
           </div>
         </div>
       </section>
+
+      <AnimatePresence>
+        {isDescriptionOpen ? (
+          <>
+            <motion.button
+              type="button"
+              aria-label="Close description backdrop"
+              className="fixed inset-0 z-40 bg-black/30"
+              onClick={() => setIsDescriptionOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22 }}
+            />
+            <motion.aside
+              className="fixed right-0 top-0 z-50 h-screen w-[min(92vw,520px)] border-l border-black/10 bg-[#f6f1e7]/82 p-6 text-neutral-900 backdrop-blur-md"
+              initial={{ x: 540, opacity: 0.9 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: 540, opacity: 0.9 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              aria-label="Project description drawer"
+            >
+              <div className="mb-6 flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-[10px] tracking-[0.24em] text-neutral-500">PROJECT</p>
+                  <h3 className="mt-2 text-[clamp(1.2rem,2vw,1.7rem)] font-semibold leading-tight">{project.title}</h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsDescriptionOpen(false)}
+                  aria-label="Close description panel"
+                  className="rounded-md border border-black/20 p-2 transition hover:bg-black/5"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+              <div className="h-[calc(100vh-7rem)] overflow-y-auto pr-1">
+                <p className="whitespace-pre-wrap text-justify text-[15px] leading-[1.85] text-neutral-800">
+                  {descriptionText}
+                </p>
+                <a
+                  href={resolvedArticleLink || "#"}
+                  target={resolvedArticleLink ? "_blank" : undefined}
+                  rel={resolvedArticleLink ? "noreferrer" : undefined}
+                  className={`mt-5 inline-block ${resolvedArticleLink ? "text-neutral-900" : "cursor-not-allowed text-neutral-500"}`}
+                  aria-label={`Read more about ${project.title}`}
+                >
+                  <span className="inline-flex items-center gap-1 text-base font-bold">
+                    <span>Read More</span>
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </a>
+              </div>
+            </motion.aside>
+          </>
+        ) : null}
+      </AnimatePresence>
 
     </div>
   );

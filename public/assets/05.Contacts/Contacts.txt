@@ -4,13 +4,30 @@ ATI Project-R&D Departement
 
 E-MAIL
 
-The Soul: mattiagiannetti@atiproject.com
-The Strategists: giacomomarani@atiproject.com
-The Backbone: lucaofria@atiproject.com
-The Crew: ericascribano@atiproject.com
-          gabrielefichera@atiproject.com
+Mattia Giannetti
+Head of departement R&D 
+mattiagiannetti@atiproject.com
+https://www.linkedin.com/in/mattia-giannetti-5b04925a/
 
-Phone:
+Giacomo Marani
+Lead R&D - Data-Driven design - AI 
+giacomomarani@atiproject.com
+https://www.linkedin.com/in/giacomo-marani-3a4532121/
+
+Luca Ofria
+Computational BIM - Information Manager
+lucaofria@atiproject.com
+https://www.linkedin.com/in/luca-ofria-0131b75b/
+
+Erica Scribano
+AI Reasearcher - BIM 
+ericascribano@atiproject.com
+https://www.linkedin.com/in/erica-scribano-a8953a192/
+
+Gabriele Fichera
+Computational Designer 
+gabrielefichera@atiproject.com
+https://www.linkedin.com/in/gabriele-fichera/
 
 
 

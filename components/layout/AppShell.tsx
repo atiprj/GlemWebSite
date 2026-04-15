@@ -5,9 +5,9 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { AppSidebar } from "@/components/navigation/AppSidebar";
 import { GlobalFooter } from "@/components/layout/GlobalFooter";
 import { IntroOverlay } from "@/components/intro/IntroOverlay";
+import StaggeredMenu from "@/components/navigation/StaggeredMenu";
 
 interface AppShellProps {
   children: ReactNode;
@@ -17,8 +17,21 @@ const INTRO_SESSION_KEY = "glem-intro-seen";
 
 export function AppShell({ children }: AppShellProps) {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
   const [showIntro, setShowIntro] = useState(false);
+
+  const menuItems = [
+    { label: "Home", ariaLabel: "Go to home page", link: "/" },
+    { label: "About", ariaLabel: "Learn about us", link: "/about" },
+    { label: "Projects", ariaLabel: "View our projects", link: "/projects" },
+    { label: "Events", ariaLabel: "View events", link: "/events" },
+    { label: "Contacts", ariaLabel: "Get in touch", link: "/contacts" }
+  ];
+
+  const socialItems = [
+    { label: "Instagram", link: "https://www.instagram.com/" },
+    { label: "GitHub", link: "https://github.com/atiprj" },
+    { label: "LinkedIn", link: "https://linkedin.com" }
+  ];
 
   const handleIntroComplete = useCallback(() => {
     setShowIntro(false);
@@ -37,19 +50,19 @@ export function AppShell({ children }: AppShellProps) {
         <Link href="/" className="text-lg font-bold tracking-[0.22em] text-black">
           GLEM
         </Link>
-        <button
-          type="button"
-          aria-label="Open navigation"
-          onClick={() => setIsOpen(true)}
-          className="rounded-md p-2 transition hover:bg-black/10"
-        >
-          <svg width="28" height="28" viewBox="0 0 24 24" className="text-black" aria-hidden="true">
-            <path d="M5 4L19 12L5 20V4Z" fill="currentColor" />
-          </svg>
-        </button>
+        <StaggeredMenu
+          position="right"
+          items={menuItems}
+          socialItems={socialItems}
+          displaySocials
+          displayItemNumbering
+          menuButtonColor="#111111"
+          openMenuButtonColor="#ffffff"
+          changeMenuColorOnOpen
+          colors={["#000000", "#C0C0C0"]}
+          accentColor="#ffffff"
+        />
       </header>
-
-      <AppSidebar isOpen={isOpen} onClose={() => setIsOpen(false)} />
 
       <main className="pb-[560px] pt-16">{children}</main>
 
