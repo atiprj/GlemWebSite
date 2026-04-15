@@ -1,16 +1,10 @@
-import { ProjectControls } from "@/components/projects/ProjectControls";
-import { ProjectsStacking } from "@/components/projects/ProjectsStacking";
 import { getProjects } from "@/lib/site-assets";
+import { ProjectsClient } from "./ProjectsClient";
 
 export const dynamic = "force-dynamic";
 
 export default async function ProjectsPage() {
   const projects = await getProjects();
 
-  return (
-    <div className="w-full">
-      <ProjectsStacking projects={projects} />
-      <ProjectControls projects={projects} />
-    </div>
-  );
+  return <ProjectsClient projects={projects} />;
 }

@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import type { Project } from "@/lib/site-assets";
@@ -88,6 +89,7 @@ export function ProjectControls({ projects }: ProjectControlsProps) {
                 transition={{ duration: 0.25, ease: "easeOut" }}
                 className="group relative overflow-hidden rounded-sm border border-black/10 bg-neutral-200 shadow-sm"
               >
+                <Link href={`/projects/${project.slug}`} aria-label={`Open ${project.title} page`} className="absolute inset-0 z-20" />
                 <div className="relative aspect-[6/10]">
                   {project.cover?.type === "image" ? (
                     <Image src={project.cover.src} alt={project.title} fill className="object-cover transition duration-500 group-hover:scale-[1.03]" />
@@ -97,7 +99,7 @@ export function ProjectControls({ projects }: ProjectControlsProps) {
                     <div className="h-full w-full bg-neutral-300" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
+                  <div className="pointer-events-none absolute bottom-4 left-4 right-4">
                     <p className="mb-1 text-[10px] tracking-[0.2em] text-white/85">
                       {project.year > 0 ? project.year : "N/A"}
                     </p>

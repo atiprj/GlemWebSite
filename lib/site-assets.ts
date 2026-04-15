@@ -1,5 +1,6 @@
 import path from "node:path";
 import fs from "node:fs/promises";
+import { imageSize } from "image-size";
 
 const IMAGE_EXT = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
 const VIDEO_EXT = [".mp4", ".webm", ".mov"];
@@ -7,10 +8,14 @@ const TEXT_EXT = [".txt", ".md"];
 const LIST_MAX_DEPTH = 40;
 
 type MediaType = "image" | "video";
+export type MediaOrientation = "landscape" | "portrait";
 
 export interface MediaAsset {
   src: string;
   type: MediaType;
+  orientation?: MediaOrientation;
+  width?: number;
+  height?: number;
 }
 
 export interface ProjectGalleryItem {
@@ -25,6 +30,15 @@ export interface Project {
   year: number;
   cover: MediaAsset | null;
   assets: MediaAsset[];
+  devContentPath: string;
+  devAssets: MediaAsset[];
+  devText: {
+    intro: string;
+    description: string;
+    conclusions: string;
+    team: string;
+    awards: string;
+  };
   searchText: string;
 }
 
@@ -46,6 +60,21 @@ function detectType(filePath: string): MediaType | null {
   if (IMAGE_EXT.some((ext) => lower.endsWith(ext))) return "image";
   if (VIDEO_EXT.some((ext) => lower.endsWith(ext))) return "video";
   return null;
+}
+
+function detectImageMeta(filePath: string) {
+  try {
+    const size = imageSize(filePath);
+    const width = size.width ?? 0;
+    const height = size.height ?? 0;
+    return {
+      width,
+      height,
+      orientation: height > width ? "portrait" : "landscape"
+    } satisfies { width: number; height: number; orientation: MediaOrientation };
+  } catch {
+    return { width: 0, height: 0, orientation: "landscape" as MediaOrientation };
+  }
 }
 
 async function listFilesRecursive(dir: string, depth = 0): Promise<string[]> {
@@ -116,7 +145,14 @@ export async function getFolderMedia(folderName: string): Promise<MediaAsset[]> 
         const type = detectType(file);
         const src = toWebPath(file);
         if (!type || !src) return null;
-        return { src, type } satisfies MediaAsset;
+        const imageMeta = type === "image" ? detectImageMeta(file) : null;
+        return {
+          src,
+          type,
+          orientation: imageMeta?.orientation ?? "landscape",
+          width: imageMeta?.width,
+          height: imageMeta?.height
+        } satisfies MediaAsset;
       })
       .filter((item): item is MediaAsset => item !== null);
   } catch {
@@ -157,7 +193,14 @@ export async function getProjectGalleries(): Promise<ProjectGalleryItem[]> {
                 const type = detectType(file);
                 const src = toWebPath(file);
                 if (!type || !src) return null;
-                return { src, type } satisfies MediaAsset;
+                const imageMeta = type === "image" ? detectImageMeta(file) : null;
+                return {
+                  src,
+                  type,
+                  orientation: imageMeta?.orientation ?? "landscape",
+                  width: imageMeta?.width,
+                  height: imageMeta?.height
+                } satisfies MediaAsset;
               })
               .filter((item): item is MediaAsset => item !== null);
 
@@ -189,6 +232,26 @@ function pickCopCover(assets: MediaAsset[]) {
   const fromCop = copAssets.find((asset) => asset.type === "image") ?? copAssets[0];
   if (fromCop) return fromCop;
   return assets.find((asset) => asset.type === "image") ?? assets[0] ?? null;
+}
+
+function parseDevTextSections(content: string) {
+  const normalized = content.replaceAll("\r\n", "\n");
+  const readBlock = (labelPattern: string) => {
+    const pattern = new RegExp(
+      String.raw`(?:^|\n)\s*(?:${labelPattern})\s*:?\s*\n([\s\S]*?)(?=\n\s*(?:INTRO|DESCRIZIONE|CONCLUSIONI?|CONCLUSIONE|TEAM|CREDITS?|GRUPPO|AWARDS?|PREMI|RICONOSCIMENTI)\s*:?\s*\n|$)`,
+      "i"
+    );
+    const match = normalized.match(pattern);
+    return (match?.[1] ?? "").trim();
+  };
+
+  return {
+    intro: readBlock("INTRO"),
+    description: readBlock("DESCRIZIONE"),
+    conclusions: readBlock("CONCLUSIONI?|CONCLUSIONE"),
+    team: readBlock("TEAM|CREDITS?|GRUPPO"),
+    awards: readBlock("AWARDS?|PREMI|RICONOSCIMENTI")
+  };
 }
 
 export async function getProjects(): Promise<Project[]> {
@@ -230,6 +293,24 @@ export async function getProjects(): Promise<Project[]> {
           }
 
           const year = parseYearFromSlug(project.slug) ?? 0;
+          const devContentPath = `/assets/03.Project/${project.slug}/DEV`;
+
+          const devAssets: MediaAsset[] = project.assets.filter((asset) => asset.src.includes("/DEV/"));
+
+          const devText = projectPath
+            ? await listFilesRecursive(path.join(projectPath, "DEV"))
+                .then((files) =>
+                  files.find((file) => {
+                    const lower = path.basename(file).toLowerCase();
+                    return (lower === "testo.txt" || lower.startsWith("testo")) && lower.endsWith(".txt");
+                  })
+                )
+                .then(async (textFile) => {
+                  if (!textFile) return { intro: "", description: "", conclusions: "", team: "", awards: "" };
+                  const raw = await fs.readFile(textFile, "utf8").catch(() => "");
+                  return parseDevTextSections(raw);
+                })
+            : { intro: "", description: "", conclusions: "", team: "", awards: "" };
 
           const row: Project = {
             slug: project.slug,
@@ -237,6 +318,9 @@ export async function getProjects(): Promise<Project[]> {
             year,
             cover: pickCopCover(project.assets),
             assets: project.assets,
+            devContentPath,
+            devAssets,
+            devText,
             searchText: `${project.title} ${project.slug} ${year} ${descriptionText}`.toLowerCase()
           };
           return row;

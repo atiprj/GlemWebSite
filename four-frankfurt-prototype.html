@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FOUR Frankfurt — UNS Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
+            },
+            letterSpacing: {
+              widest2: "0.22em",
+              widest3: "0.28em"
+            },
+            colors: {
+              page: "#f7f6f2",
+              ink: "#1a1a1a"
+            }
+          }
+        }
+      };
+    </script>
+    <style>
+      html { scroll-behavior: smooth; }
+
+      /* nav highlight on scroll */
+      .nav-link { transition: opacity 0.15s ease; }
+      .nav-link:hover { opacity: 0.45; }
+
+      /* tab state */
+      [role="tab"] { cursor: pointer; transition: all 0.15s ease; }
+
+      /* tab panel fade */
+      .tab-panel { animation: fadeIn 0.25s ease forwards; }
+      @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+      /* count-up */
+      .count-target { display: inline-block; }
+
+      /* smooth scroll nav active */
+      .nav-link.active { opacity: 1; }
+
+      /* figure hover */
+      .img-zoom img { transition: transform 0.6s ease; }
+      .img-zoom:hover img { transform: scale(1.02); }
+    </style>
+  </head>
+
+  <body class="bg-page text-ink antialiased font-sans">
+
+    <!-- Skip link -->
+    <a href="#main-content"
+       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:shadow-lg">
+      Skip to main content
+    </a>
+
+    <!-- ─── GLOBAL NAV ──────────────────────────────────────── -->
+    <header class="fixed inset-x-0 top-0 z-50 border-b border-black/[0.07] bg-page/95 backdrop-blur-sm">
+      <div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
+
+        <!-- wordmark -->
+        <a href="/" class="text-[11px] tracking-widest3 font-medium">UNS</a>
+
+        <!-- main nav -->
+        <nav aria-label="Site navigation" class="hidden md:block">
+          <ul class="flex items-center gap-7 text-[11px] tracking-widest2">
+            <li><a href="#" class="nav-link">Projects</a></li>
+            <li><a href="#" class="nav-link">Services</a></li>
+            <li><a href="#" class="nav-link">Careers</a></li>
+          </ul>
+        </nav>
+
+        <!-- contact -->
+        <a href="mailto:info@unstudio.com"
+           class="hidden text-[11px] tracking-widest2 opacity-50 hover:opacity-100 transition-opacity md:block">
+          info@unstudio.com
+        </a>
+
+        <!-- mobile hamburger -->
+        <button aria-label="Open menu" class="md:hidden p-1">
+          <span class="block w-5 h-px bg-ink mb-1.5"></span>
+          <span class="block w-5 h-px bg-ink mb-1.5"></span>
+          <span class="block w-3.5 h-px bg-ink"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ─── MAIN ────────────────────────────────────────────── -->
+    <main id="main-content" class="pt-14">
+
+      <!-- ① HERO BLOCK -->
+      <section aria-label="Project identity" class="mx-auto max-w-7xl px-5 pt-10 pb-0 sm:px-8 lg:px-12 lg:pt-14">
+        <div class="grid lg:grid-cols-12 lg:gap-10 gap-6 items-end">
+
+          <!-- left: identity -->
+          <div class="lg:col-span-4 pb-3">
+            <p class="text-[10px] tracking-widest3 text-neutral-500 mb-5">FOUR Frankfurt</p>
+            <h1 class="text-[clamp(2rem,4.5vw,3.6rem)] font-medium leading-[1.03] tracking-[-0.01em]">
+              Accessibility<br>that reaches<br>new heights
+            </h1>
+            <p class="mt-7 text-[10px] tracking-widest3 text-neutral-400">2015 – PRESENT</p>
+          </div>
+
+          <!-- right: hero image -->
+          <figure class="lg:col-span-8 overflow-hidden img-zoom">
+            <img
+              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=85"
+              alt="Four Frankfurt — high-rise towers at dusk"
+              class="w-full object-cover h-[52vw] max-h-[72vh] min-h-[300px] block"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <!-- ② TAB BAR -->
+      <div class="sticky top-14 z-40 border-b border-black/[0.07] bg-page/95 backdrop-blur-sm">
+        <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <div role="tablist" aria-label="Project sections"
+               class="flex gap-0 text-[10px] tracking-widest2 text-neutral-500">
+            <button data-tab="description" role="tab" aria-selected="true" aria-controls="panel-description"
+                    class="tab-btn px-0 py-4 mr-8 border-b-[1.5px] border-ink text-ink">
+              description
+            </button>
+            <button data-tab="team" role="tab" aria-selected="false" aria-controls="panel-team"
+                    class="tab-btn px-0 py-4 mr-8 border-b-[1.5px] border-transparent">
+              team
+            </button>
+            <button data-tab="awards" role="tab" aria-selected="false" aria-controls="panel-awards"
+                    class="tab-btn px-0 py-4 border-b-[1.5px] border-transparent">
+              awards
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ③ TAB PANELS -->
+      <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+
+        <!-- DESCRIPTION panel -->
+        <div id="panel-description" role="tabpanel" aria-labelledby="tab-description"
+             class="tab-panel py-14 lg:py-20">
+
+          <!-- subheading + body -->
+          <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 mb-14">
+            <h2 class="lg:col-span-4 text-[clamp(1.15rem,2.2vw,1.55rem)] font-medium leading-tight">
+              Opening the city for all,<br>FOUR buildings at a time
+            </h2>
+            <div class="lg:col-span-8 space-y-5 text-[15px] leading-[1.75] text-neutral-700">
+              <p>In the heart of Frankfurt, a formerly inaccessible site is being transformed into a vibrant urban quarter that will redefine the city's skyline and reinvigorate its core.</p>
+              <p>Designed by UNS and realised in collaboration with HPP, FOUR Frankfurt introduces four high-rise towers, reaching heights of up to 228 meters, that will forever alter the city. These towers, with their subtle shifts and kinks, create dynamic spatial and visual relationships while optimising daylight penetration.</p>
+              <p>The project's primary goal is to reconnect this previously inaccessible site with the surrounding city. By integrating the listed facades of Junghofstraße and introducing new streets, passages, and public squares, the development creates a seamless link between the financial district, Rossmarkt, and the pedestrian zones of the city centre.</p>
+              <p>FOUR Frankfurt is designed as a 'city for all', blending residential, commercial, and public functions — a bold step forward in urban development offering a new model for mixed-use, sustainable and inclusive city living.</p>
+            </div>
+          </div>
+
+          <!-- image grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 mb-14">
+            <figure class="sm:col-span-8 overflow-hidden img-zoom">
+              <img
+                src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1600&q=80"
+                alt="Urban plaza with tower facades"
+                class="w-full h-[36vw] max-h-[480px] min-h-[200px] object-cover block"
+              />
+            </figure>
+            <figure class="sm:col-span-4 overflow-hidden img-zoom">
+              <img
+                src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=900&q=80"
+                alt="Facade detail"
+                class="w-full h-[36vw] max-h-[480px] min-h-[200px] object-cover block"
+              />
+            </figure>
+            <figure class="sm:col-span-5 overflow-hidden img-zoom">
+              <img
+                src="https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?auto=format&fit=crop&w=1200&q=80"
+                alt="Skyline view"
+                class="w-full h-[28vw] max-h-[360px] min-h-[160px] object-cover block"
+              />
+            </figure>
+            <figure class="sm:col-span-7 overflow-hidden img-zoom">
+              <img
+                src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80"
+                alt="Public square level"
+                class="w-full h-[28vw] max-h-[360px] min-h-[160px] object-cover block"
+              />
+            </figure>
+          </div>
+
+          <!-- info block -->
+          <div id="info" class="border-t border-black/[0.07] pt-12 mb-12">
+            <p class="text-[10px] tracking-widest3 text-neutral-400 mb-8">KEY INFORMATION</p>
+            <dl class="grid grid-cols-2 md:grid-cols-3 gap-px bg-black/[0.06]">
+              <div class="bg-page p-5">
+                <dt class="text-[10px] tracking-widest2 text-neutral-400 mb-2">Client</dt>
+                <dd class="text-[14px] leading-snug">G&amp;P Erste Management GmbH</dd>
+              </div>
+              <div class="bg-page p-5">
+                <dt class="text-[10px] tracking-widest2 text-neutral-400 mb-2">Location</dt>
+                <dd class="text-[14px] leading-snug">Frankfurt, Germany</dd>
+              </div>
+              <div class="bg-page p-5">
+                <dt class="text-[10px] tracking-widest2 text-neutral-400 mb-2">Status</dt>
+                <dd class="text-[14px] leading-snug">Completed</dd>
+              </div>
+              <div class="bg-page p-5">
+                <dt class="text-[10px] tracking-widest2 text-neutral-400 mb-2">Sectors</dt>
+                <dd class="text-[14px] leading-snug">Mixed Use, Retail, Residential,<br>Leisure, Office</dd>
+              </div>
+              <div class="bg-page p-5">
+                <dt class="text-[10px] tracking-widest2 text-neutral-400 mb-2">Programmes</dt>
+                <dd class="text-[14px] leading-snug">Offices, Residential, Hotel,<br>Retail, Kindergarten</dd>
+              </div>
+              <div class="bg-page p-5">
+                <dt class="text-[10px] tracking-widest2 text-neutral-400 mb-2">Building surface</dt>
+                <dd class="text-[14px] leading-snug">219,000 m² above ground</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- facts -->
+          <div id="facts" class="border-t border-black/[0.07] pt-12 mb-12">
+            <p class="text-[10px] tracking-widest3 text-neutral-400 mb-10">FACTS &amp; FIGURES</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-px bg-black/[0.06]">
+              <div class="bg-page p-6">
+                <p class="text-[3.2rem] font-medium leading-none count-target" data-target="3" data-suffix="k">3k</p>
+                <p class="mt-4 text-[13px] leading-relaxed text-neutral-600">People expected to work in the new neighbourhood once complete.</p>
+              </div>
+              <div class="bg-page p-6">
+                <p class="text-[3.2rem] font-medium leading-none count-target" data-target="1" data-suffix="k">1k</p>
+                <p class="mt-4 text-[13px] leading-relaxed text-neutral-600">Additional residents who will be able to live in FOUR Frankfurt.</p>
+              </div>
+              <div class="bg-page p-6">
+                <p class="text-[3.2rem] font-medium leading-none count-target" data-target="173" data-suffix="">173</p>
+                <p class="mt-4 text-[13px] leading-relaxed text-neutral-600">Metres — one of the tallest residential towers in Germany.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- quote -->
+          <div class="border-t border-black/[0.07] pt-12 pb-4 max-w-3xl">
+            <blockquote class="text-[clamp(1.1rem,2vw,1.45rem)] leading-[1.6] font-light text-neutral-800">
+              "Bringing a mixed-use project into this financial district will not only enliven the area during daytime, but it will also introduce evening programmes and create an essential form of social sustainability to this part of the city."
+            </blockquote>
+            <p class="mt-6 text-[11px] tracking-widest2 text-neutral-500">
+              BEN VAN BERKEL — Founder and Principal Architect, UNS
+            </p>
+          </div>
+        </div>
+
+        <!-- TEAM panel -->
+        <div id="panel-team" role="tabpanel" hidden
+             class="tab-panel py-14 lg:py-20">
+          <div class="grid lg:grid-cols-12 gap-6 lg:gap-10">
+            <h2 class="lg:col-span-4 text-[clamp(1.15rem,2.2vw,1.55rem)] font-medium leading-tight">
+              Project Team
+            </h2>
+            <div class="lg:col-span-8">
+              <dl class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-black/[0.06]">
+                <div class="bg-page p-5">
+                  <dt class="text-[10px] tracking-widest2 text-neutral-400 mb-2">Lead Design</dt>
+                  <dd class="text-[14px]">UNS (United Network Studio)</dd>
+                </div>
+                <div class="bg-page p-5">
+                  <dt class="text-[10px] tracking-widest2 text-neutral-400 mb-2">Local Architect</dt>
+                  <dd class="text-[14px]">HPP</dd>
+                </div>
+                <div class="bg-page p-5">
+                  <dt class="text-[10px] tracking-widest2 text-neutral-400 mb-2">Client</dt>
+                  <dd class="text-[14px]">G&amp;P Erste Management GmbH</dd>
+                </div>
+                <div class="bg-page p-5">
+                  <dt class="text-[10px] tracking-widest2 text-neutral-400 mb-2">Services rendered</dt>
+                  <dd class="text-[14px]">Architecture, Interior, Urban,<br>Sustainability, Health, Economics</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <!-- AWARDS panel -->
+        <div id="panel-awards" role="tabpanel" hidden
+             class="tab-panel py-14 lg:py-20">
+          <div class="grid lg:grid-cols-12 gap-6 lg:gap-10">
+            <h2 class="lg:col-span-4 text-[clamp(1.15rem,2.2vw,1.55rem)] font-medium leading-tight">
+              Selected Recognition
+            </h2>
+            <div class="lg:col-span-8">
+              <ul class="divide-y divide-black/[0.07] text-[14px]">
+                <li class="flex items-start justify-between gap-6 py-4">
+                  <span class="text-neutral-400 min-w-[3.5rem]">2026</span>
+                  <span class="flex-1">International High-Rise Award — Merit Selection</span>
+                </li>
+                <li class="flex items-start justify-between gap-6 py-4">
+                  <span class="text-neutral-400 min-w-[3.5rem]">2025</span>
+                  <span class="flex-1">Urban Regeneration Excellence — Jury Nomination</span>
+                </li>
+                <li class="flex items-start justify-between gap-6 py-4">
+                  <span class="text-neutral-400 min-w-[3.5rem]">2024</span>
+                  <span class="flex-1">Mixed-Use Innovation Award — Special Mention</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div><!-- /max-w container -->
+
+      <!-- ④ SERVICES STRIP -->
+      <section class="border-t border-black/[0.07] bg-white/40">
+        <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 py-12">
+          <p class="text-[10px] tracking-widest3 text-neutral-400 mb-8">DESIGN AND CONSULTING SERVICES</p>
+          <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-[13px]">
+            <li>Architecture</li>
+            <li>Interior</li>
+            <li>Urban</li>
+            <li>Sustainability</li>
+            <li>Health</li>
+            <li>Economics</li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ─── FOOTER ──────────────────────────────────────────── -->
+    <footer class="border-t border-black/[0.07]">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 text-[11px] text-neutral-400 tracking-widest2">
+        <div class="flex flex-wrap gap-6">
+          <a href="#" class="hover:text-ink transition-colors">Projects</a>
+          <a href="#" class="hover:text-ink transition-colors">Services</a>
+          <a href="#" class="hover:text-ink transition-colors">Careers</a>
+          <a href="#" class="hover:text-ink transition-colors">About Us</a>
+          <a href="#" class="hover:text-ink transition-colors">Contact Us</a>
+        </div>
+        <p>© 2026 United Network Studio</p>
+      </div>
+    </footer>
+
+    <!-- ─── SCRIPTS ─────────────────────────────────────────── -->
+    <script>
+      /* ── TAB SYSTEM ── */
+      const triggers = document.querySelectorAll('[role="tab"]');
+      const panels   = document.querySelectorAll('[role="tabpanel"]');
+
+      function activateTab(id) {
+        triggers.forEach(t => {
+          const on = t.dataset.tab === id;
+          t.setAttribute('aria-selected', on);
+          t.classList.toggle('border-ink', on);
+          t.classList.toggle('text-ink', on);
+          t.classList.toggle('border-transparent', !on);
+          t.classList.toggle('text-neutral-500', !on);
+        });
+        panels.forEach(p => { p.hidden = p.id !== `panel-${id}`; });
+      }
+
+      triggers.forEach(t => t.addEventListener('click', () => activateTab(t.dataset.tab)));
+
+      /* ── ACTIVE NAV LINK ON SCROLL ── */
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-link');
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            navLinks.forEach(l => {
+              l.classList.toggle('active', l.getAttribute('href') === `#${e.target.id}`);
+            });
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px' });
+      sections.forEach(s => io.observe(s));
+
+      /* ── COUNT-UP ANIMATION ── */
+      function animateCount(el) {
+        const target = parseInt(el.dataset.target, 10);
+        const suffix = el.dataset.suffix || '';
+        const duration = 1200;
+        const start = performance.now();
+        function step(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(eased * target) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      const countEls = document.querySelectorAll('.count-target[data-target]');
+      const countObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            animateCount(e.target);
+            countObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      countEls.forEach(el => countObserver.observe(el));
+    </script>
+
+  </body>
+</html>

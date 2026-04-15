@@ -1,0 +1,90 @@
+.infinite-photo-strip {
+  --carousel-speed: 55s;
+  --manual-shift: 0px;
+  --row-height: clamp(180px, 30vw, 360px);
+  --card-gap: clamp(0.75rem, 1.25vw, 1rem);
+  --edge-fade: clamp(32px, 7vw, 90px);
+}
+
+.infinite-photo-strip__viewport {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  isolation: isolate;
+  touch-action: pan-y;
+}
+
+.infinite-photo-strip__manual-layer {
+  transform: translate3d(calc(var(--manual-shift) * -1), 0, 0);
+  transition: transform 500ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+  cursor: grab;
+}
+
+.infinite-photo-strip__viewport[data-dragging="true"] .infinite-photo-strip__manual-layer {
+  cursor: grabbing;
+  transition-duration: 80ms;
+}
+
+.infinite-photo-strip__track {
+  display: flex;
+  gap: var(--card-gap);
+  width: max-content;
+  animation-name: infinite-photo-strip-scroll;
+  animation-duration: var(--carousel-speed);
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  will-change: transform;
+}
+
+.infinite-photo-strip__viewport:hover .infinite-photo-strip__track,
+.infinite-photo-strip__viewport[data-paused="true"] .infinite-photo-strip__track {
+  animation-play-state: paused;
+}
+
+.infinite-photo-strip__item {
+  position: relative;
+  flex: 0 0 auto;
+  height: var(--row-height);
+}
+
+.infinite-photo-strip__edge-mask {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--edge-fade);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.infinite-photo-strip__edge-mask--left {
+  left: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), transparent);
+}
+
+.infinite-photo-strip__edge-mask--right {
+  right: 0;
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0.95), transparent);
+}
+
+@keyframes infinite-photo-strip-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-50% - (var(--card-gap) / 2)), 0, 0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .infinite-photo-strip {
+    --row-height: clamp(170px, 44vw, 300px);
+  }
+}
+
+@media (max-width: 640px) {
+  .infinite-photo-strip {
+    --row-height: min(78vw, 260px);
+    --card-gap: 0.75rem;
+  }
+}

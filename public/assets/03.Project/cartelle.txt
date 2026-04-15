@@ -1,0 +1,9 @@
+22.Lubica22-Y
+22.MDW22-Y
+23.MDW23-AIGen
+23.MDW23-HumanMovements
+24.Lubica24-CardboardPavillion
+24.MDW24-Material&Data
+25.MDW25-MiraConceptAI
+25.MDW25-MiraProject
+25MDW25-Metanoia

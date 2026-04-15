@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 
 import type { Project } from "@/lib/site-assets";
@@ -10,7 +11,13 @@ interface ProjectsStackingProps {
   projects: Project[];
 }
 
-function ProjectStackCard({ project, index }: { project: Project; index: number }) {
+function ProjectStackCard({
+  project,
+  index
+}: {
+  project: Project;
+  index: number;
+}) {
   const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -50,8 +57,9 @@ function ProjectStackCard({ project, index }: { project: Project; index: number 
         ) : (
           <motion.div style={{ scale }} className="h-full w-full bg-neutral-800" />
         )}
+        <Link href={`/projects/${project.slug}`} aria-label={`Open ${project.title} page`} className="absolute inset-0 z-20" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
-        <div className="absolute bottom-12 left-8 z-10 md:left-12">
+        <div className="pointer-events-none absolute bottom-12 left-8 z-10 md:left-12">
           <p className="mb-2 text-xs tracking-[0.25em] text-white/80">{project.year || "N/A"}</p>
           <h2 className="text-balance text-3xl font-semibold text-white drop-shadow-md md:text-5xl">{project.title}</h2>
         </div>
