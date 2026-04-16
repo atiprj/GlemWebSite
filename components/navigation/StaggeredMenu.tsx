@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -49,6 +49,8 @@ export default function StaggeredMenu({
   onMenuClose
 }: StaggeredMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const menuPanelRef = useRef<HTMLElement | null>(null);
+  const menuToggleRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -57,6 +59,35 @@ export default function StaggeredMenu({
     }
     onMenuClose?.();
   }, [isOpen, onMenuClose, onMenuOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handlePointerDown = (event: MouseEvent | TouchEvent) => {
+      const targetNode = event.target as Node | null;
+      if (!targetNode) return;
+
+      if (menuPanelRef.current?.contains(targetNode)) return;
+      if (menuToggleRef.current?.contains(targetNode)) return;
+      setIsOpen(false);
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("touchstart", handlePointerDown, { passive: true });
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("touchstart", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
 
   const [fromColor, toColor] = useMemo<[string, string]>(() => {
     const fallback: [string, string] = ["#B497CF", "#5227FF"];
@@ -70,6 +101,7 @@ export default function StaggeredMenu({
   return (
     <>
       <button
+        ref={menuToggleRef}
         type="button"
         aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
         onClick={() => setIsOpen((prev) => !prev)}
@@ -104,14 +136,14 @@ export default function StaggeredMenu({
             />
 
             <motion.aside
+              ref={menuPanelRef}
               className={`fixed top-0 z-50 h-screen w-[320px] border-white/15 p-6 text-white backdrop-blur-md ${sideClasses}`}
               initial={{ x: position === "left" ? -340 : 340, opacity: 0.94 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: position === "left" ? -340 : 340, opacity: 0.94 }}
               transition={{ duration: 0.38, ease: "easeOut" }}
-              style={{
-                background: `linear-gradient(145deg, ${fromColor}, ${toColor})`
-              }}
+              style={{ background: "#000000" }}
+              onMouseLeave={() => setIsOpen(false)}
             >
               <div className="mb-10 flex items-center justify-between">
                 {logoUrl ? (

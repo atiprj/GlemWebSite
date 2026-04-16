@@ -171,7 +171,7 @@ function MenuItem({
             {Array.from({ length: repetitions }).map((_, index) => (
               <div className={styles.marqueePart} key={`${text}-${index}`} style={{ color: marqueeTextColor }}>
                 <span>{text}</span>
-                <div className={styles.marqueeImage} style={{ backgroundImage: `url(${image})` }} />
+                <div className={styles.marqueeImage} style={{ backgroundImage: `url("${encodeURI(image)}")` }} />
               </div>
             ))}
           </div>

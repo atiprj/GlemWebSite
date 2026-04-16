@@ -126,6 +126,63 @@ export async function getHomeHeroAsset(): Promise<MediaAsset | null> {
   return null;
 }
 
+export async function getHomeProjectCollageImages(limit = 24): Promise<string[]> {
+  try {
+    const projectRoots = ["03.Projects", "03.Project"].map((folder) => path.join(process.cwd(), "public", "assets", folder));
+    let rootToUse: string | null = null;
+
+    for (const root of projectRoots) {
+      const exists = await fs
+        .access(root)
+        .then(() => true)
+        .catch(() => false);
+      if (exists) {
+        rootToUse = root;
+        break;
+      }
+    }
+
+    if (!rootToUse) return [];
+
+    const files = await listFilesRecursive(rootToUse);
+    const weightedImages = await Promise.all(
+      files
+        .filter((file) => detectType(file) === "image")
+        .map(async (file) => {
+          const src = toWebPath(file);
+          if (!src) return null;
+          const size = await fs
+            .stat(file)
+            .then((stats) => stats.size)
+            .catch(() => Number.MAX_SAFE_INTEGER);
+          return { src, size };
+        })
+    );
+
+    return weightedImages
+      .filter((item): item is { src: string; size: number } => item !== null)
+      .sort((a, b) => a.size - b.size)
+      .slice(0, Math.max(1, limit))
+      .map((item) => item.src);
+  } catch {
+    return [];
+  }
+}
+
+export async function getHomeMenuImageFromFolder(folderName: string): Promise<string | null> {
+  try {
+    const folder = path.join(process.cwd(), "public", "assets", folderName);
+    const files = await fs.readdir(folder).catch(() => []);
+    const menuHomeImage = files.find((file) =>
+      /^immagine\s*menu\s*home\.(jpe?g)$/i.test(file.trim())
+    );
+    if (!menuHomeImage) return null;
+    return `/${path.posix.join("assets", folderName, menuHomeImage)}`;
+  } catch {
+    return null;
+  }
+}
+
 export async function getFolderText(folderName: string, fallback: string) {
   try {
     const folder = path.join(process.cwd(), "public", "assets", folderName);
