@@ -3,11 +3,12 @@
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { GlobalFooter } from "@/components/layout/GlobalFooter";
 import { IntroOverlay } from "@/components/intro/IntroOverlay";
 import StaggeredMenu from "@/components/navigation/StaggeredMenu";
+import { dictionaries, isLocale, type Locale } from "@/lib/i18n";
 
 interface AppShellProps {
   children: ReactNode;
@@ -17,14 +18,35 @@ const INTRO_SESSION_KEY = "glem-intro-seen";
 
 export function AppShell({ children }: AppShellProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [showIntro, setShowIntro] = useState(false);
+  const shouldHideGlobalFooter = pathname?.includes("/contacts");
+  const isHomePath = pathname === "/" || pathname === "/it" || pathname === "/en";
+  const pathSegments = pathname?.split("/").filter(Boolean) ?? [];
+  const firstSegment = pathSegments[0] ?? "";
+  const currentLocale: Locale | null = isLocale(firstSegment) ? firstSegment : null;
+  const defaultLocale: Locale = currentLocale ?? "it";
+  const t = dictionaries[defaultLocale];
+  const pathWithoutLocale = currentLocale ? `/${pathSegments.slice(1).join("/")}` : pathname || "/";
+  const normalizedPathWithoutLocale = pathWithoutLocale === "" ? "/" : pathWithoutLocale;
+  const buildLocalizedPath = (locale: Locale) =>
+    normalizedPathWithoutLocale === "/" ? `/${locale}` : `/${locale}${normalizedPathWithoutLocale}`;
+  const targetPathForIt = buildLocalizedPath("it");
+  const targetPathForEn = buildLocalizedPath("en");
+  const switchTargetLocale: Locale = defaultLocale === "it" ? "en" : "it";
+  const switchTargetPath = switchTargetLocale === "it" ? targetPathForIt : targetPathForEn;
+  const withLocale = (route: string) => {
+    if (!currentLocale) return route;
+    if (route === "/") return `/${currentLocale}`;
+    return `/${currentLocale}${route}`;
+  };
 
   const menuItems = [
-    { label: "Home", ariaLabel: "Go to home page", link: "/" },
-    { label: "About", ariaLabel: "Learn about us", link: "/about" },
-    { label: "Projects", ariaLabel: "View our projects", link: "/projects" },
-    { label: "Events", ariaLabel: "View events", link: "/events" },
-    { label: "Contacts", ariaLabel: "Get in touch", link: "/contacts" }
+    { label: t.home, ariaLabel: "Go to home page", link: withLocale("/") },
+    { label: t.about, ariaLabel: "Learn about us", link: withLocale("/about") },
+    { label: t.projects, ariaLabel: "View our projects", link: withLocale("/projects") },
+    { label: t.events, ariaLabel: "View events", link: withLocale("/events") },
+    { label: t.contacts, ariaLabel: "Get in touch", link: withLocale("/contacts") }
   ];
 
   const socialItems = [
@@ -38,6 +60,14 @@ export function AppShell({ children }: AppShellProps) {
   }, []);
 
   useEffect(() => {
+    if (!pathname || pathname !== "/") return;
+
+    const browserLanguage = (navigator.language || "").toLowerCase();
+    const preferredLocale: Locale = browserLanguage.startsWith("en") ? "en" : "it";
+    router.replace(`/${preferredLocale}`);
+  }, [pathname, router]);
+
+  useEffect(() => {
     if (pathname !== "/") return;
     if (window.sessionStorage.getItem(INTRO_SESSION_KEY) === "1") return;
     window.sessionStorage.setItem(INTRO_SESSION_KEY, "1");
@@ -47,26 +77,37 @@ export function AppShell({ children }: AppShellProps) {
   return (
     <div className="min-h-screen bg-[#f6f6f2] text-neutral-900">
       <header className="fixed left-0 top-0 z-20 flex w-full items-center justify-between bg-white/90 px-6 py-4 backdrop-blur-md md:px-10">
-        <Link href="/" className="text-lg font-bold tracking-[0.22em] text-black">
+        <Link href={withLocale("/")} className="text-lg font-bold tracking-[0.22em] text-black">
           GLEM
         </Link>
-        <StaggeredMenu
-          position="right"
-          items={menuItems}
-          socialItems={socialItems}
-          displaySocials
-          displayItemNumbering
-          menuButtonColor="#111111"
-          openMenuButtonColor="#ffffff"
-          changeMenuColorOnOpen
-          colors={["#000000", "#C0C0C0"]}
-          accentColor="#ffffff"
-        />
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 text-xs font-semibold tracking-[0.14em] text-neutral-600">
+            <Link
+              href={switchTargetPath}
+              className="text-black transition hover:text-neutral-700"
+              aria-label={`Switch language to ${switchTargetLocale === "it" ? "Italian" : "English"}`}
+            >
+              {defaultLocale.toUpperCase()}
+            </Link>
+          </div>
+          <StaggeredMenu
+            position="right"
+            items={menuItems}
+            socialItems={socialItems}
+            displaySocials
+            displayItemNumbering
+            menuButtonColor="#111111"
+            openMenuButtonColor="#ffffff"
+            changeMenuColorOnOpen
+            colors={["#000000", "#C0C0C0"]}
+            accentColor="#ffffff"
+          />
+        </div>
       </header>
 
-      <main className="pb-[560px] pt-16">{children}</main>
+      <main className={`${shouldHideGlobalFooter ? "pb-0" : "pb-[560px]"} ${isHomePath ? "pt-0" : "pt-16"}`}>{children}</main>
 
-      <GlobalFooter />
+      {!shouldHideGlobalFooter ? <GlobalFooter /> : null}
       {showIntro ? <IntroOverlay onComplete={handleIntroComplete} /> : null}
     </div>
   );

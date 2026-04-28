@@ -9,9 +9,10 @@ import type { Project } from "@/lib/site-assets";
 
 interface ProjectControlsProps {
   projects: Project[];
+  locale?: "it" | "en";
 }
 
-export function ProjectControls({ projects }: ProjectControlsProps) {
+export function ProjectControls({ projects, locale = "en" }: ProjectControlsProps) {
   const [selectedYear, setSelectedYear] = useState<number | "all">("all");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -22,6 +23,17 @@ export function ProjectControls({ projects }: ProjectControlsProps) {
       ),
     [projects]
   );
+
+  const isItalian = locale === "it";
+  const ui = {
+    all: isItalian ? "TUTTI" : "ALL",
+    searchPlaceholder: isItalian ? "Cerca progetti" : "Search projects",
+    projectIndex: isItalian ? "Indice progetti" : "Project index",
+    noResults: isItalian ? "Nessun progetto corrisponde alla ricerca." : "No projects match your search.",
+    openProjectLabel: isItalian ? "Apri pagina di" : "Open",
+    notAvailable: isItalian ? "N/D" : "N/A"
+  };
+  const localizedProjectsPath = locale === "it" || locale === "en" ? `/${locale}/projects` : "/projects";
 
   const filteredProjects = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -45,7 +57,7 @@ export function ProjectControls({ projects }: ProjectControlsProps) {
               onClick={() => setSelectedYear("all")}
               className={selectedYear === "all" ? "text-black" : "text-black/60 transition hover:text-black"}
             >
-              ALL
+              {ui.all}
             </button>
             {years.map((year) => (
               <button
@@ -64,7 +76,7 @@ export function ProjectControls({ projects }: ProjectControlsProps) {
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
               type="text"
-              placeholder="Search projects"
+              placeholder={ui.searchPlaceholder}
               className="w-full bg-transparent border-b border-black/20 pb-2 text-sm text-black outline-none transition placeholder:text-black/40 focus:border-black"
             />
           </div>
@@ -72,9 +84,9 @@ export function ProjectControls({ projects }: ProjectControlsProps) {
       </div>
 
       <div className="mx-auto w-full max-w-6xl px-6 py-10 md:px-10">
-        <h2 className="mb-8 text-2xl font-semibold tracking-tight text-black md:text-3xl">Project index</h2>
+        <h2 className="mb-8 text-2xl font-semibold tracking-tight text-black md:text-3xl">{ui.projectIndex}</h2>
         {filteredProjects.length === 0 ? (
-          <p className="text-sm text-black/65">No projects match your search.</p>
+          <p className="text-sm text-black/65">{ui.noResults}</p>
         ) : null}
 
         <motion.div layout className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -89,7 +101,11 @@ export function ProjectControls({ projects }: ProjectControlsProps) {
                 transition={{ duration: 0.25, ease: "easeOut" }}
                 className="group relative overflow-hidden rounded-sm border border-black/10 bg-neutral-200 shadow-sm"
               >
-                <Link href={`/projects/${project.slug}`} aria-label={`Open ${project.title} page`} className="absolute inset-0 z-20" />
+                <Link
+                  href={`${localizedProjectsPath}/${project.slug}`}
+                  aria-label={`${ui.openProjectLabel} ${project.title}`}
+                  className="absolute inset-0 z-20"
+                />
                 <div className="relative aspect-[6/10]">
                   {project.cover?.type === "image" ? (
                     <Image src={project.cover.src} alt={project.title} fill className="object-cover transition duration-500 group-hover:scale-[1.03]" />
@@ -101,7 +117,7 @@ export function ProjectControls({ projects }: ProjectControlsProps) {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
                   <div className="pointer-events-none absolute bottom-4 left-4 right-4">
                     <p className="mb-1 text-[10px] tracking-[0.2em] text-white/85">
-                      {project.year > 0 ? project.year : "N/A"}
+                      {project.year > 0 ? project.year : ui.notAvailable}
                     </p>
                     <h3 className="text-sm font-medium text-white drop-shadow-sm md:text-base">{project.title}</h3>
                   </div>

@@ -1,56 +1,93 @@
-import { FadeInView } from "@/components/layout/FadeInView";
-import ChromaGrid, { type ChromaItem } from "@/components/contacts/ChromaGrid";
 import { getContactsContent } from "@/lib/contacts";
+import ContactForm from "@/components/contact-form";
+import { FadeInView } from "@/components/layout/FadeInView";
 
 export default async function ContactsPage() {
   const contacts = await getContactsContent();
-  const colorByInitials: Record<string, { border: string; gradient: string }> = {
-    MG: { border: "#B22222", gradient: "linear-gradient(165deg, #f7d9d9, #f2c3c3)" }, // Rosso
-    GM: { border: "#1F4D2E", gradient: "linear-gradient(165deg, #d8eadf, #c0dccb)" }, // Verde scuro
-    LO: { border: "#C9A400", gradient: "linear-gradient(165deg, #f7efc8, #efe3a6)" }, // Giallo
-    ES: { border: "#6B46C1", gradient: "linear-gradient(165deg, #e6dcfa, #d4c3f3)" }, // Viola
-    GF: { border: "#1D4ED8", gradient: "linear-gradient(165deg, #d8e6ff, #bdd3ff)" } // Blu
+  const toEmail = contacts.members[0]?.email || "atiproject@legalmail.it";
+
+  const findMember = (key: string) => {
+    const k = key.toLowerCase().trim();
+    const tokens = k.split(/\s+/).filter(Boolean);
+    const firstToken = tokens[0] ?? k;
+
+    return (
+      contacts.members.find((m) => m.name.toLowerCase().trim() === k) ??
+      contacts.members.find((m) => m.name.toLowerCase().trim().includes(k)) ??
+      contacts.members.find((m) => m.name.toLowerCase().trim().startsWith(firstToken)) ??
+      contacts.members.find((m) => m.name.toLowerCase().trim().split(/\s+/)[0] === firstToken) ??
+      null
+    );
   };
 
-  const fallbackColors = { border: "#bcae95", gradient: "linear-gradient(165deg, #f4f2eb, #ebe6dc)" };
+  const leadKeys = ["Mattia Giannetti", "Giacomo"];
+  const crewKeys = ["Luca", "Erica", "Gabriele"];
+  const renderGroupRows = (label: "LEAD" | "CREW", keys: string[]) =>
+    keys.map((k, index) => {
+      const member = findMember(k);
+      const name = member?.name ?? k;
+      const handle = `@${name.toLowerCase().replace(/\s+/g, "")}`;
 
-  const items: ChromaItem[] = contacts.members.map((member) => {
-    const handle = `@${member.name.toLowerCase().replace(/\s+/g, "")}`;
-    const initials = member.name
-      .split(/\s+/)
-      .map((chunk) => chunk[0]?.toUpperCase() ?? "")
-      .join("")
-      .slice(0, 2);
-    const palette = colorByInitials[initials] ?? fallbackColors;
-    return {
-      title: member.name,
-      subtitle: member.role || "ATI Project Team",
-      handle,
-      handleUrl: member.linkedin,
-      borderColor: palette.border,
-      gradient: palette.gradient,
-      url: `mailto:${member.email}`
-    };
-  });
+      return (
+        <div key={`${label}-${k}`} className="space-y-1">
+          <div className="grid grid-cols-2 gap-x-8">
+            <div>
+              {index === 0 ? <p className="mb-2 text-sm font-semibold tracking-[0.28em] text-neutral-900">{label}</p> : null}
+              <p className="text-lg font-bold text-neutral-900">{name}</p>
+            </div>
 
-  items.push({
-    title: "Contact Us",
-    subtitle: "Let's connect and build something meaningful.",
-    handle: "@atiproject",
-    borderColor: "#d6d0c7",
-    gradient: "linear-gradient(165deg, #ffffff, #f7f5f0)",
-    url: "mailto:atiproject@legalmail.it"
-  });
+            <div className="space-y-0.5">
+              {member?.role ? <p className="text-sm italic text-neutral-700">{member.role}</p> : null}
+              {member?.email ? (
+                <a href={`mailto:${member.email}`} className="block text-sm text-neutral-700 underline underline-offset-4 hover:text-neutral-900">
+                  {member.email}
+                </a>
+              ) : null}
+              {member?.linkedin ? (
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block text-sm italic text-neutral-700 underline underline-offset-4 hover:text-neutral-900"
+                >
+                  {handle}
+                </a>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      );
+    });
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-6 py-14 md:px-10">
-      <FadeInView>
-        <h1 className="text-3xl font-semibold tracking-tight">Contacts</h1>
-        <p className="mt-2 text-sm tracking-[0.24em] text-neutral-500">{contacts.title}</p>
-        <div className="mt-8">
-          <ChromaGrid items={items} radius={260} damping={0.45} fadeOut={0.6} />
+    <div
+      className="bg-[#f6f6f2]"
+      style={{
+        width: "100vw",
+        marginLeft: "calc(50% - 50vw)"
+      }}
+    >
+      <section className="w-full overflow-hidden md:flex md:min-h-[calc(100vh-64px)]">
+        <div className="w-full min-w-0 px-6 py-10 md:w-1/2 md:px-12">
+          <FadeInView>
+            <h1 className="text-3xl font-semibold tracking-tight">Contacts</h1>
+            <p className="mt-2 text-sm tracking-[0.24em] text-neutral-500">{contacts.title}</p>
+
+            <div className="mt-10">
+              <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12">
+                {renderGroupRows("LEAD", leadKeys)}
+                {renderGroupRows("CREW", crewKeys)}
+              </div>
+            </div>
+          </FadeInView>
         </div>
-      </FadeInView>
+
+        <aside className="sticky top-16 h-[calc(100vh-64px)] w-full min-w-0 overflow-y-auto border-l border-neutral-700/70 bg-black px-6 py-12 md:w-1/2 md:flex-none md:px-12">
+          <FadeInView>
+            <ContactForm toEmail={toEmail} />
+          </FadeInView>
+        </aside>
+      </section>
     </div>
   );
 }

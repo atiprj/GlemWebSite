@@ -6,13 +6,14 @@ import type { Project } from "@/lib/site-assets";
 
 interface ProjectsClientProps {
   projects: Project[];
+  locale?: "it" | "en";
 }
 
-export function ProjectsClient({ projects }: ProjectsClientProps) {
+export function ProjectsClient({ projects, locale = "en" }: ProjectsClientProps) {
   return (
     <div className="w-full">
-      <ProjectsStacking projects={projects} />
-      <ProjectControls projects={projects} />
+      <ProjectsStacking projects={projects} locale={locale} />
+      <ProjectControls projects={projects} locale={locale} />
     </div>
   );
 }

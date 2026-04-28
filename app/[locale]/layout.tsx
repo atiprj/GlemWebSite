@@ -1,5 +1,5 @@
-import { SiteHeader } from "@/components/site-header";
-import { dictionaries, isLocale } from "@/lib/i18n";
+import { AppShell } from "@/components/layout/AppShell";
+import { isLocale } from "@/lib/i18n";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 
@@ -15,15 +15,5 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const t = dictionaries[locale];
-
-  return (
-    <div className="site-shell">
-      <SiteHeader locale={locale} t={t} />
-      <main className="container">{children}</main>
-      <footer className="footer">
-        <div className="container muted">{t.footer}</div>
-      </footer>
-    </div>
-  );
+  return <AppShell>{children}</AppShell>;
 }
