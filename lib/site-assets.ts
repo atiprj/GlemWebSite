@@ -1,7 +1,13 @@
+import path from "node:path";
+import fs from "node:fs/promises";
+
 import { aboutData, eventsData, homeData, projectsData } from "@/data/content";
 
 type MediaType = "image" | "video";
 export type MediaOrientation = "landscape" | "portrait";
+const IMAGE_EXT = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
+const VIDEO_EXT = [".mp4", ".webm", ".mov"];
+const TEXT_EXT = [".txt", ".md"];
 
 export interface MediaAsset {
   src: string;
@@ -37,6 +43,37 @@ export interface Project {
   searchText: string;
 }
 
+function detectType(filePath: string): MediaType | null {
+  const lower = filePath.toLowerCase();
+  if (IMAGE_EXT.some((ext) => lower.endsWith(ext))) return "image";
+  if (VIDEO_EXT.some((ext) => lower.endsWith(ext))) return "video";
+  return null;
+}
+
+function toWebPath(absoluteFilePath: string): string | null {
+  try {
+    const publicDir = path.join(process.cwd(), "public");
+    const relative = path.relative(publicDir, absoluteFilePath);
+    if (!relative || relative.startsWith("..") || path.isAbsolute(relative)) return null;
+    return `/${relative.replaceAll("\\", "/")}`;
+  } catch {
+    return null;
+  }
+}
+
+async function listFilesRecursive(dir: string, maxDepth = 8, depth = 0): Promise<string[]> {
+  if (depth > maxDepth) return [];
+  const entries = await fs.readdir(dir, { withFileTypes: true }).catch(() => []);
+  const nested = await Promise.all(
+    entries.map(async (entry) => {
+      const abs = path.join(dir, entry.name);
+      if (entry.isDirectory()) return listFilesRecursive(abs, maxDepth, depth + 1);
+      return [abs];
+    })
+  );
+  return nested.flat();
+}
+
 export async function getHomeHeroAsset(): Promise<MediaAsset | null> {
   const heroSrc = homeData.heroVideo || homeData.heroImages[0] || null;
   if (!heroSrc) return null;
@@ -50,24 +87,56 @@ export async function getHomeProjectCollageImages(limit = 24): Promise<string[]>
 }
 
 export async function getHomeMenuImageFromFolder(folderName: string): Promise<string | null> {
-  if (folderName === "03.Project") return projectsData[0]?.cover ?? null;
-  if (folderName === "04.Events") return eventsData.items[0]?.image ?? null;
+  if (folderName === "03.Project") return projectsData.find((p) => Boolean(p.cover))?.cover ?? null;
+  if (folderName === "04.Events") return eventsData.items.find((i) => Boolean(i.image))?.image ?? null;
   return null;
 }
 
 export async function getFolderText(folderName: string, fallback: string) {
-  if (folderName === "02.About us") return aboutData.description || fallback;
-  if (folderName === "04.Events") return fallback;
-  return fallback;
+  const allowed = new Set(["02.About us", "04.Events", "05.Contacts"]);
+  if (!allowed.has(folderName)) {
+    if (folderName === "02.About us") return aboutData.description || fallback;
+    return fallback;
+  }
+
+  const folder = path.join(process.cwd(), "public", "assets", folderName);
+  const files = await listFilesRecursive(folder, 4);
+  const textFile = files.find((file) => TEXT_EXT.some((ext) => file.toLowerCase().endsWith(ext)));
+  if (!textFile) {
+    if (folderName === "02.About us") return aboutData.description || fallback;
+    return fallback;
+  }
+  const content = await fs.readFile(textFile, "utf8").catch(() => "");
+  return content.trim() || fallback;
 }
 
 export async function getFolderMedia(folderName: string): Promise<MediaAsset[]> {
-  if (folderName === "02.About us") {
-    return aboutData.images.map((src) => ({ src, type: "image", orientation: "landscape" as const }));
+  const allowed = new Set(["02.About us", "04.Events", "05.Contacts"]);
+  if (!allowed.has(folderName)) {
+    if (folderName === "02.About us") {
+      return aboutData.images.map((src) => ({ src, type: "image", orientation: "landscape" as const }));
+    }
+    if (folderName === "04.Events") {
+      return eventsData.items.map((item) => ({ src: item.image, type: "image", orientation: "landscape" as const }));
+    }
+    return [];
   }
-  if (folderName === "04.Events") {
-    return eventsData.items.map((item) => ({ src: item.image, type: "image", orientation: "landscape" as const }));
-  }
+
+  const folder = path.join(process.cwd(), "public", "assets", folderName);
+  const files = await listFilesRecursive(folder, 6);
+  const media = files
+    .map<MediaAsset | null>((file) => {
+      const type = detectType(file);
+      const src = toWebPath(file);
+      if (!type || !src) return null;
+      const asset: MediaAsset = { src, type, orientation: "landscape" };
+      return asset;
+    })
+    .filter((item): item is MediaAsset => item !== null);
+
+  if (media.length > 0) return media;
+  if (folderName === "02.About us") return aboutData.images.map((src) => ({ src, type: "image", orientation: "landscape" as const }));
+  if (folderName === "04.Events") return eventsData.items.map((item) => ({ src: item.image, type: "image", orientation: "landscape" as const }));
   return [];
 }
 
@@ -96,26 +165,6 @@ function pickCopCover(assets: MediaAsset[]) {
   const fromCop = copAssets.find((asset) => asset.type === "image") ?? copAssets[0];
   if (fromCop) return fromCop;
   return assets.find((asset) => asset.type === "image") ?? assets[0] ?? null;
-}
-
-function parseDevTextSections(content: string) {
-  const normalized = content.replaceAll("\r\n", "\n");
-  const readBlock = (labelPattern: string) => {
-    const pattern = new RegExp(
-      String.raw`(?:^|\n)\s*(?:${labelPattern})\s*:?\s*\n([\s\S]*?)(?=\n\s*(?:INTRO|DESCRIZIONE|CONCLUSIONI?|CONCLUSIONE|TEAM|CREDITS?|GRUPPO|AWARDS?|PREMI|RICONOSCIMENTI)\s*:?\s*\n|$)`,
-      "i"
-    );
-    const match = normalized.match(pattern);
-    return (match?.[1] ?? "").trim();
-  };
-
-  return {
-    intro: readBlock("INTRO"),
-    description: readBlock("DESCRIZIONE"),
-    conclusions: readBlock("CONCLUSIONI?|CONCLUSIONE"),
-    team: readBlock("TEAM|CREDITS?|GRUPPO"),
-    awards: readBlock("AWARDS?|PREMI|RICONOSCIMENTI")
-  };
 }
 
 export async function getProjects(): Promise<Project[]> {
