@@ -37,7 +37,9 @@ export default function ChromaGrid({
 }: ChromaGridProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const fadeRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const setX = useRef<((value: number) => void) | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const setY = useRef<((value: number) => void) | null>(null);
   const pos = useRef({ x: 0, y: 0 });
 
@@ -45,8 +47,11 @@ export default function ChromaGrid({
     const element = rootRef.current;
     if (!element) return;
 
-    setX.current = gsap.quickSetter(element, "--x", "px") as (value: number) => void;
-    setY.current = gsap.quickSetter(element, "--y", "px") as (value: number) => void;
+    // gsap.quickSetter returns Function; wrap to satisfy typed ref
+    const rawSetX = gsap.quickSetter(element, "--x", "px");
+    const rawSetY = gsap.quickSetter(element, "--y", "px");
+    setX.current = (v: number) => rawSetX(v);
+    setY.current = (v: number) => rawSetY(v);
 
     const { width, height } = element.getBoundingClientRect();
     pos.current = { x: width / 2, y: height / 2 };
