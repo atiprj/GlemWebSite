@@ -22,15 +22,21 @@ interface BlurTextProps {
   stepDuration?: number;
 }
 
-const buildKeyframes = (from: AnimationSnapshot, steps: AnimationSnapshot[]) => {
+const buildKeyframes = (from: AnimationSnapshot, steps: AnimationSnapshot[]): Record<string, (string | number)[]> => {
   const keys = new Set([
     ...Object.keys(from),
     ...steps.flatMap((snapshot) => Object.keys(snapshot))
   ]);
 
-  const keyframes: Record<string, Array<string | number | undefined>> = {};
+  const keyframes: Record<string, (string | number)[]> = {};
   keys.forEach((key) => {
-    keyframes[key] = [from[key as keyof AnimationSnapshot], ...steps.map((snapshot) => snapshot[key as keyof AnimationSnapshot])];
+    const fromVal = from[key as keyof AnimationSnapshot];
+    const stepVals = steps.map((snapshot) => snapshot[key as keyof AnimationSnapshot]);
+    // filter out undefined entries so framer-motion receives only concrete values
+    const allVals = [fromVal, ...stepVals];
+    if (allVals.some((v) => v !== undefined)) {
+      keyframes[key] = allVals.map((v) => (v !== undefined ? v : 0)) as (string | number)[];
+    }
   });
   return keyframes;
 };
