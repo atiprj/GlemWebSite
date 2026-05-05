@@ -60,13 +60,7 @@ export default async function ContactsPage() {
     });
 
   return (
-    <div
-      className="bg-[#f6f6f2]"
-      style={{
-        width: "100vw",
-        marginLeft: "calc(50% - 50vw)"
-      }}
-    >
+    <div className="w-full bg-[#f6f6f2]">
       <section className="w-full overflow-hidden md:flex md:min-h-[calc(100vh-64px)]">
         <div className="w-full min-w-0 px-6 py-10 md:w-1/2 md:px-12">
           <FadeInView>

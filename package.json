@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/atiprj/GlemWebSite#readme",
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "framer-motion": "^12.38.0",
     "gsap": "^3.15.0",
     "image-size": "^2.0.2",

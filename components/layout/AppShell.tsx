@@ -14,12 +14,10 @@ interface AppShellProps {
   children: ReactNode;
 }
 
-const INTRO_SESSION_KEY = "glem-intro-seen";
-
 export function AppShell({ children }: AppShellProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const [showIntro, setShowIntro] = useState(false);
+  const [introCompleted, setIntroCompleted] = useState(false);
   const shouldHideGlobalFooter = pathname?.includes("/contacts");
   const isHomePath = pathname === "/" || pathname === "/it" || pathname === "/en";
   const pathSegments = pathname?.split("/").filter(Boolean) ?? [];
@@ -50,13 +48,13 @@ export function AppShell({ children }: AppShellProps) {
   ];
 
   const socialItems = [
-    { label: "Instagram", link: "https://www.instagram.com/" },
-    { label: "GitHub", link: "https://github.com/atiprj" },
-    { label: "LinkedIn", link: "https://linkedin.com" }
+    { label: "Instagram", link: "https://www.instagram.com/atiproject/" },
+    { label: "GitHub", link: "https://github.com/" },
+    { label: "LinkedIn", link: "https://www.linkedin.com/company/atiproject/posts/?feedView=all" }
   ];
 
   const handleIntroComplete = useCallback(() => {
-    setShowIntro(false);
+    setIntroCompleted(true);
   }, []);
 
   useEffect(() => {
@@ -68,16 +66,20 @@ export function AppShell({ children }: AppShellProps) {
   }, [pathname, router]);
 
   useEffect(() => {
-    if (pathname !== "/") return;
-    if (window.sessionStorage.getItem(INTRO_SESSION_KEY) === "1") return;
-    window.sessionStorage.setItem(INTRO_SESSION_KEY, "1");
-    setShowIntro(true);
-  }, [pathname]);
+    const t = window.setTimeout(() => {
+      if (!pathname || pathname === "/") {
+        setIntroCompleted(true);
+        return;
+      }
+      setIntroCompleted(!isHomePath);
+    }, 0);
+    return () => window.clearTimeout(t);
+  }, [isHomePath, pathname]);
 
   return (
     <div className="min-h-screen bg-[#f6f6f2] text-neutral-900">
       <header className="fixed left-0 top-0 z-20 flex w-full items-center justify-between bg-white/90 px-6 py-4 backdrop-blur-md md:px-10">
-        <Link href={withLocale("/")} className="text-lg font-bold tracking-[0.22em] text-black">
+        <Link href={withLocale("/")} className="text-lg font-bold tracking-[0.22em] text-black" data-intro-logo>
           GLEM
         </Link>
         <div className="flex items-center gap-3">
@@ -105,10 +107,14 @@ export function AppShell({ children }: AppShellProps) {
         </div>
       </header>
 
-      <main className={`${shouldHideGlobalFooter ? "pb-0" : "pb-[560px]"} ${isHomePath ? "pt-0" : "pt-16"}`}>{children}</main>
+      <main
+        className={`${shouldHideGlobalFooter ? "pb-0" : "pb-[clamp(18rem,35vh,34rem)]"} ${isHomePath ? "pt-0" : "pt-16"}`}
+      >
+        {children}
+      </main>
 
       {!shouldHideGlobalFooter ? <GlobalFooter /> : null}
-      {showIntro ? <IntroOverlay onComplete={handleIntroComplete} /> : null}
+      {isHomePath && pathname !== "/" && !introCompleted ? <IntroOverlay onComplete={handleIntroComplete} /> : null}
     </div>
   );
 }
