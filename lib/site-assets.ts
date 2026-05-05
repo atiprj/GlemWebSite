@@ -1,5 +1,6 @@
 import path from "node:path";
 import fs from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import { imageSize } from "image-size";
 import * as XLSX from "xlsx";
 
@@ -67,7 +68,8 @@ function detectType(filePath: string): MediaType | null {
 
 function detectImageMeta(filePath: string) {
   try {
-    const size = imageSize(filePath);
+    const imageBuffer = readFileSync(filePath);
+    const size = imageSize(imageBuffer);
     const width = size.width ?? 0;
     const height = size.height ?? 0;
     return {
@@ -200,21 +202,23 @@ export async function getFolderMedia(folderName: string): Promise<MediaAsset[]> 
   try {
     const folder = path.join(process.cwd(), "public", "assets", folderName);
     const files = await listFilesRecursive(folder);
-    return files
-      .map((file) => {
+    const assets = files
+      .map<MediaAsset | null>((file) => {
         const type = detectType(file);
         const src = toWebPath(file);
         if (!type || !src) return null;
         const imageMeta = type === "image" ? detectImageMeta(file) : null;
-        return {
+        const asset: MediaAsset = {
           src,
           type,
           orientation: imageMeta?.orientation ?? "landscape",
           width: imageMeta?.width,
           height: imageMeta?.height
-        } satisfies MediaAsset;
+        };
+        return asset;
       })
       .filter((item): item is MediaAsset => item !== null);
+    return assets;
   } catch {
     return [];
   }
@@ -249,26 +253,28 @@ export async function getProjectGalleries(): Promise<ProjectGalleryItem[]> {
             const fullPath = path.join(rootToUse as string, slug);
             const files = await listFilesRecursive(fullPath);
             const assets = files
-              .map((file) => {
+              .map<MediaAsset | null>((file) => {
                 const type = detectType(file);
                 const src = toWebPath(file);
                 if (!type || !src) return null;
                 const imageMeta = type === "image" ? detectImageMeta(file) : null;
-                return {
+                const asset: MediaAsset = {
                   src,
                   type,
                   orientation: imageMeta?.orientation ?? "landscape",
                   width: imageMeta?.width,
                   height: imageMeta?.height
-                } satisfies MediaAsset;
+                };
+                return asset;
               })
               .filter((item): item is MediaAsset => item !== null);
 
-            return {
+            const galleryItem: ProjectGalleryItem = {
               slug,
               title: slug.replace(/[._-]/g, " ").replace(/\s+/g, " ").trim(),
               assets
-            } satisfies ProjectGalleryItem;
+            };
+            return galleryItem;
           } catch {
             return null;
           }
