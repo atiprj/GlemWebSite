@@ -62,11 +62,15 @@ const DotField = memo(
       const canvas = canvasRef.current;
       const glowEl = glowRef.current;
       if (!canvas) return;
-      const ctx = canvas.getContext("2d", { alpha: true });
+      const ctx = canvas.getContext("2d", { alpha: true }) as CanvasRenderingContext2D;
       if (!ctx) return;
 
+      // Re-assert as non-null so closures below can use them without TS errors
+      const safeCanvas = canvas as HTMLCanvasElement;
+      const safeCtx = ctx as CanvasRenderingContext2D;
+
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      let resizeTimer: ReturnType<typeof setTimeout> | null = null;
+      let resizeTimer: ReturnType<typeof window.setTimeout> | null = null;
 
       function buildDots(w: number, h: number) {
         const step = dotRadius + dotSpacing;
@@ -89,16 +93,16 @@ const DotField = memo(
       }
 
       function doResize() {
-        const rect = canvas.parentElement?.getBoundingClientRect();
+        const rect = safeCanvas.parentElement?.getBoundingClientRect();
         if (!rect) return;
         const w = rect.width;
         const h = rect.height;
 
-        canvas.width = w * dpr;
-        canvas.height = h * dpr;
-        canvas.style.width = `${w}px`;
-        canvas.style.height = `${h}px`;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        safeCanvas.width = w * dpr;
+        safeCanvas.height = h * dpr;
+        safeCanvas.style.width = `${w}px`;
+        safeCanvas.style.height = `${h}px`;
+        safeCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
         sizeRef.current = {
           w,
@@ -111,8 +115,8 @@ const DotField = memo(
       }
 
       function resize() {
-        if (resizeTimer) window.clearTimeout(resizeTimer);
-        resizeTimer = window.setTimeout(doResize, 100);
+        if (resizeTimer !== null) window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(doResize, 100) as unknown as ReturnType<typeof window.setTimeout>;
       }
 
       function onMouseMove(e: MouseEvent) {
@@ -155,18 +159,18 @@ const DotField = memo(
           glowEl.style.opacity = String(glowOpacity.current);
         }
 
-        ctx.clearRect(0, 0, w, h);
+        safeCtx.clearRect(0, 0, w, h);
 
-        const grad = ctx.createLinearGradient(0, 0, w, h);
+        const grad = safeCtx.createLinearGradient(0, 0, w, h);
         grad.addColorStop(0, gradientFrom);
         grad.addColorStop(1, gradientTo);
-        ctx.fillStyle = grad;
+        safeCtx.fillStyle = grad;
 
         const cr = cursorRadius;
         const crSq = cr * cr;
         const rad = dotRadius / 2;
 
-        ctx.beginPath();
+        safeCtx.beginPath();
 
         for (let i = 0; i < dots.length; i += 1) {
           const d = dots[i];
@@ -212,15 +216,15 @@ const DotField = memo(
           if (sparkle) {
             const hash = ((i * 2654435761) ^ (frameCount >> 3)) >>> 0;
             const size = (hash % 100) < 3 ? rad * 1.8 : rad;
-            ctx.moveTo(drawX + size, drawY);
-            ctx.arc(drawX, drawY, size, 0, TWO_PI);
+            safeCtx.moveTo(drawX + size, drawY);
+            safeCtx.arc(drawX, drawY, size, 0, TWO_PI);
           } else {
-            ctx.moveTo(drawX + rad, drawY);
-            ctx.arc(drawX, drawY, rad, 0, TWO_PI);
+            safeCtx.moveTo(drawX + rad, drawY);
+            safeCtx.arc(drawX, drawY, rad, 0, TWO_PI);
           }
         }
 
-        ctx.fill();
+        safeCtx.fill();
         rafRef.current = window.requestAnimationFrame(tick);
       }
 
