@@ -48,7 +48,7 @@ export interface Project {
 
 function toWebPath(absoluteFilePath: string): string | null {
   try {
-    const publicDir = path.join(process.cwd(), "public");
+    const publicDir = path.join(/*turbopackIgnore: true*/ process.cwd(), "public");
     const relative = path.relative(publicDir, absoluteFilePath);
     if (!relative || relative.startsWith("..") || path.isAbsolute(relative)) {
       return null;
@@ -107,7 +107,7 @@ async function listFilesRecursive(dir: string, depth = 0): Promise<string[]> {
 
 export async function getHomeHeroAsset(): Promise<MediaAsset | null> {
   try {
-    const root = path.join(process.cwd(), "public", "assets");
+    const root = path.join(/*turbopackIgnore: true*/ process.cwd(), "public", "assets");
     const homeFolder = path.join(root, "01.Home");
     const candidates = [homeFolder, root];
 
@@ -130,7 +130,9 @@ export async function getHomeHeroAsset(): Promise<MediaAsset | null> {
 
 export async function getHomeProjectCollageImages(limit = 24): Promise<string[]> {
   try {
-    const projectRoots = ["03.Projects", "03.Project"].map((folder) => path.join(process.cwd(), "public", "assets", folder));
+    const projectRoots = ["03.Projects", "03.Project"].map((folder) =>
+      path.join(/*turbopackIgnore: true*/ process.cwd(), "public", "assets", folder)
+    );
     let rootToUse: string | null = null;
 
     for (const root of projectRoots) {
@@ -173,7 +175,7 @@ export async function getHomeProjectCollageImages(limit = 24): Promise<string[]>
 
 export async function getHomeMenuImageFromFolder(folderName: string): Promise<string | null> {
   try {
-    const folder = path.join(process.cwd(), "public", "assets", folderName);
+    const folder = path.join(/*turbopackIgnore: true*/ process.cwd(), "public", "assets", folderName);
     const files = await fs.readdir(folder).catch(() => []);
     const menuHomeImage = files.find((file) =>
       /^immagine\s*menu\s*home\.(jpe?g)$/i.test(file.trim())
@@ -187,7 +189,7 @@ export async function getHomeMenuImageFromFolder(folderName: string): Promise<st
 
 export async function getFolderText(folderName: string, fallback: string) {
   try {
-    const folder = path.join(process.cwd(), "public", "assets", folderName);
+    const folder = path.join(/*turbopackIgnore: true*/ process.cwd(), "public", "assets", folderName);
     const files = await listFilesRecursive(folder);
     const textFile = files.find((file) => TEXT_EXT.some((ext) => file.toLowerCase().endsWith(ext)));
     if (!textFile) return fallback;
@@ -200,7 +202,7 @@ export async function getFolderText(folderName: string, fallback: string) {
 
 export async function getFolderMedia(folderName: string): Promise<MediaAsset[]> {
   try {
-    const folder = path.join(process.cwd(), "public", "assets", folderName);
+    const folder = path.join(/*turbopackIgnore: true*/ process.cwd(), "public", "assets", folderName);
     const files = await listFilesRecursive(folder);
     const assets = files
       .map<MediaAsset | null>((file) => {
@@ -227,7 +229,7 @@ export async function getFolderMedia(folderName: string): Promise<MediaAsset[]> 
 export async function getProjectGalleries(): Promise<ProjectGalleryItem[]> {
   try {
     const projectRoots = ["03.Projects", "03.Project"].map((folder) =>
-      path.join(process.cwd(), "public", "assets", folder)
+      path.join(/*turbopackIgnore: true*/ process.cwd(), "public", "assets", folder)
     );
 
     let rootToUse: string | null = null;
@@ -327,7 +329,13 @@ interface ProjectSpreadsheetMeta {
 
 async function getProjectSpreadsheetMeta() {
   try {
-    const excelPath = path.join(process.cwd(), "public", "assets", "03.Project", "Projects List.xlsx");
+    const excelPath = path.join(
+      /*turbopackIgnore: true*/ process.cwd(),
+      "public",
+      "assets",
+      "03.Project",
+      "Projects List.xlsx"
+    );
     const excelBuffer = await fs.readFile(excelPath);
     const workbook = XLSX.read(excelBuffer, { type: "buffer" });
     const sheetName = workbook.SheetNames[0];
@@ -388,7 +396,7 @@ export async function getProjects(): Promise<Project[]> {
       galleries.map(async (project) => {
         try {
           const projectRootCandidates = ["03.Projects", "03.Project"].map((folder) =>
-            path.join(process.cwd(), "public", "assets", folder, project.slug)
+            path.join(/*turbopackIgnore: true*/ process.cwd(), "public", "assets", folder, project.slug)
           );
 
           let projectPath: string | null = null;
