@@ -46,7 +46,7 @@ export default function SplitText({
   const isInView = useInView(ref, {
     once: true,
     amount: threshold,
-    margin: rootMargin
+    margin: rootMargin as `${number}px` | `${number}px ${number}px` | `${number}px ${number}px ${number}px` | `${number}px ${number}px ${number}px ${number}px` | undefined
   });
 
   const chunks = useMemo(() => {
