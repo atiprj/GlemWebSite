@@ -2,6 +2,7 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import { readFileSync } from "node:fs";
 import { imageSize } from "image-size";
+import { unstable_cache } from "next/cache";
 
 const IMAGE_EXT = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
 const VIDEO_EXT = [".mp4", ".webm", ".mov"];
@@ -104,124 +105,121 @@ async function listFilesRecursive(dir: string, depth = 0): Promise<string[]> {
   }
 }
 
-export async function getHomeHeroAsset(): Promise<MediaAsset | null> {
-  try {
-    const root = path.join(process.cwd(), "public", "assets");
-    const homeFolder = path.join(root, "01.Home");
-    const candidates = [homeFolder, root];
-
-    for (const candidate of candidates) {
-      const files = await listFilesRecursive(candidate);
-      const mediaFile =
-        files.find((file) => detectType(file) === "image") ?? files.find((file) => detectType(file) === "video");
-      if (mediaFile) {
-        const type = detectType(mediaFile);
-        const src = toWebPath(mediaFile);
-        if (type && src) return { src, type };
+export const getHomeHeroAsset = unstable_cache(
+  async (): Promise<MediaAsset | null> => {
+    try {
+      const root = path.join(process.cwd(), "public", "assets");
+      const homeFolder = path.join(root, "01.Home");
+      const candidates = [homeFolder, root];
+      for (const candidate of candidates) {
+        const files = await listFilesRecursive(candidate);
+        const mediaFile =
+          files.find((file) => detectType(file) === "image") ?? files.find((file) => detectType(file) === "video");
+        if (mediaFile) {
+          const type = detectType(mediaFile);
+          const src = toWebPath(mediaFile);
+          if (type && src) return { src, type };
+        }
       }
-    }
-  } catch {
-    /* ignore */
-  }
-
-  return null;
-}
-
-export async function getHomeProjectCollageImages(limit = 24): Promise<string[]> {
-  try {
-    const projectRoots = ["03.Projects", "03.Project"].map((folder) => path.join(process.cwd(), "public", "assets", folder));
-    let rootToUse: string | null = null;
-
-    for (const root of projectRoots) {
-      const exists = await fs
-        .access(root)
-        .then(() => true)
-        .catch(() => false);
-      if (exists) {
-        rootToUse = root;
-        break;
-      }
-    }
-
-    if (!rootToUse) return [];
-
-    const files = await listFilesRecursive(rootToUse);
-    const weightedImages = await Promise.all(
-      files
-        .filter((file) => detectType(file) === "image")
-        .map(async (file) => {
-          const src = toWebPath(file);
-          if (!src) return null;
-          const size = await fs
-            .stat(file)
-            .then((stats) => stats.size)
-            .catch(() => Number.MAX_SAFE_INTEGER);
-          return { src, size };
-        })
-    );
-
-    return weightedImages
-      .filter((item): item is { src: string; size: number } => item !== null)
-      .sort((a, b) => a.size - b.size)
-      .slice(0, Math.max(1, limit))
-      .map((item) => item.src);
-  } catch {
-    return [];
-  }
-}
-
-export async function getHomeMenuImageFromFolder(folderName: string): Promise<string | null> {
-  try {
-    const folder = path.join(process.cwd(), "public", "assets", folderName);
-    const files = await fs.readdir(folder).catch(() => []);
-    const menuHomeImage = files.find((file) =>
-      /^immagine\s*menu\s*home\.(jpe?g)$/i.test(file.trim())
-    );
-    if (!menuHomeImage) return null;
-    return `/${path.posix.join("assets", folderName, menuHomeImage)}`;
-  } catch {
+    } catch { /* ignore */ }
     return null;
-  }
-}
+  },
+  ["home-hero-asset"],
+  { revalidate: 3600 }
+);
 
-export async function getFolderText(folderName: string, fallback: string) {
-  try {
-    const folder = path.join(process.cwd(), "public", "assets", folderName);
-    const files = await listFilesRecursive(folder);
-    const textFile = files.find((file) => TEXT_EXT.some((ext) => file.toLowerCase().endsWith(ext)));
-    if (!textFile) return fallback;
-    const content = await fs.readFile(textFile, "utf8").catch(() => "");
-    return content.trim() || fallback;
-  } catch {
-    return fallback;
-  }
-}
+export const getHomeProjectCollageImages = unstable_cache(
+  async (limit = 24): Promise<string[]> => {
+    try {
+      const projectRoots = ["03.Projects", "03.Project"].map((folder) =>
+        path.join(process.cwd(), "public", "assets", folder)
+      );
+      let rootToUse: string | null = null;
+      for (const root of projectRoots) {
+        const exists = await fs.access(root).then(() => true).catch(() => false);
+        if (exists) { rootToUse = root; break; }
+      }
+      if (!rootToUse) return [];
+      const files = await listFilesRecursive(rootToUse);
+      const weightedImages = await Promise.all(
+        files
+          .filter((file) => detectType(file) === "image")
+          .map(async (file) => {
+            const src = toWebPath(file);
+            if (!src) return null;
+            const size = await fs.stat(file).then((s) => s.size).catch(() => Number.MAX_SAFE_INTEGER);
+            return { src, size };
+          })
+      );
+      return weightedImages
+        .filter((item): item is { src: string; size: number } => item !== null)
+        .sort((a, b) => a.size - b.size)
+        .slice(0, Math.max(1, limit))
+        .map((item) => item.src);
+    } catch { return []; }
+  },
+  ["home-collage-images"],
+  { revalidate: 3600 }
+);
 
-export async function getFolderMedia(folderName: string): Promise<MediaAsset[]> {
-  try {
-    const folder = path.join(process.cwd(), "public", "assets", folderName);
-    const files = await listFilesRecursive(folder);
-    const assets = files
-      .map<MediaAsset | null>((file) => {
-        const type = detectType(file);
-        const src = toWebPath(file);
-        if (!type || !src) return null;
-        const imageMeta = type === "image" ? detectImageMeta(file) : null;
-        const asset: MediaAsset = {
-          src,
-          type,
-          orientation: imageMeta?.orientation ?? "landscape",
-          width: imageMeta?.width,
-          height: imageMeta?.height
-        };
-        return asset;
-      })
-      .filter((item): item is MediaAsset => item !== null);
-    return assets;
-  } catch {
-    return [];
-  }
-}
+export const getHomeMenuImageFromFolder = unstable_cache(
+  async (folderName: string): Promise<string | null> => {
+    try {
+      const folder = path.join(process.cwd(), "public", "assets", folderName);
+      const files = await fs.readdir(folder).catch(() => []);
+      const menuHomeImage = files.find((file) =>
+        /^immagine\s*menu\s*home\.(jpe?g)$/i.test(file.trim())
+      );
+      if (!menuHomeImage) return null;
+      return `/${path.posix.join("assets", folderName, menuHomeImage)}`;
+    } catch { return null; }
+  },
+  ["home-menu-image"],
+  { revalidate: 3600 }
+);
+
+export const getFolderText = unstable_cache(
+  async (folderName: string, fallback: string): Promise<string> => {
+    try {
+      const folder = path.join(process.cwd(), "public", "assets", folderName);
+      const files = await listFilesRecursive(folder);
+      const textFile = files.find((file) => TEXT_EXT.some((ext) => file.toLowerCase().endsWith(ext)));
+      if (!textFile) return fallback;
+      const content = await fs.readFile(textFile, "utf8").catch(() => "");
+      return content.trim() || fallback;
+    } catch { return fallback; }
+  },
+  ["folder-text"],
+  { revalidate: 3600 }
+);
+
+export const getFolderMedia = unstable_cache(
+  async (folderName: string): Promise<MediaAsset[]> => {
+    try {
+      const folder = path.join(process.cwd(), "public", "assets", folderName);
+      const files = await listFilesRecursive(folder);
+      const assets = files
+        .map<MediaAsset | null>((file) => {
+          const type = detectType(file);
+          const src = toWebPath(file);
+          if (!type || !src) return null;
+          const imageMeta = type === "image" ? detectImageMeta(file) : null;
+          const asset: MediaAsset = {
+            src,
+            type,
+            orientation: imageMeta?.orientation ?? "landscape",
+            width: imageMeta?.width,
+            height: imageMeta?.height
+          };
+          return asset;
+        })
+        .filter((item): item is MediaAsset => item !== null);
+      return assets;
+    } catch { return []; }
+  },
+  ["folder-media"],
+  { revalidate: 3600 }
+);
 
 // getProjects and getProjectGalleries have been moved to lib/projects-assets.ts
 // which reads from the pre-built data/projects-manifest.json.

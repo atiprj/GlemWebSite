@@ -11,9 +11,9 @@ interface IntroOverlayProps {
 
 gsap.registerPlugin(useGSAP, GSAPSplitText);
 
-// Minimum time the intro is visible after letters appear (ms)
-const MIN_HOLD_MS = 2500;
-// Max time to wait for page load before proceeding anyway (ms)
+// Time to wait after window.load before allowing phase 2 (ms) — lets browser paint
+const POST_LOAD_BUFFER_MS = 1200;
+// Hard cap — proceed regardless after this long (ms)
 const MAX_WAIT_MS = 12000;
 
 export function IntroOverlay({ onComplete }: IntroOverlayProps) {
@@ -37,11 +37,11 @@ export function IntroOverlay({ onComplete }: IntroOverlayProps) {
         if (!logoEl) return { x: 0, y: 0, scale: 1 };
         const logoRect = logoEl.getBoundingClientRect();
         const scale = logoRect.width / wordRect.width;
-        const wordCenterX = wordRect.left + wordRect.width / 2;
-        const wordCenterY = wordRect.top + wordRect.height / 2;
-        const logoCenterX = logoRect.left + logoRect.width / 2;
-        const logoCenterY = logoRect.top + logoRect.height / 2;
-        return { x: logoCenterX - wordCenterX, y: logoCenterY - wordCenterY, scale };
+        return {
+          x: (logoRect.left + logoRect.width / 2) - (wordRect.left + wordRect.width / 2),
+          y: (logoRect.top + logoRect.height / 2) - (wordRect.top + wordRect.height / 2),
+          scale
+        };
       };
 
       const split = new GSAPSplitText(word, { type: "chars", charsClass: "split-char" });
@@ -50,45 +50,34 @@ export function IntroOverlay({ onComplete }: IntroOverlayProps) {
       gsap.set(word, { opacity: 0, force3D: true });
       gsap.set(chars, { opacity: 0, y: 36, force3D: true });
 
-      // ── Phase 2: fly to corner (built lazily when both conditions are met) ──
+      // ── Phase 2: fly to corner ──
       let tl2: gsap.core.Timeline | null = null;
 
       const startPhase2 = () => {
-        if (tl2) return; // guard: run once
+        if (tl2) return;
         const { x, y, scale } = getTarget();
         tl2 = gsap.timeline({ onComplete: () => onCompleteRef.current() });
         tl2.to(word, { x, y, scale, duration: 1.1, ease: "expo.inOut", force3D: true });
-        // Long fade-out so the home page is fully ready before it's revealed
-        tl2.to(root, { opacity: 0, duration: 0.8, ease: "power2.inOut" }, "-=0.2");
+        tl2.to(root, { opacity: 0, duration: 0.9, ease: "power2.inOut" }, "-=0.15");
       };
 
-      // ── Conditions: phase-1 animation done AND page loaded AND min hold elapsed ──
-      let phase1Done = false;
-      let pageLoaded = false;
-      let minHoldDone = false;
+      // ── Two gates: letters animation done + page loaded ──
+      let lettersReady = false;
+      let pageReady = false;
 
       const tryAdvance = () => {
-        if (phase1Done && pageLoaded && minHoldDone) startPhase2();
+        if (lettersReady && pageReady) startPhase2();
       };
 
-      // Minimum visible time after letters appear
-      const minHoldTimer = window.setTimeout(() => {
-        minHoldDone = true;
-        tryAdvance();
-      }, MIN_HOLD_MS);
-
-      // ── Phase 1: background + GLEM letters ──
+      // Gate 1 – letters animation
       const tl1 = gsap.timeline({
         onComplete: () => {
-          phase1Done = true;
+          lettersReady = true;
           tryAdvance();
         }
       });
 
-      // 1s sfondo bianco senza scritta
-      tl1.to({}, { duration: 1.0 });
-
-      // GLEM lettera per lettera — lento e morbido
+      tl1.to({}, { duration: 0.5 });          // sfondo senza scritta
       tl1.set(word, { opacity: 1 });
       tl1.to(chars, {
         opacity: 1,
@@ -98,23 +87,26 @@ export function IntroOverlay({ onComplete }: IntroOverlayProps) {
         ease: "power2.out",
         force3D: true
       });
+      tl1.to({}, { duration: 0.4 });           // micro-pausa dopo ultima lettera
 
-      // ── Wait for page load ──
-      const onPageLoad = () => {
-        pageLoaded = true;
-        tryAdvance();
+      // Gate 2 – window.load + buffer to allow browser to paint content
+      const markReady = () => {
+        window.setTimeout(() => {
+          pageReady = true;
+          tryAdvance();
+        }, POST_LOAD_BUFFER_MS);
       };
 
       if (document.readyState === "complete") {
-        pageLoaded = true;
+        markReady();
       } else {
-        window.addEventListener("load", onPageLoad, { once: true });
+        window.addEventListener("load", markReady, { once: true });
       }
 
-      // Safety: proceed after MAX_WAIT_MS regardless of load state
+      // Safety cap
       const safetyTimer = window.setTimeout(() => {
-        pageLoaded = true;
-        minHoldDone = true;
+        pageReady = true;
+        lettersReady = true;
         tryAdvance();
       }, MAX_WAIT_MS);
 
@@ -122,8 +114,7 @@ export function IntroOverlay({ onComplete }: IntroOverlayProps) {
         tl1.kill();
         tl2?.kill();
         split.revert();
-        window.removeEventListener("load", onPageLoad);
-        window.clearTimeout(minHoldTimer);
+        window.removeEventListener("load", markReady);
         window.clearTimeout(safetyTimer);
       };
     },
