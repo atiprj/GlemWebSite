@@ -15,15 +15,20 @@ import rawManifest from "../data/projects-manifest.json";
 // Re-export types so callers can import them from either module
 export type { MediaAsset, MediaOrientation, Project, ProjectGalleryItem };
 
-// Cast the raw JSON to the correct types
-const manifest = rawManifest as Project[];
+interface Manifest {
+  projects: Project[];
+  collageImages: string[];
+  projectMenuImage: string | null;
+}
+
+const manifest = rawManifest as Manifest;
 
 export async function getProjects(): Promise<Project[]> {
-  return manifest;
+  return manifest.projects;
 }
 
 export async function getProjectGalleries(): Promise<ProjectGalleryItem[]> {
-  return manifest.map((p) => ({
+  return manifest.projects.map((p) => ({
     slug: p.slug,
     title: p.title,
     assets: p.assets,
@@ -31,5 +36,15 @@ export async function getProjectGalleries(): Promise<ProjectGalleryItem[]> {
 }
 
 export function getProjectBySlug(slug: string): Project | null {
-  return manifest.find((p) => p.slug === slug) ?? null;
+  return manifest.projects.find((p) => p.slug === slug) ?? null;
+}
+
+/** All project images for the home page collage — served from the CDN, no fs access. */
+export async function getHomeProjectCollageImages(limit = 24): Promise<string[]> {
+  return manifest.collageImages.slice(0, Math.max(1, limit));
+}
+
+/** Path to "Immagine menu home" inside public/assets/03.Project — pre-built in manifest. */
+export async function getProjectMenuImage(): Promise<string | null> {
+  return manifest.projectMenuImage ?? null;
 }

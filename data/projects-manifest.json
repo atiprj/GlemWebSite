@@ -1,593 +1,632 @@
-[
-  {
-    "slug": "25.MDW25-MiraConceptAI",
-    "title": "25 MDW25 MiraConceptAI",
-    "year": 2025,
-    "articleLink": "https://atiproject.com/news/fuorisalone-2025-ati-presenta-mira-al-dot-materica/",
-    "tags": [
-      "Generative Design",
-      "AI",
-      "Image",
-      "Video"
-    ],
-    "cover": {
-      "src": "/assets/03.Project/25.MDW25-MiraConceptAI/COP/IMG_0598.jpg",
-      "type": "image",
-      "orientation": "landscape"
-    },
-    "assets": [
-      {
-        "src": "/assets/03.Project/25.MDW25-MiraConceptAI/All_ATI Project.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/25.MDW25-MiraConceptAI/COP/2025.10.07_ATIp_INOUT_MIRA.mp4",
-        "type": "video",
-        "orientation": "landscape"
-      },
-      {
+{
+  "projects": [
+    {
+      "slug": "25.MDW25-MiraConceptAI",
+      "title": "25 MDW25 MiraConceptAI",
+      "year": 2025,
+      "articleLink": "https://atiproject.com/news/fuorisalone-2025-ati-presenta-mira-al-dot-materica/",
+      "tags": [
+        "Generative Design",
+        "AI",
+        "Image",
+        "Video"
+      ],
+      "cover": {
         "src": "/assets/03.Project/25.MDW25-MiraConceptAI/COP/IMG_0598.jpg",
         "type": "image",
         "orientation": "landscape"
       },
-      {
-        "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/01.jpg",
-        "type": "image",
-        "orientation": "landscape"
+      "assets": [
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraConceptAI/All_ATI Project.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraConceptAI/COP/2025.10.07_ATIp_INOUT_MIRA.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraConceptAI/COP/IMG_0598.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/01.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/02.JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/04.JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/05.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/06.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        }
+      ],
+      "devContentPath": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV",
+      "devAssets": [
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/01.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/02.JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/04.JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/05.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/06.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        }
+      ],
+      "devText": {
+        "intro": "Il prototipo è il risultato della collaborazione con eccellenze italiane, ognuna protagonista della trasformazione di MIRA in esperienza sensoriale. Caratterizzata da una sottostruttura in legno, MIRA è espressione di solidità, versatilità e cura artigianale in ogni dettaglio. \nVersatile e mutabile, MIRA si adatta a ogni esigenza: può diventare un angolo per il relax, una postazione di lavoro, un piccolo spazio ristorativo o una lounge temporanea. Texture e geometrie dinamiche, sviluppate con il supporto dell’intelligenza artificiale e design generativo, conferiscono al progetto un’identità forte e riconoscibile. I moduli si combinano in configurazioni differenti, ed aggregabili tra di loro, dando vita a esperienze immersive, sempre sostenibili e altamente personalizzabili.",
+        "description": "Il prototipo è il risultato della collaborazione con eccellenze italiane, ognuna protagonista della trasformazione di MIRA in esperienza sensoriale. Caratterizzata da una sottostruttura in legno, MIRA è espressione di solidità, versatilità e cura artigianale in ogni dettaglio. Cromatica Marcegaglia realizza il rivestimento metallico interno ed esterno, con la sua tecnologia di stampa digitale su acciaio, che consente pattern e immagini personalizzate con infinite combinazioni di colori e sfumature. La collaborazione con il dipartimento R&D di ATI Project ha creato una texture unica che arricchisce l’estetica dell’installazione e interagisce dinamicamente con la luce, trasformando superfici e atmosfere in un’esperienza visiva unica.\nL’atmosfera interna e il dialogo con l’ambiente circostante sono valorizzati dall’illuminazione modulare di Egoluce, con il sistema lineare modellabile Anaconda, che permette di creare giochi di luce e punti focali suggestivi adattabili a qualsiasi configurazione dei moduli. Dakota Living arricchisce il progetto con pavimentazioni in legno termotrattato eleganti e funzionali, mentre Binari realizza l’arredo complementare, integrando funzionalità e stile, contribuendo a rendere MIRA viva, accogliente e suggestiva.",
+        "conclusions": "Versatile e mutabile, MIRA si adatta a ogni esigenza: può diventare un angolo per il relax, una postazione di lavoro, un piccolo spazio ristorativo o una lounge temporanea. Texture e geometrie dinamiche, sviluppate con il supporto dell’intelligenza artificiale e design generativo, conferiscono al progetto un’identità forte e riconoscibile. I moduli si combinano in configurazioni differenti, ed aggregabili tra di loro, dando vita a esperienze immersive, sempre sostenibili e altamente personalizzabili.",
+        "team": "",
+        "awards": ""
       },
-      {
-        "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/02.JPG",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/04.JPG",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/05.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/06.mp4",
-        "type": "video",
-        "orientation": "landscape"
-      }
-    ],
-    "devContentPath": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV",
-    "devAssets": [
-      {
-        "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/01.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/02.JPG",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/04.JPG",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/05.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/06.mp4",
-        "type": "video",
-        "orientation": "landscape"
-      }
-    ],
-    "devText": {
-      "intro": "Il prototipo è il risultato della collaborazione con eccellenze italiane, ognuna protagonista della trasformazione di MIRA in esperienza sensoriale. Caratterizzata da una sottostruttura in legno, MIRA è espressione di solidità, versatilità e cura artigianale in ogni dettaglio. \nVersatile e mutabile, MIRA si adatta a ogni esigenza: può diventare un angolo per il relax, una postazione di lavoro, un piccolo spazio ristorativo o una lounge temporanea. Texture e geometrie dinamiche, sviluppate con il supporto dell’intelligenza artificiale e design generativo, conferiscono al progetto un’identità forte e riconoscibile. I moduli si combinano in configurazioni differenti, ed aggregabili tra di loro, dando vita a esperienze immersive, sempre sostenibili e altamente personalizzabili.",
-      "description": "Il prototipo è il risultato della collaborazione con eccellenze italiane, ognuna protagonista della trasformazione di MIRA in esperienza sensoriale. Caratterizzata da una sottostruttura in legno, MIRA è espressione di solidità, versatilità e cura artigianale in ogni dettaglio. Cromatica Marcegaglia realizza il rivestimento metallico interno ed esterno, con la sua tecnologia di stampa digitale su acciaio, che consente pattern e immagini personalizzate con infinite combinazioni di colori e sfumature. La collaborazione con il dipartimento R&D di ATI Project ha creato una texture unica che arricchisce l’estetica dell’installazione e interagisce dinamicamente con la luce, trasformando superfici e atmosfere in un’esperienza visiva unica.\nL’atmosfera interna e il dialogo con l’ambiente circostante sono valorizzati dall’illuminazione modulare di Egoluce, con il sistema lineare modellabile Anaconda, che permette di creare giochi di luce e punti focali suggestivi adattabili a qualsiasi configurazione dei moduli. Dakota Living arricchisce il progetto con pavimentazioni in legno termotrattato eleganti e funzionali, mentre Binari realizza l’arredo complementare, integrando funzionalità e stile, contribuendo a rendere MIRA viva, accogliente e suggestiva.",
-      "conclusions": "Versatile e mutabile, MIRA si adatta a ogni esigenza: può diventare un angolo per il relax, una postazione di lavoro, un piccolo spazio ristorativo o una lounge temporanea. Texture e geometrie dinamiche, sviluppate con il supporto dell’intelligenza artificiale e design generativo, conferiscono al progetto un’identità forte e riconoscibile. I moduli si combinano in configurazioni differenti, ed aggregabili tra di loro, dando vita a esperienze immersive, sempre sostenibili e altamente personalizzabili.",
-      "team": "",
-      "awards": ""
+      "searchText": "25.mdw25-miraconceptai 2025 intro:\r\n\r\nil prototipo è il risultato della collaborazione con eccellenze italiane, ognuna protagonista della trasformazione di mira in esperienza sensoriale. caratterizzata da una sottostruttura in legno, mira è espressione di solidità, versatilità e cura artigianale in ogni dettaglio. \r\nversatile e mutabile, mira si adatta a ogni esigenza: può diventare un angolo per il relax, una postazione di lavoro, un piccolo spazio ristorativo o una lounge temporanea. texture e geometrie dinamiche, sviluppate con il supporto dell’intelligenza artificiale e design generativo, conferiscono al progetto un’identità forte e riconoscibile. i moduli si combinano in configurazioni differenti, ed aggregabili tra di loro, dando vita a esperienze immersive, sempre sostenibili e altamente personalizzabili.\r\n\r\ndescrizione:\r\n\r\nil prototipo è il risultato della collaborazione con eccellenze italiane, ognuna protagonista della trasformazione di mira in esperienza sensoriale. caratterizzata da una sottostruttura in legno, mira è espressione di solidità, versatilità e cura artigianale in ogni dettaglio. cromatica marcegaglia realizza il rivestimento metallico interno ed esterno, con la sua tecnologia di stampa digitale su acciaio, che consente pattern e immagini personalizzate con infinite combinazioni di colori e sfumature. la collaborazione con il dipartimento r&d di ati project ha creato una texture unica che arricchisce l’estetica dell’installazione e interagisce dinamicamente con la luce, trasformando superfici e atmosfere in un’esperienza visiva unica.\r\nl’atmosfera interna e il dialogo con l’ambiente circostante sono valorizzati dall’illuminazione modulare di egoluce, con il sistema lineare modellabile anaconda, che permette di creare giochi di luce e punti focali suggestivi adattabili a qualsiasi configurazione dei moduli. dakota living arricchisce il progetto con pavimentazioni in legno termotrattato eleganti e funzionali, mentre binari realizza l’arredo complementare, integrando funzionalità e stile, contribuendo a rendere mira viva, accogliente e suggestiva.\r\n\r\n\r\nconclusione:\r\n\r\nversatile e mutabile, mira si adatta a ogni esigenza: può diventare un angolo per il relax, una postazione di lavoro, un piccolo spazio ristorativo o una lounge temporanea. texture e geometrie dinamiche, sviluppate con il supporto dell’intelligenza artificiale e design generativo, conferiscono al progetto un’identità forte e riconoscibile. i moduli si combinano in configurazioni differenti, ed aggregabili tra di loro, dando vita a esperienze immersive, sempre sostenibili e altamente personalizzabili."
     },
-    "searchText": "25.mdw25-miraconceptai 2025 intro:\r\n\r\nil prototipo è il risultato della collaborazione con eccellenze italiane, ognuna protagonista della trasformazione di mira in esperienza sensoriale. caratterizzata da una sottostruttura in legno, mira è espressione di solidità, versatilità e cura artigianale in ogni dettaglio. \r\nversatile e mutabile, mira si adatta a ogni esigenza: può diventare un angolo per il relax, una postazione di lavoro, un piccolo spazio ristorativo o una lounge temporanea. texture e geometrie dinamiche, sviluppate con il supporto dell’intelligenza artificiale e design generativo, conferiscono al progetto un’identità forte e riconoscibile. i moduli si combinano in configurazioni differenti, ed aggregabili tra di loro, dando vita a esperienze immersive, sempre sostenibili e altamente personalizzabili.\r\n\r\ndescrizione:\r\n\r\nil prototipo è il risultato della collaborazione con eccellenze italiane, ognuna protagonista della trasformazione di mira in esperienza sensoriale. caratterizzata da una sottostruttura in legno, mira è espressione di solidità, versatilità e cura artigianale in ogni dettaglio. cromatica marcegaglia realizza il rivestimento metallico interno ed esterno, con la sua tecnologia di stampa digitale su acciaio, che consente pattern e immagini personalizzate con infinite combinazioni di colori e sfumature. la collaborazione con il dipartimento r&d di ati project ha creato una texture unica che arricchisce l’estetica dell’installazione e interagisce dinamicamente con la luce, trasformando superfici e atmosfere in un’esperienza visiva unica.\r\nl’atmosfera interna e il dialogo con l’ambiente circostante sono valorizzati dall’illuminazione modulare di egoluce, con il sistema lineare modellabile anaconda, che permette di creare giochi di luce e punti focali suggestivi adattabili a qualsiasi configurazione dei moduli. dakota living arricchisce il progetto con pavimentazioni in legno termotrattato eleganti e funzionali, mentre binari realizza l’arredo complementare, integrando funzionalità e stile, contribuendo a rendere mira viva, accogliente e suggestiva.\r\n\r\n\r\nconclusione:\r\n\r\nversatile e mutabile, mira si adatta a ogni esigenza: può diventare un angolo per il relax, una postazione di lavoro, un piccolo spazio ristorativo o una lounge temporanea. texture e geometrie dinamiche, sviluppate con il supporto dell’intelligenza artificiale e design generativo, conferiscono al progetto un’identità forte e riconoscibile. i moduli si combinano in configurazioni differenti, ed aggregabili tra di loro, dando vita a esperienze immersive, sempre sostenibili e altamente personalizzabili."
-  },
-  {
-    "slug": "24.Lubica24-CardboardPavillion",
-    "title": "24 Lubica24 CardboardPavillion",
-    "year": 2024,
-    "articleLink": "https://atiproject.com/attualita/design-temporariness-lucca-biennale-cartasia/",
-    "tags": [
-      "Materic Design"
-    ],
-    "cover": {
-      "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/COP/Francesco Pecini, Deborah Stefani  ©Lubica24 (10).jpg",
-      "type": "image",
-      "orientation": "landscape"
-    },
-    "assets": [
-      {
+    {
+      "slug": "24.Lubica24-CardboardPavillion",
+      "title": "24 Lubica24 CardboardPavillion",
+      "year": 2024,
+      "articleLink": "https://atiproject.com/attualita/design-temporariness-lucca-biennale-cartasia/",
+      "tags": [
+        "Materic Design"
+      ],
+      "cover": {
         "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/COP/Francesco Pecini, Deborah Stefani  ©Lubica24 (10).jpg",
         "type": "image",
         "orientation": "landscape"
       },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (1).JPG",
-        "type": "image",
-        "orientation": "landscape"
+      "assets": [
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/COP/Francesco Pecini, Deborah Stefani  ©Lubica24 (10).jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (1).JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (2).JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (52).jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/Feb_24__1549_24s_202602241729_svol1.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/Francesco Pecini, Deborah Stefani  ©Lubica24 (5).jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/IMG_2760.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/IMG_6096.JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/Timelapse 240624.MOV",
+          "type": "video",
+          "orientation": "landscape"
+        }
+      ],
+      "devContentPath": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV",
+      "devAssets": [
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (1).JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (2).JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (52).jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/Feb_24__1549_24s_202602241729_svol1.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/Francesco Pecini, Deborah Stefani  ©Lubica24 (5).jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/IMG_2760.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/IMG_6096.JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/Timelapse 240624.MOV",
+          "type": "video",
+          "orientation": "landscape"
+        }
+      ],
+      "devText": {
+        "intro": "",
+        "description": "",
+        "conclusions": "",
+        "team": "",
+        "awards": ""
       },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (2).JPG",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (52).jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/Feb_24__1549_24s_202602241729_svol1.mp4",
-        "type": "video",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/Francesco Pecini, Deborah Stefani  ©Lubica24 (5).jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/IMG_2760.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/IMG_6096.JPG",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/Timelapse 240624.MOV",
-        "type": "video",
-        "orientation": "landscape"
-      }
-    ],
-    "devContentPath": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV",
-    "devAssets": [
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (1).JPG",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (2).JPG",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (52).jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/Feb_24__1549_24s_202602241729_svol1.mp4",
-        "type": "video",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/Francesco Pecini, Deborah Stefani  ©Lubica24 (5).jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/IMG_2760.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/IMG_6096.JPG",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/Timelapse 240624.MOV",
-        "type": "video",
-        "orientation": "landscape"
-      }
-    ],
-    "devText": {
-      "intro": "",
-      "description": "",
-      "conclusions": "",
-      "team": "",
-      "awards": ""
+      "searchText": "24.lubica24-cardboardpavillion 2024 "
     },
-    "searchText": "24.lubica24-cardboardpavillion 2024 "
-  },
-  {
-    "slug": "24.MDW24-Material&Data",
-    "title": "24 MDW24 Material&Data",
-    "year": 2024,
-    "articleLink": "https://docs.google.com/document/d/1P_Rz1wsGO_hJDB4sySPeD39kfcspmeyB/edit",
-    "tags": [
-      "Materic Design",
-      "Data Analysis"
-    ],
-    "cover": {
-      "src": "/assets/03.Project/24.MDW24-Material&Data/COP/_DSC9674.jpg",
-      "type": "image",
-      "orientation": "landscape"
-    },
-    "assets": [
-      {
+    {
+      "slug": "24.MDW24-Material&Data",
+      "title": "24 MDW24 Material&Data",
+      "year": 2024,
+      "articleLink": "https://docs.google.com/document/d/1P_Rz1wsGO_hJDB4sySPeD39kfcspmeyB/edit",
+      "tags": [
+        "Materic Design",
+        "Data Analysis"
+      ],
+      "cover": {
         "src": "/assets/03.Project/24.MDW24-Material&Data/COP/_DSC9674.jpg",
         "type": "image",
         "orientation": "landscape"
       },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/2024.05_PULSE_MakingOf.mp4",
-        "type": "video",
-        "orientation": "landscape"
+      "assets": [
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/COP/_DSC9674.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/2024.05_PULSE_MakingOf.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9669.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9670.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9682.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9745.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9746.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9763.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9764.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
+      "devContentPath": "/assets/03.Project/24.MDW24-Material&Data/DEV",
+      "devAssets": [
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/2024.05_PULSE_MakingOf.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9669.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9670.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9682.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9745.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9746.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9763.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9764.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
+      "devText": {
+        "intro": "",
+        "description": "",
+        "conclusions": "",
+        "team": "",
+        "awards": ""
       },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9669.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9670.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9682.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9745.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9746.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9763.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9764.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      }
-    ],
-    "devContentPath": "/assets/03.Project/24.MDW24-Material&Data/DEV",
-    "devAssets": [
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/2024.05_PULSE_MakingOf.mp4",
-        "type": "video",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9669.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9670.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9682.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9745.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9746.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9763.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9764.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      }
-    ],
-    "devText": {
-      "intro": "",
-      "description": "",
-      "conclusions": "",
-      "team": "",
-      "awards": ""
+      "searchText": "24.mdw24-material&data 2024 "
     },
-    "searchText": "24.mdw24-material&data 2024 "
-  },
-  {
-    "slug": "23.MDW23-AIGen",
-    "title": "23 MDW23 AIGen",
-    "year": 2023,
-    "articleLink": "https://atiproject.com/news/ati-project-al-mdw-fuorisalone-2022-presenta-generative-circularity/",
-    "tags": [
-      "Generative Design",
-      "AI",
-      "Image",
-      "Video"
-    ],
-    "cover": {
-      "src": "/assets/03.Project/23.MDW23-AIGen/COP/00_GenAI_Video.mp4",
-      "type": "video",
-      "orientation": "landscape"
-    },
-    "assets": [
-      {
+    {
+      "slug": "23.MDW23-AIGen",
+      "title": "23 MDW23 AIGen",
+      "year": 2023,
+      "articleLink": "https://atiproject.com/news/ati-project-al-mdw-fuorisalone-2022-presenta-generative-circularity/",
+      "tags": [
+        "Generative Design",
+        "AI",
+        "Image",
+        "Video"
+      ],
+      "cover": {
         "src": "/assets/03.Project/23.MDW23-AIGen/COP/00_GenAI_Video.mp4",
         "type": "video",
         "orientation": "landscape"
       },
-      {
-        "src": "/assets/03.Project/23.MDW23-AIGen/DEV/01.ExternalBuilding.mp4",
-        "type": "video",
-        "orientation": "landscape"
+      "assets": [
+        {
+          "src": "/assets/03.Project/23.MDW23-AIGen/COP/00_GenAI_Video.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/23.MDW23-AIGen/DEV/01.ExternalBuilding.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/23.MDW23-AIGen/DEV/02.InteriorPatio.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/23.MDW23-AIGen/DEV/03.FacadeBuildinding.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        }
+      ],
+      "devContentPath": "/assets/03.Project/23.MDW23-AIGen/DEV",
+      "devAssets": [
+        {
+          "src": "/assets/03.Project/23.MDW23-AIGen/DEV/01.ExternalBuilding.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/23.MDW23-AIGen/DEV/02.InteriorPatio.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/23.MDW23-AIGen/DEV/03.FacadeBuildinding.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        }
+      ],
+      "devText": {
+        "intro": "",
+        "description": "",
+        "conclusions": "",
+        "team": "",
+        "awards": ""
       },
-      {
-        "src": "/assets/03.Project/23.MDW23-AIGen/DEV/02.InteriorPatio.mp4",
-        "type": "video",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/23.MDW23-AIGen/DEV/03.FacadeBuildinding.mp4",
-        "type": "video",
-        "orientation": "landscape"
-      }
-    ],
-    "devContentPath": "/assets/03.Project/23.MDW23-AIGen/DEV",
-    "devAssets": [
-      {
-        "src": "/assets/03.Project/23.MDW23-AIGen/DEV/01.ExternalBuilding.mp4",
-        "type": "video",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/23.MDW23-AIGen/DEV/02.InteriorPatio.mp4",
-        "type": "video",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/23.MDW23-AIGen/DEV/03.FacadeBuildinding.mp4",
-        "type": "video",
-        "orientation": "landscape"
-      }
-    ],
-    "devText": {
-      "intro": "",
-      "description": "",
-      "conclusions": "",
-      "team": "",
-      "awards": ""
+      "searchText": "23.mdw23-aigen 2023 "
     },
-    "searchText": "23.mdw23-aigen 2023 "
-  },
-  {
-    "slug": "23.MDW23-HumanMovements",
-    "title": "23 MDW23 HumanMovements",
-    "year": 2023,
-    "articleLink": "https://atiproject.com/news/fuorisalone2023/",
-    "tags": [
-      "Performance"
-    ],
-    "cover": {
-      "src": "/assets/03.Project/23.MDW23-HumanMovements/COP/00_HumanMovements_Video.mp4",
-      "type": "video",
-      "orientation": "landscape"
-    },
-    "assets": [
-      {
+    {
+      "slug": "23.MDW23-HumanMovements",
+      "title": "23 MDW23 HumanMovements",
+      "year": 2023,
+      "articleLink": "https://atiproject.com/news/fuorisalone2023/",
+      "tags": [
+        "Performance"
+      ],
+      "cover": {
         "src": "/assets/03.Project/23.MDW23-HumanMovements/COP/00_HumanMovements_Video.mp4",
         "type": "video",
         "orientation": "landscape"
       },
-      {
-        "src": "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1624.JPG",
-        "type": "image",
-        "orientation": "landscape"
+      "assets": [
+        {
+          "src": "/assets/03.Project/23.MDW23-HumanMovements/COP/00_HumanMovements_Video.mp4",
+          "type": "video",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1624.JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1630.JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1633.JPG",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
+      "devContentPath": "/assets/03.Project/23.MDW23-HumanMovements/DEV",
+      "devAssets": [
+        {
+          "src": "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1624.JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1630.JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1633.JPG",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
+      "devText": {
+        "intro": "",
+        "description": "",
+        "conclusions": "",
+        "team": "",
+        "awards": ""
       },
-      {
-        "src": "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1630.JPG",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1633.JPG",
-        "type": "image",
-        "orientation": "landscape"
-      }
-    ],
-    "devContentPath": "/assets/03.Project/23.MDW23-HumanMovements/DEV",
-    "devAssets": [
-      {
-        "src": "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1624.JPG",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1630.JPG",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1633.JPG",
-        "type": "image",
-        "orientation": "landscape"
-      }
-    ],
-    "devText": {
-      "intro": "",
-      "description": "",
-      "conclusions": "",
-      "team": "",
-      "awards": ""
+      "searchText": "23.mdw23-humanmovements 2023 "
     },
-    "searchText": "23.mdw23-humanmovements 2023 "
-  },
-  {
-    "slug": "22.Lubica22-Y",
-    "title": "22 Lubica22 Y",
-    "year": 2022,
-    "articleLink": "https://atiproject.com/news/generative-circularity-a-lucca-biennale-cartasia-2022/",
-    "tags": [
-      "Materic Design"
-    ],
-    "cover": {
-      "src": "/assets/03.Project/22.Lubica22-Y/COP/_DSC1056.jpg",
-      "type": "image",
-      "orientation": "landscape"
-    },
-    "assets": [
-      {
+    {
+      "slug": "22.Lubica22-Y",
+      "title": "22 Lubica22 Y",
+      "year": 2022,
+      "articleLink": "https://atiproject.com/news/generative-circularity-a-lucca-biennale-cartasia-2022/",
+      "tags": [
+        "Materic Design"
+      ],
+      "cover": {
         "src": "/assets/03.Project/22.Lubica22-Y/COP/_DSC1056.jpg",
         "type": "image",
         "orientation": "landscape"
       },
-      {
-        "src": "/assets/03.Project/22.Lubica22-Y/DEV/_DSC0995.jpg",
-        "type": "image",
-        "orientation": "landscape"
+      "assets": [
+        {
+          "src": "/assets/03.Project/22.Lubica22-Y/COP/_DSC1056.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/22.Lubica22-Y/DEV/_DSC0995.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/22.Lubica22-Y/DEV/_DSC1025.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/22.Lubica22-Y/DEV/_DSC1027.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
+      "devContentPath": "/assets/03.Project/22.Lubica22-Y/DEV",
+      "devAssets": [
+        {
+          "src": "/assets/03.Project/22.Lubica22-Y/DEV/_DSC0995.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/22.Lubica22-Y/DEV/_DSC1025.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/22.Lubica22-Y/DEV/_DSC1027.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
+      "devText": {
+        "intro": "",
+        "description": "",
+        "conclusions": "",
+        "team": "",
+        "awards": ""
       },
-      {
-        "src": "/assets/03.Project/22.Lubica22-Y/DEV/_DSC1025.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/22.Lubica22-Y/DEV/_DSC1027.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      }
-    ],
-    "devContentPath": "/assets/03.Project/22.Lubica22-Y/DEV",
-    "devAssets": [
-      {
-        "src": "/assets/03.Project/22.Lubica22-Y/DEV/_DSC0995.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/22.Lubica22-Y/DEV/_DSC1025.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/22.Lubica22-Y/DEV/_DSC1027.jpg",
-        "type": "image",
-        "orientation": "landscape"
-      }
-    ],
-    "devText": {
-      "intro": "",
-      "description": "",
-      "conclusions": "",
-      "team": "",
-      "awards": ""
+      "searchText": "22.lubica22-y 2022 "
     },
-    "searchText": "22.lubica22-y 2022 "
-  },
-  {
-    "slug": "22.MDW22-Y",
-    "title": "22 MDW22 Y",
-    "year": 2022,
-    "articleLink": "https://atiproject.com/news/generative-circularity-a-lucca-biennale-cartasia-2022/",
-    "tags": [
-      "Materic Design"
-    ],
-    "cover": {
-      "src": "/assets/03.Project/22.MDW22-Y/COP/Gabriele Giussani (4).jpg",
-      "type": "image",
-      "orientation": "landscape"
-    },
-    "assets": [
-      {
+    {
+      "slug": "22.MDW22-Y",
+      "title": "22 MDW22 Y",
+      "year": 2022,
+      "articleLink": "https://atiproject.com/news/generative-circularity-a-lucca-biennale-cartasia-2022/",
+      "tags": [
+        "Materic Design"
+      ],
+      "cover": {
         "src": "/assets/03.Project/22.MDW22-Y/COP/Gabriele Giussani (4).jpg",
         "type": "image",
         "orientation": "landscape"
       },
-      {
-        "src": "/assets/03.Project/22.MDW22-Y/DEV/01.PercorsoParole.png",
-        "type": "image",
-        "orientation": "landscape"
+      "assets": [
+        {
+          "src": "/assets/03.Project/22.MDW22-Y/COP/Gabriele Giussani (4).jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/22.MDW22-Y/DEV/01.PercorsoParole.png",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/22.MDW22-Y/DEV/02.PercorsoParole (2).png",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/22.MDW22-Y/DEV/03.Gabriele Giussani (16).jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/22.MDW22-Y/DEV/04.Gabriele Giussani (17).jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/22.MDW22-Y/DEV/BSA_9854.JPG",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
+      "devContentPath": "/assets/03.Project/22.MDW22-Y/DEV",
+      "devAssets": [
+        {
+          "src": "/assets/03.Project/22.MDW22-Y/DEV/01.PercorsoParole.png",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/22.MDW22-Y/DEV/02.PercorsoParole (2).png",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/22.MDW22-Y/DEV/03.Gabriele Giussani (16).jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/22.MDW22-Y/DEV/04.Gabriele Giussani (17).jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/22.MDW22-Y/DEV/BSA_9854.JPG",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
+      "devText": {
+        "intro": "",
+        "description": "",
+        "conclusions": "",
+        "team": "",
+        "awards": ""
       },
-      {
-        "src": "/assets/03.Project/22.MDW22-Y/DEV/02.PercorsoParole (2).png",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/22.MDW22-Y/DEV/03.Gabriele Giussani (16).jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/22.MDW22-Y/DEV/04.Gabriele Giussani (17).jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/22.MDW22-Y/DEV/BSA_9854.JPG",
-        "type": "image",
-        "orientation": "landscape"
-      }
-    ],
-    "devContentPath": "/assets/03.Project/22.MDW22-Y/DEV",
-    "devAssets": [
-      {
-        "src": "/assets/03.Project/22.MDW22-Y/DEV/01.PercorsoParole.png",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/22.MDW22-Y/DEV/02.PercorsoParole (2).png",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/22.MDW22-Y/DEV/03.Gabriele Giussani (16).jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/22.MDW22-Y/DEV/04.Gabriele Giussani (17).jpg",
-        "type": "image",
-        "orientation": "landscape"
-      },
-      {
-        "src": "/assets/03.Project/22.MDW22-Y/DEV/BSA_9854.JPG",
-        "type": "image",
-        "orientation": "landscape"
-      }
-    ],
-    "devText": {
-      "intro": "",
-      "description": "",
-      "conclusions": "",
-      "team": "",
-      "awards": ""
-    },
-    "searchText": "22.mdw22-y 2022 "
-  }
-]
+      "searchText": "22.mdw22-y 2022 "
+    }
+  ],
+  "collageImages": [
+    "/assets/03.Project/22.Lubica22-Y/COP/_DSC1056.jpg",
+    "/assets/03.Project/22.Lubica22-Y/DEV/_DSC0995.jpg",
+    "/assets/03.Project/22.Lubica22-Y/DEV/_DSC1025.jpg",
+    "/assets/03.Project/22.Lubica22-Y/DEV/_DSC1027.jpg",
+    "/assets/03.Project/22.MDW22-Y/COP/Gabriele Giussani (4).jpg",
+    "/assets/03.Project/22.MDW22-Y/DEV/01.PercorsoParole.png",
+    "/assets/03.Project/22.MDW22-Y/DEV/02.PercorsoParole (2).png",
+    "/assets/03.Project/22.MDW22-Y/DEV/03.Gabriele Giussani (16).jpg",
+    "/assets/03.Project/22.MDW22-Y/DEV/04.Gabriele Giussani (17).jpg",
+    "/assets/03.Project/22.MDW22-Y/DEV/BSA_9854.JPG",
+    "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1624.JPG",
+    "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1630.JPG",
+    "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1633.JPG",
+    "/assets/03.Project/24.Lubica24-CardboardPavillion/COP/Francesco Pecini, Deborah Stefani  ©Lubica24 (10).jpg",
+    "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (1).JPG",
+    "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (2).JPG",
+    "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (52).jpg",
+    "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/Francesco Pecini, Deborah Stefani  ©Lubica24 (5).jpg",
+    "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/IMG_2760.jpg",
+    "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/IMG_6096.JPG",
+    "/assets/03.Project/24.MDW24-Material&Data/COP/_DSC9674.jpg",
+    "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9669.jpg",
+    "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9670.jpg",
+    "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9682.jpg",
+    "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9745.jpg",
+    "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9746.jpg",
+    "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9763.jpg",
+    "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9764.jpg",
+    "/assets/03.Project/25.MDW25-MiraConceptAI/All_ATI Project.jpg",
+    "/assets/03.Project/25.MDW25-MiraConceptAI/COP/IMG_0598.jpg",
+    "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/01.jpg",
+    "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/02.JPG",
+    "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/04.JPG",
+    "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/05.jpg"
+  ],
+  "projectMenuImage": "/assets/03.Project/Immagine menu home.jpg"
+}

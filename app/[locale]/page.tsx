@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { HomeHero } from "@/components/hero/HomeHero";
 import FlowingMenu from "@/components/navigation/FlowingMenu";
 import { dictionaries, isLocale } from "@/lib/i18n";
-import { getHomeHeroAsset, getHomeMenuImageFromFolder, getHomeProjectCollageImages } from "@/lib/site-assets";
+import { getHomeHeroAsset, getHomeMenuImageFromFolder } from "@/lib/site-assets";
+import { getHomeProjectCollageImages, getProjectMenuImage } from "@/lib/projects-assets";
 
 export default async function LocaleEntryPage({
   params
@@ -18,7 +19,7 @@ export default async function LocaleEntryPage({
   const t = dictionaries[locale];
   const hero = await getHomeHeroAsset();
   const collageImages = await getHomeProjectCollageImages();
-  const projectMenuImage = await getHomeMenuImageFromFolder("03.Project");
+  const projectMenuImage = await getProjectMenuImage();
   const eventsMenuImage = await getHomeMenuImageFromFolder("04.Events");
 
   return (

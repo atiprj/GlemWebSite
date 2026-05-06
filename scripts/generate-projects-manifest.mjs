@@ -115,18 +115,29 @@ async function readSpreadsheetMeta() {
   }
 }
 
+/** Find "Immagine menu home" image in a folder (root files only, no recursion). */
+async function findMenuHomeImage(folderPath) {
+  const entries = await readdir(folderPath, { withFileTypes: true }).catch(() => []);
+  const found = entries.find(
+    (e) => !e.isDirectory() && /^immagine\s*menu\s*home\.(jpe?g|png|webp)$/i.test(e.name.trim())
+  );
+  if (!found) return null;
+  return toWebPath(path.join(folderPath, found.name));
+}
+
 async function main() {
   const exists = await access(ASSETS_ROOT).then(() => true).catch(() => false);
   if (!exists) {
     console.warn(`[manifest] ${ASSETS_ROOT} not found, writing empty manifest.`);
     await mkdir(OUT_DIR, { recursive: true });
-    await writeFile(OUT_FILE, JSON.stringify([], null, 2), "utf8");
+    await writeFile(OUT_FILE, JSON.stringify({ projects: [], collageImages: [], projectMenuImage: null }, null, 2), "utf8");
     return;
   }
 
   const spreadsheetMeta = await readSpreadsheetMeta();
   const projectDirs = await readdir(ASSETS_ROOT, { withFileTypes: true }).catch(() => []);
   const projects = [];
+  const allProjectImagePaths = [];
 
   for (const entry of projectDirs) {
     if (!entry.isDirectory()) continue;
@@ -142,6 +153,11 @@ async function main() {
         return { src, type, orientation: "landscape" };
       })
       .filter(Boolean);
+
+    // Collect all image paths for home collage (even from projects with few assets)
+    assets
+      .filter((a) => a.type === "image")
+      .forEach((a) => allProjectImagePaths.push(a.src));
 
     if (assets.length === 0) continue;
 
@@ -184,9 +200,18 @@ async function main() {
 
   projects.sort((a, b) => b.year - a.year || a.title.localeCompare(b.title));
 
+  // Find "Immagine menu home" in the 03.Project root
+  const projectMenuImage = await findMenuHomeImage(ASSETS_ROOT);
+
+  const output = {
+    projects,
+    collageImages: allProjectImagePaths,
+    projectMenuImage,
+  };
+
   await mkdir(OUT_DIR, { recursive: true });
-  await writeFile(OUT_FILE, JSON.stringify(projects, null, 2), "utf8");
-  console.log(`[manifest] wrote ${projects.length} projects → ${OUT_FILE}`);
+  await writeFile(OUT_FILE, JSON.stringify(output, null, 2), "utf8");
+  console.log(`[manifest] wrote ${projects.length} projects, ${allProjectImagePaths.length} collage images → ${OUT_FILE}`);
 }
 
 main().catch((e) => {

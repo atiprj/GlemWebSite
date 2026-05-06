@@ -1,11 +1,12 @@
 import { HomeHero } from "@/components/hero/HomeHero";
 import FlowingMenu from "@/components/navigation/FlowingMenu";
-import { getHomeHeroAsset, getHomeMenuImageFromFolder, getHomeProjectCollageImages } from "@/lib/site-assets";
+import { getHomeHeroAsset, getHomeMenuImageFromFolder } from "@/lib/site-assets";
+import { getHomeProjectCollageImages, getProjectMenuImage } from "@/lib/projects-assets";
 
 export default async function EntryPage() {
   const hero = await getHomeHeroAsset();
   const collageImages = await getHomeProjectCollageImages();
-  const projectMenuImage = await getHomeMenuImageFromFolder("03.Project");
+  const projectMenuImage = await getProjectMenuImage();
   const eventsMenuImage = await getHomeMenuImageFromFolder("04.Events");
 
   return (
