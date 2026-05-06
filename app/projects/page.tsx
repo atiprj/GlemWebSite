@@ -1,4 +1,4 @@
-import { getProjects } from "@/lib/site-assets";
+import { getProjects } from "@/lib/projects-assets";
 import { ProjectsClient } from "./ProjectsClient";
 
 export const dynamic = "force-dynamic";

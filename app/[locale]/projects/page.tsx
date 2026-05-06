@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import { ProjectsClient } from "@/app/projects/ProjectsClient";
 import { isLocale } from "@/lib/i18n";
-import { getProjects } from "@/lib/site-assets";
+import { getProjects } from "@/lib/projects-assets";
 
 export const dynamic = "force-dynamic";
 

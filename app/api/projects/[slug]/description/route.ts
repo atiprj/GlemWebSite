@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { getProjects } from "@/lib/site-assets";
+import { getProjects } from "@/lib/projects-assets";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;

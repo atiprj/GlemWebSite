@@ -4,6 +4,7 @@
   "description": "Glem website powered by Next.js",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/generate-projects-manifest.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint ."
