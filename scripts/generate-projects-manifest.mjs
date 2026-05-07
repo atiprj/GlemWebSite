@@ -6,7 +6,7 @@
  * Run automatically via "prebuild" in package.json before next build.
  */
 
-import { readdir, readFile, access, writeFile, mkdir } from "node:fs/promises";
+import { readdir, readFile, access, writeFile, mkdir, stat as stat_fn } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -137,6 +137,7 @@ async function main() {
   const spreadsheetMeta = await readSpreadsheetMeta();
   const projectDirs = await readdir(ASSETS_ROOT, { withFileTypes: true }).catch(() => []);
   const projects = [];
+  /** @type {{ src: string; size: number; project: string }[]} */
   const allProjectImagePaths = [];
 
   for (const entry of projectDirs) {
@@ -154,10 +155,19 @@ async function main() {
       })
       .filter(Boolean);
 
-    // Collect all image paths for home collage (even from projects with few assets)
-    assets
-      .filter((a) => a.type === "image")
-      .forEach((a) => allProjectImagePaths.push(a.src));
+    // Collect DEV images with file sizes for collage selection
+    const devImageFiles = allFiles.filter((f) => {
+      if (!f.includes(`${path.sep}DEV${path.sep}`)) return false;
+      const type = detectType(f);
+      return type === "image";
+    });
+    for (const f of devImageFiles) {
+      try {
+        const stat = await stat_fn(f);
+        const src = toWebPath(f);
+        if (src) allProjectImagePaths.push({ src, size: stat.size, project: slug });
+      } catch { /* skip unreadable */ }
+    }
 
     if (assets.length === 0) continue;
 
@@ -203,15 +213,48 @@ async function main() {
   // Find "Immagine menu home" in the 03.Project root
   const projectMenuImage = await findMenuHomeImage(ASSETS_ROOT);
 
+  // Build collage: pick lightest DEV images, max 3 per project, skip files > 10 MB
+  // Then interleave across projects so the collage mixes all projects
+  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+  const MAX_PER_PROJECT = 3;
+
+  const byProject = new Map();
+  for (const img of allProjectImagePaths) {
+    if (img.size > MAX_FILE_SIZE) continue;
+    if (!byProject.has(img.project)) byProject.set(img.project, []);
+    byProject.get(img.project).push(img);
+  }
+
+  // Sort each project's images by size (lightest first) and keep top MAX_PER_PROJECT
+  const projectBuckets = [];
+  for (const [, imgs] of byProject) {
+    imgs.sort((a, b) => a.size - b.size);
+    projectBuckets.push(imgs.slice(0, MAX_PER_PROJECT));
+  }
+
+  // Interleave: take one image from each project in turn (round-robin)
+  const collageImages = [];
+  const maxRounds = MAX_PER_PROJECT;
+  for (let round = 0; round < maxRounds; round++) {
+    for (const bucket of projectBuckets) {
+      if (bucket[round]) collageImages.push(bucket[round].src);
+    }
+  }
+
   const output = {
     projects,
-    collageImages: allProjectImagePaths,
+    collageImages,
     projectMenuImage,
   };
 
   await mkdir(OUT_DIR, { recursive: true });
   await writeFile(OUT_FILE, JSON.stringify(output, null, 2), "utf8");
-  console.log(`[manifest] wrote ${projects.length} projects, ${allProjectImagePaths.length} collage images → ${OUT_FILE}`);
+
+  const totalKB = Math.round(
+    allProjectImagePaths.filter(i => i.size <= MAX_FILE_SIZE && collageImages.includes(i.src))
+      .reduce((s, i) => s + i.size, 0) / 1024
+  );
+  console.log(`[manifest] wrote ${projects.length} projects, ${collageImages.length} collage images (~${totalKB} KB on disk) → ${OUT_FILE}`);
 }
 
 main().catch((e) => {
