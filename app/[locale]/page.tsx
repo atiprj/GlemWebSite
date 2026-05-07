@@ -18,33 +18,31 @@ export default async function LocaleEntryPage({
 
   const t = dictionaries[locale];
   const hero = await getHomeHeroAsset();
-  const collageImages = await getHomeProjectCollageImages();
+  const collageImages = await getHomeProjectCollageImages(12);
   const projectMenuImage = await getProjectMenuImage();
   const eventsMenuImage = await getHomeMenuImageFromFolder("04.Events");
 
+  const menuImages = [
+    projectMenuImage ?? "/assets/03.Project/25.MDW25-MiraConceptAI/All_ATI Project.jpg",
+    eventsMenuImage ?? "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/02.JPG",
+    "/assets/05.Contacts/Immagine menu home.svg"
+  ];
+
   return (
     <div className="w-full">
+      {/* Preload FlowingMenu hover images so they're ready on first interaction */}
+      {menuImages.filter(src => !src.endsWith(".svg")).map(src => (
+        <link key={src} rel="preload" as="image" href={src} />
+      ))}
       <HomeHero heroSrc={hero?.src ?? null} collageImages={collageImages} />
 
       <section className="w-full pb-20">
         <div className="h-[clamp(360px,45vh,620px)] w-full overflow-hidden border border-neutral-300 bg-[#f6f6f2]">
           <FlowingMenu
             items={[
-              {
-                link: `/${locale}/projects`,
-                text: t.projects,
-                image: projectMenuImage ?? "/assets/03.Project/25.MDW25-MiraConceptAI/All_ATI Project.jpg"
-              },
-              {
-                link: `/${locale}/events`,
-                text: t.events,
-                image: eventsMenuImage ?? "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/02.JPG"
-              },
-              {
-                link: `/${locale}/contacts`,
-                text: t.contacts,
-                image: "/assets/05.Contacts/Immagine menu home.svg"
-              }
+              { link: `/${locale}/projects`, text: t.projects, image: menuImages[0] },
+              { link: `/${locale}/events`,   text: t.events,   image: menuImages[1] },
+              { link: `/${locale}/contacts`, text: t.contacts, image: menuImages[2] }
             ]}
             speed={14}
             textColor="#111111"

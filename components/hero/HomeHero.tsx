@@ -18,7 +18,7 @@ function getResponsiveColumnCount(width: number) {
 
 export function HomeHero({ heroSrc, collageImages = [] }: HomeHeroProps) {
   const [columnCount, setColumnCount] = useState(4);
-  const maxImagesPerColumn = 6;
+  const maxImagesPerColumn = 4;
 
   useEffect(() => {
     const syncColumnsWithViewport = () => {
@@ -60,8 +60,9 @@ export function HomeHero({ heroSrc, collageImages = [] }: HomeHeroProps) {
                         src={src}
                         alt={`Project collage image ${index + 1}`}
                         fill
-                        priority={columnIndex === 0 && index < 2}
-                        quality={55}
+                        priority={columnIndex < 2 && index < 2}
+                        loading={columnIndex < 2 && index < 2 ? undefined : "lazy"}
+                        quality={50}
                         className="object-cover grayscale"
                         sizes="(max-width: 640px) 50vw, (max-width: 960px) 33vw, (max-width: 1280px) 25vw, (max-width: 1680px) 20vw, 16vw"
                       />

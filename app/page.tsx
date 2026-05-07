@@ -5,7 +5,7 @@ import { getHomeProjectCollageImages, getProjectMenuImage } from "@/lib/projects
 
 export default async function EntryPage() {
   const hero = await getHomeHeroAsset();
-  const collageImages = await getHomeProjectCollageImages();
+  const collageImages = await getHomeProjectCollageImages(12);
   const projectMenuImage = await getProjectMenuImage();
   const eventsMenuImage = await getHomeMenuImageFromFolder("04.Events");
 
