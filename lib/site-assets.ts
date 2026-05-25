@@ -33,6 +33,8 @@ export interface Project {
   articleLink: string;
   tags: string[];
   cover: MediaAsset | null;
+  /** Image files from the project `COP` folder only */
+  copImages: MediaAsset[];
   assets: MediaAsset[];
   devContentPath: string;
   devAssets: MediaAsset[];

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 
+import { ProjectCoverParallax } from "@/components/projects/ProjectCoverParallax";
 import type { Project } from "@/lib/site-assets";
 
 interface ProjectsStackingProps {
@@ -15,10 +16,12 @@ interface ProjectsStackingProps {
 function ProjectStackCard({
   project,
   index,
+  total,
   locale = "en"
 }: {
   project: Project;
   index: number;
+  total: number;
   locale?: "it" | "en";
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -27,42 +30,46 @@ function ProjectStackCard({
     offset: ["start end", "end start"]
   });
 
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1, 0.96]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.85, 1], [1, 1, 1, 0.25]);
-  const x = useTransform(scrollYProgress, [0, 1], [index * 18, index * 6]);
+  const scale = useTransform(scrollYProgress, [0, 0.72, 1], [1, 1, 0.9]);
+  const filter = useTransform(scrollYProgress, [0, 0.72, 1], ["brightness(1)", "brightness(1)", "brightness(0.72)"]);
 
   const isItalian = locale === "it";
   const localizedProjectsPath = locale === "it" || locale === "en" ? `/${locale}/projects` : "/projects";
 
   return (
-    <div ref={ref} className="relative h-screen">
+    <motion.div ref={ref} style={{ zIndex: index + 1 }} className="relative h-[115vh]">
       <motion.article
-        style={{ opacity, x }}
-        className="sticky top-0 h-screen overflow-hidden border-b border-white/15 bg-black"
+        style={{ scale, filter }}
+        className="sticky top-0 h-screen overflow-hidden bg-black shadow-[0_-28px_60px_rgba(0,0,0,0.45)]"
       >
-        {project.cover?.type === "image" ? (
-          <motion.div style={{ scale }} className="h-full w-full">
+        <ProjectCoverParallax
+          containerRef={ref}
+          scrollYProgress={scrollYProgress}
+          className="h-full w-full"
+          range={28}
+        >
+          {project.cover?.type === "image" ? (
             <Image
               src={project.cover.src}
               alt={project.title}
               fill
               className="object-cover"
               sizes="100vw"
+              priority={index < 2}
             />
-          </motion.div>
-        ) : project.cover?.type === "video" ? (
-          <motion.video
-            style={{ scale }}
-            src={project.cover.src}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <motion.div style={{ scale }} className="h-full w-full bg-neutral-800" />
-        )}
+          ) : project.cover?.type === "video" ? (
+            <video
+              src={project.cover.src}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <div className="h-full w-full bg-neutral-800" />
+          )}
+        </ProjectCoverParallax>
         <Link
           href={`${localizedProjectsPath}/${project.slug}`}
           aria-label={`${isItalian ? "Apri pagina di" : "Open"} ${project.title}`}
@@ -70,17 +77,22 @@ function ProjectStackCard({
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
         <div className="pointer-events-none absolute bottom-12 left-8 z-10 md:left-12">
+          <p className="mb-2 text-xs tracking-[0.25em] text-white/80">
+            {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          </p>
           <p className="mb-2 text-xs tracking-[0.25em] text-white/80">{project.year || (isItalian ? "N/D" : "N/A")}</p>
           <h2 className="text-balance text-3xl font-semibold text-white drop-shadow-md md:text-5xl">{project.title}</h2>
         </div>
       </motion.article>
-    </div>
+    </motion.div>
   );
 }
 
 export function ProjectsStacking({ projects, locale = "en" }: ProjectsStackingProps) {
   const isItalian = locale === "it";
-  if (projects.length === 0) {
+  const stackProjects = projects.filter((project) => project.cover);
+
+  if (stackProjects.length === 0) {
     return (
       <section className="mx-auto max-w-6xl px-6 py-14 text-neutral-700 md:px-10">
         {isItalian
@@ -90,13 +102,18 @@ export function ProjectsStacking({ projects, locale = "en" }: ProjectsStackingPr
     );
   }
 
-  const featured = projects.slice(0, Math.min(4, projects.length));
-
   return (
-    <section className="bg-black">
-      {featured.map((project, index) => (
-        <ProjectStackCard key={project.slug} project={project} index={index} locale={locale} />
+    <section className="relative bg-black">
+      {stackProjects.map((project, index) => (
+        <ProjectStackCard
+          key={project.slug}
+          project={project}
+          index={index}
+          total={stackProjects.length}
+          locale={locale}
+        />
       ))}
+      <div aria-hidden className="h-[18vh]" />
     </section>
   );
 }

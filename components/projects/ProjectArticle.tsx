@@ -5,10 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import InfinitePhotoStrip from "@/components/ui/InfinitePhotoStrip";
 import BlurText from "@/components/ui/BlurText";
 import SplitText from "@/components/ui/SplitText";
+import { isLocale } from "@/lib/i18n";
 import type { MediaAsset, Project } from "@/lib/site-assets";
 import type { Photo } from "@/types/carousel";
 
@@ -111,6 +113,7 @@ function leadTextForSplitAnimation(text: string, viewportWidth: number) {
 }
 
 export function ProjectArticle({ project }: ProjectArticleProps) {
+  const pathname = usePathname();
   const [viewportWidth, setViewportWidth] = useState(1440);
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
   const [liveDescription, setLiveDescription] = useState(project.devText.description.trim());
@@ -181,6 +184,8 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
     .filter((asset) => asset.type === "video")
     .sort((a, b) => a.src.localeCompare(b.src, undefined, { numeric: true }));
   const mainVideo = videos[0];
+  const firstSegment = pathname?.split("/").filter(Boolean)[0] ?? "";
+  const homeHref = isLocale(firstSegment) ? `/${firstSegment}` : "/";
 
   return (
     <div className="bg-[#f6f6f2] text-neutral-900 antialiased min-h-screen">
@@ -188,13 +193,13 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
       {/* back link */}
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pt-8">
         <Link
-          href="/projects"
+          href={homeHref}
           className="inline-flex items-center gap-2 text-[11px] tracking-[0.2em] text-neutral-400 hover:text-neutral-900 transition-colors"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          PROJECTS
+          HOME
         </Link>
       </div>
 

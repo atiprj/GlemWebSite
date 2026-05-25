@@ -105,7 +105,7 @@ export default function StaggeredMenu({
         type="button"
         aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
         onClick={() => setIsOpen((prev) => !prev)}
-        className="rounded-md p-2 transition hover:bg-black/10"
+        className="rounded-md border border-black/15 bg-[#f6f6f2]/90 p-2 shadow-sm transition hover:bg-black/10"
         style={{ color: buttonColor }}
       >
         <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none">
@@ -127,7 +127,7 @@ export default function StaggeredMenu({
             <motion.button
               type="button"
               aria-label="Close navigation backdrop"
-              className="fixed inset-0 z-40 bg-black/40"
+              className="fixed inset-0 z-[60] bg-black/40"
               onClick={() => setIsOpen(false)}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -137,7 +137,7 @@ export default function StaggeredMenu({
 
             <motion.aside
               ref={menuPanelRef}
-              className={`fixed top-0 z-50 h-screen w-[320px] border-white/15 p-6 text-white backdrop-blur-md ${sideClasses}`}
+              className={`fixed top-0 z-[70] h-screen w-[320px] border-white/15 p-6 text-white backdrop-blur-md ${sideClasses}`}
               initial={{ x: position === "left" ? -340 : 340, opacity: 0.94 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: position === "left" ? -340 : 340, opacity: 0.94 }}

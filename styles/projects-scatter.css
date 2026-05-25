@@ -1,0 +1,41 @@
+.scatter-tile {
+  grid-column: 1 / -1;
+  width: 100%;
+  min-width: 0;
+}
+
+.scatter-tile__frame {
+  position: relative;
+  width: 100%;
+  max-width: var(--scatter-max-w, 100%);
+  aspect-ratio: var(--scatter-aspect-mobile, 5/4);
+  min-height: 220px;
+}
+
+@media (min-width: 768px) {
+  .scatter-tile {
+    grid-column: var(--scatter-col);
+    grid-row: span var(--scatter-rows);
+    width: 100%;
+    margin-top: var(--scatter-mt, 0);
+    margin-bottom: var(--scatter-mb, 0);
+  }
+
+  .scatter-tile__frame {
+    aspect-ratio: var(--scatter-aspect, 4/3);
+    min-height: 180px;
+  }
+
+  .scatter-tile[data-align="end"] .scatter-tile__frame {
+    margin-left: auto;
+  }
+
+  .scatter-tile[data-align="start"] .scatter-tile__frame {
+    margin-right: auto;
+  }
+
+  .scatter-tile[data-align="center"] .scatter-tile__frame {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

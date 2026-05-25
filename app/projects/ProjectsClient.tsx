@@ -1,7 +1,7 @@
 "use client";
 
-import { ProjectControls } from "@/components/projects/ProjectControls";
-import { ProjectsStacking } from "@/components/projects/ProjectsStacking";
+import { ProjectsOverview } from "@/components/projects/ProjectsOverview";
+import { LenisProvider } from "@/components/smooth-scroll/LenisProvider";
 import type { Project } from "@/lib/site-assets";
 
 interface ProjectsClientProps {
@@ -11,9 +11,8 @@ interface ProjectsClientProps {
 
 export function ProjectsClient({ projects, locale = "en" }: ProjectsClientProps) {
   return (
-    <div className="w-full">
-      <ProjectsStacking projects={projects} locale={locale} />
-      <ProjectControls projects={projects} locale={locale} />
-    </div>
+    <LenisProvider>
+      <ProjectsOverview projects={projects} locale={locale} />
+    </LenisProvider>
   );
 }

@@ -78,7 +78,7 @@ export function AppShell({ children }: AppShellProps) {
 
   return (
     <div className="min-h-screen bg-[#f6f6f2] text-neutral-900">
-      <header className="fixed left-0 top-0 z-20 flex w-full items-center justify-between bg-white/90 px-6 py-4 backdrop-blur-md md:px-10">
+      <header className="fixed left-0 top-0 z-50 flex w-full items-center justify-between bg-[#f6f6f2]/95 px-6 py-4 backdrop-blur-md md:px-10">
         <Link href={withLocale("/")} className="text-lg font-bold tracking-[0.22em] text-black" data-intro-logo>
           GLEM
         </Link>

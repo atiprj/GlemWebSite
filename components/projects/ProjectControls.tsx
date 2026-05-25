@@ -3,13 +3,76 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
+import { ProjectCoverParallax } from "@/components/projects/ProjectCoverParallax";
 import type { Project } from "@/lib/site-assets";
 
 interface ProjectControlsProps {
   projects: Project[];
   locale?: "it" | "en";
+}
+
+function ProjectGridCard({
+  project,
+  ui,
+  localizedProjectsPath
+}: {
+  project: Project;
+  ui: {
+    openProjectLabel: string;
+    notAvailable: string;
+  };
+  localizedProjectsPath: string;
+}) {
+  const cardRef = useRef<HTMLElement | null>(null);
+
+  return (
+    <motion.article
+      ref={cardRef}
+      layout
+      initial={{ opacity: 1, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 12 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+      className="group relative overflow-hidden rounded-sm border border-black/10 bg-neutral-200 shadow-sm"
+    >
+      <Link
+        href={`${localizedProjectsPath}/${project.slug}`}
+        aria-label={`${ui.openProjectLabel} ${project.title}`}
+        className="absolute inset-0 z-20"
+      />
+      <div className="relative aspect-[6/10]">
+        <ProjectCoverParallax
+          containerRef={cardRef}
+          range={18}
+          offset={["start 0.92", "end 0.12"]}
+          className="absolute inset-0"
+        >
+          {project.cover?.type === "image" ? (
+            <Image
+              src={project.cover.src}
+              alt={project.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            />
+          ) : project.cover?.type === "video" ? (
+            <video src={project.cover.src} muted loop playsInline autoPlay className="h-full w-full object-cover" />
+          ) : (
+            <div className="h-full w-full bg-neutral-300" />
+          )}
+        </ProjectCoverParallax>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
+        <div className="pointer-events-none absolute bottom-4 left-4 right-4 z-10">
+          <p className="mb-1 text-[10px] tracking-[0.2em] text-white/85">
+            {project.year > 0 ? project.year : ui.notAvailable}
+          </p>
+          <h3 className="text-sm font-medium text-white drop-shadow-sm md:text-base">{project.title}</h3>
+        </div>
+      </div>
+    </motion.article>
+  );
 }
 
 export function ProjectControls({ projects, locale = "en" }: ProjectControlsProps) {
@@ -77,7 +140,7 @@ export function ProjectControls({ projects, locale = "en" }: ProjectControlsProp
               onChange={(event) => setSearchQuery(event.target.value)}
               type="text"
               placeholder={ui.searchPlaceholder}
-              className="w-full bg-transparent border-b border-black/20 pb-2 text-sm text-black outline-none transition placeholder:text-black/40 focus:border-black"
+              className="w-full border-b border-black/20 bg-transparent pb-2 text-sm text-black outline-none transition placeholder:text-black/40 focus:border-black"
             />
           </div>
         </div>
@@ -85,44 +148,17 @@ export function ProjectControls({ projects, locale = "en" }: ProjectControlsProp
 
       <div className="mx-auto w-full max-w-6xl px-6 py-10 md:px-10">
         <h2 className="mb-8 text-2xl font-semibold tracking-tight text-black md:text-3xl">{ui.projectIndex}</h2>
-        {filteredProjects.length === 0 ? (
-          <p className="text-sm text-black/65">{ui.noResults}</p>
-        ) : null}
+        {filteredProjects.length === 0 ? <p className="text-sm text-black/65">{ui.noResults}</p> : null}
 
         <motion.div layout className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
-              <motion.article
+              <ProjectGridCard
                 key={project.slug}
-                layout
-                initial={{ opacity: 1, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 12 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
-                className="group relative overflow-hidden rounded-sm border border-black/10 bg-neutral-200 shadow-sm"
-              >
-                <Link
-                  href={`${localizedProjectsPath}/${project.slug}`}
-                  aria-label={`${ui.openProjectLabel} ${project.title}`}
-                  className="absolute inset-0 z-20"
-                />
-                <div className="relative aspect-[6/10]">
-                  {project.cover?.type === "image" ? (
-                    <Image src={project.cover.src} alt={project.title} fill className="object-cover transition duration-500 group-hover:scale-[1.03]" />
-                  ) : project.cover?.type === "video" ? (
-                    <video src={project.cover.src} muted loop playsInline autoPlay className="h-full w-full object-cover" />
-                  ) : (
-                    <div className="h-full w-full bg-neutral-300" />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
-                  <div className="pointer-events-none absolute bottom-4 left-4 right-4">
-                    <p className="mb-1 text-[10px] tracking-[0.2em] text-white/85">
-                      {project.year > 0 ? project.year : ui.notAvailable}
-                    </p>
-                    <h3 className="text-sm font-medium text-white drop-shadow-sm md:text-base">{project.title}</h3>
-                  </div>
-                </div>
-              </motion.article>
+                project={project}
+                ui={ui}
+                localizedProjectsPath={localizedProjectsPath}
+              />
             ))}
           </AnimatePresence>
         </motion.div>

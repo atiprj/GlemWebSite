@@ -47,7 +47,7 @@ export default async function LocaleEntryPage({
             speed={14}
             textColor="#111111"
             bgColor="#f6f6f2"
-            marqueeBgColor="#ffffff"
+            marqueeBgColor="#f6f6f2"
             marqueeTextColor="#111111"
             borderColor="#d2cec6"
           />

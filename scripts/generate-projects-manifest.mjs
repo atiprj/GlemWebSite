@@ -54,11 +54,8 @@ function parseYearFromSlug(slug) {
   return 2000 + Number(match[1]);
 }
 
-function pickCopCover(assets) {
-  const copAssets = assets.filter((a) => a.src.includes("/COP/"));
-  const fromCop = copAssets.find((a) => a.type === "image") ?? copAssets[0];
-  if (fromCop) return fromCop;
-  return assets.find((a) => a.type === "image") ?? assets[0] ?? null;
+function getCopImages(assets) {
+  return assets.filter((a) => a.src.includes("/COP/") && a.type === "image");
 }
 
 function parseDevTextSections(content) {
@@ -190,7 +187,8 @@ async function main() {
     const meta = spreadsheetMeta.get(normalizedSlug) ?? { articleLink: "", tags: [] };
 
     const year = parseYearFromSlug(slug) ?? 0;
-    const cover = pickCopCover(assets);
+    const copImages = getCopImages(assets);
+    const cover = copImages[0] ?? null;
     const devAssets = assets.filter((a) => a.src.includes("/DEV/"));
 
     projects.push({
@@ -200,6 +198,7 @@ async function main() {
       articleLink: meta.articleLink ?? "",
       tags: meta.tags ?? [],
       cover,
+      copImages,
       assets,
       devContentPath: `/assets/03.Project/${slug}/DEV`,
       devAssets,

@@ -16,6 +16,13 @@
         "type": "image",
         "orientation": "landscape"
       },
+      "copImages": [
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraConceptAI/COP/IMG_0598.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
       "assets": [
         {
           "src": "/assets/03.Project/25.MDW25-MiraConceptAI/All_ATI Project.jpg",
@@ -108,6 +115,13 @@
         "type": "image",
         "orientation": "landscape"
       },
+      "copImages": [
+        {
+          "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/COP/Francesco Pecini, Deborah Stefani  ©Lubica24 (10).jpg",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
       "assets": [
         {
           "src": "/assets/03.Project/24.Lubica24-CardboardPavillion/COP/Francesco Pecini, Deborah Stefani  ©Lubica24 (10).jpg",
@@ -221,6 +235,13 @@
         "type": "image",
         "orientation": "landscape"
       },
+      "copImages": [
+        {
+          "src": "/assets/03.Project/24.MDW24-Material&Data/COP/_DSC9674.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
       "assets": [
         {
           "src": "/assets/03.Project/24.MDW24-Material&Data/COP/_DSC9674.jpg",
@@ -331,11 +352,8 @@
         "Image",
         "Video"
       ],
-      "cover": {
-        "src": "/assets/03.Project/23.MDW23-AIGen/COP/00_GenAI_Video.mp4",
-        "type": "video",
-        "orientation": "landscape"
-      },
+      "cover": null,
+      "copImages": [],
       "assets": [
         {
           "src": "/assets/03.Project/23.MDW23-AIGen/COP/00_GenAI_Video.mp4",
@@ -393,11 +411,8 @@
       "tags": [
         "Performance"
       ],
-      "cover": {
-        "src": "/assets/03.Project/23.MDW23-HumanMovements/COP/00_HumanMovements_Video.mp4",
-        "type": "video",
-        "orientation": "landscape"
-      },
+      "cover": null,
+      "copImages": [],
       "assets": [
         {
           "src": "/assets/03.Project/23.MDW23-HumanMovements/COP/00_HumanMovements_Video.mp4",
@@ -460,6 +475,13 @@
         "type": "image",
         "orientation": "landscape"
       },
+      "copImages": [
+        {
+          "src": "/assets/03.Project/22.Lubica22-Y/COP/_DSC1056.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
       "assets": [
         {
           "src": "/assets/03.Project/22.Lubica22-Y/COP/_DSC1056.jpg",
@@ -522,6 +544,13 @@
         "type": "image",
         "orientation": "landscape"
       },
+      "copImages": [
+        {
+          "src": "/assets/03.Project/22.MDW22-Y/COP/Gabriele Giussani (4).jpg",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
       "assets": [
         {
           "src": "/assets/03.Project/22.MDW22-Y/COP/Gabriele Giussani (4).jpg",
