@@ -15,6 +15,8 @@ interface MenuItem {
 interface SocialItem {
   label: string;
   link: string;
+  iconSrc: string;
+  iconSize?: number;
 }
 
 interface StaggeredMenuProps {
@@ -188,17 +190,23 @@ export default function StaggeredMenu({
               {displaySocials && socialItems.length > 0 ? (
                 <div className="mt-12 border-t border-white/25 pt-6">
                   <p className="mb-4 text-[11px] tracking-[0.28em] text-white/75">SOCIAL</p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap items-center gap-3">
                     {socialItems.map((social) => (
                       <a
                         key={social.link}
                         href={social.link}
                         target="_blank"
                         rel="noreferrer"
-                        className="rounded-full border border-white/35 px-3 py-1 text-xs tracking-[0.12em] transition hover:bg-white/10"
-                        style={{ color: accentColor }}
+                        aria-label={social.label}
+                        className="inline-block opacity-80 transition hover:opacity-100"
                       >
-                        {social.label}
+                        <Image
+                          src={social.iconSrc}
+                          alt=""
+                          width={social.iconSize ?? 22}
+                          height={social.iconSize ?? 22}
+                          className="h-auto w-auto brightness-0 invert"
+                        />
                       </a>
                     ))}
                   </div>

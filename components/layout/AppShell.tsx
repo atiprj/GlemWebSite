@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import { GlobalFooter } from "@/components/layout/GlobalFooter";
+import { HashScrollHandler } from "@/components/layout/HashScrollHandler";
 import { IntroOverlay } from "@/components/intro/IntroOverlay";
 import StaggeredMenu from "@/components/navigation/StaggeredMenu";
 import { dictionaries, isLocale, type Locale } from "@/lib/i18n";
@@ -14,10 +15,21 @@ interface AppShellProps {
   children: ReactNode;
 }
 
+const INTRO_SEEN_KEY = "glem-intro-seen";
+
+function hasSeenIntro() {
+  if (typeof window === "undefined") return false;
+  try {
+    return sessionStorage.getItem(INTRO_SEEN_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
 export function AppShell({ children }: AppShellProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const [introCompleted, setIntroCompleted] = useState(false);
+  const [introCompleted, setIntroCompleted] = useState(true);
   const shouldHideGlobalFooter = pathname?.includes("/contacts");
   const isHomePath = pathname === "/" || pathname === "/it" || pathname === "/en";
   const pathSegments = pathname?.split("/").filter(Boolean) ?? [];
@@ -48,12 +60,32 @@ export function AppShell({ children }: AppShellProps) {
   ];
 
   const socialItems = [
-    { label: "Instagram", link: "https://www.instagram.com/atiproject/" },
-    { label: "GitHub", link: "https://github.com/" },
-    { label: "LinkedIn", link: "https://www.linkedin.com/company/atiproject/posts/?feedView=all" }
+    {
+      label: "Instagram",
+      link: "https://www.instagram.com/atiproject/",
+      iconSrc: "/assets/06.Icons/icons8-instagram-48.png",
+      iconSize: 22
+    },
+    {
+      label: "LinkedIn",
+      link: "https://www.linkedin.com/company/atiproject/posts/?feedView=all",
+      iconSrc: "/assets/06.Icons/icons8-linkedin-60.png",
+      iconSize: 24
+    },
+    {
+      label: "GitHub",
+      link: "https://github.com/",
+      iconSrc: "/assets/06.Icons/icons8-github-50.png",
+      iconSize: 22
+    }
   ];
 
   const handleIntroComplete = useCallback(() => {
+    try {
+      sessionStorage.setItem(INTRO_SEEN_KEY, "1");
+    } catch {
+      /* ignore private browsing */
+    }
     setIntroCompleted(true);
   }, []);
 
@@ -66,18 +98,33 @@ export function AppShell({ children }: AppShellProps) {
   }, [pathname, router]);
 
   useEffect(() => {
-    const t = window.setTimeout(() => {
-      if (!pathname || pathname === "/") {
-        setIntroCompleted(true);
-        return;
-      }
-      setIntroCompleted(!isHomePath);
-    }, 0);
-    return () => window.clearTimeout(t);
+    const isProjectsOrEvents =
+      pathname?.includes("/projects") || pathname?.includes("/events");
+    if (!isProjectsOrEvents) return;
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [pathname]);
+
+  useEffect(() => {
+    if (hasSeenIntro()) {
+      setIntroCompleted(true);
+      return;
+    }
+    if (!pathname || pathname === "/") {
+      setIntroCompleted(true);
+      return;
+    }
+    if (!isHomePath) {
+      setIntroCompleted(true);
+      return;
+    }
+    setIntroCompleted(false);
   }, [isHomePath, pathname]);
 
   return (
     <div className="min-h-screen bg-[#f6f6f2] text-neutral-900">
+      <HashScrollHandler />
       <header className="fixed left-0 top-0 z-50 flex w-full items-center justify-between bg-[#f6f6f2]/95 px-6 py-4 backdrop-blur-md md:px-10">
         <Link href={withLocale("/")} className="text-lg font-bold tracking-[0.22em] text-black" data-intro-logo>
           GLEM

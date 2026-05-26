@@ -36,7 +36,7 @@ export default async function LocaleEntryPage({
       ))}
       <HomeHero heroSrc={hero?.src ?? null} collageImages={collageImages} />
 
-      <section className="w-full pb-20">
+      <section id="home-sections" className="w-full scroll-mt-16 pb-20">
         <div className="h-[clamp(360px,45vh,620px)] w-full overflow-hidden border border-neutral-300 bg-[#f6f6f2]">
           <FlowingMenu
             items={[

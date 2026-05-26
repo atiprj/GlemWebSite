@@ -3,7 +3,7 @@
 import { motion, useScroll, useSpring, useTransform, useVelocity } from "framer-motion";
 import NextImage from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 
 import type { MediaAsset } from "@/lib/site-assets";
 
@@ -138,6 +138,12 @@ export interface EventsOverviewProps {
 }
 
 export function EventsOverview({ media, locale = "en" }: EventsOverviewProps) {
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
+
   const [selectedYear, setSelectedYear] = useState<number | "all">("all");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -149,7 +155,7 @@ export function EventsOverview({ media, locale = "en" }: EventsOverviewProps) {
     noResults: isItalian ? "Nessun evento trovato." : "No events found.",
   };
 
-  const homeHref = locale === "it" || locale === "en" ? `/${locale}` : "/";
+  const homeHref = locale === "it" || locale === "en" ? `/${locale}#home-sections` : "/#home-sections";
 
   // Build enriched items with title & year
   const allItems = useMemo<(ColItem & { year: number; searchText: string })[]>(() => {

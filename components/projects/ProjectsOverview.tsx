@@ -37,7 +37,8 @@ export function ProjectsOverview({ projects, locale = "en" }: ProjectsOverviewPr
   };
 
   const localizedProjectsPath = locale === "it" || locale === "en" ? `/${locale}/projects` : "/projects";
-  const localizedHomePath = locale === "it" || locale === "en" ? `/${locale}` : "/";
+  const localizedHomePath =
+    locale === "it" || locale === "en" ? `/${locale}#home-sections` : "/#home-sections";
 
   const overviewProjects = useMemo(() => projects.filter(hasCopImage), [projects]);
 
