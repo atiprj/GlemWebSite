@@ -85,16 +85,27 @@ async function readSpreadsheetMeta() {
     const workbook = xlsx.read(excelBuffer, { type: "buffer" });
     const sheetName = workbook.SheetNames[0];
     if (!sheetName) return new Map();
+    const worksheet = workbook.Sheets[sheetName];
 
-    const rows = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName], {
+    const rows = xlsx.utils.sheet_to_json(worksheet, {
       header: 1,
       blankrows: false,
     });
 
+    const asUrl = (value) => {
+      if (typeof value !== "string") return "";
+      const trimmed = value.trim();
+      return /^https?:\/\//i.test(trimmed) ? trimmed : "";
+    };
+
     const metaMap = new Map();
-    rows.slice(1).forEach((row) => {
+    rows.slice(1).forEach((row, rowIndex) => {
       const rawFolder = typeof row[0] === "string" ? row[0].trim() : "";
-      const rawLink = typeof row[1] === "string" ? row[1].trim() : "";
+      const excelRowNumber = rowIndex + 2;
+      const linkCell = worksheet?.[`B${excelRowNumber}`];
+      const linkFromHyperlink = asUrl(linkCell?.l?.Target) || asUrl(linkCell?.l?.display);
+      const linkFromValue = asUrl(typeof row[1] === "string" ? row[1].trim() : "");
+      const rawLink = linkFromHyperlink || linkFromValue;
       const tags = row
         .slice(3)
         .map((v) => (typeof v === "string" ? v.trim() : ""))

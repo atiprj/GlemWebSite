@@ -50,6 +50,11 @@ interface ColItem {
   priority: boolean;
 }
 
+function isPreferredEventImage(src: string): boolean {
+  const filename = src.split("/").pop() ?? "";
+  return /^01\.(jpe?g|png|webp|gif)$/i.test(filename.trim());
+}
+
 interface ElasticColProps {
   items: ColItem[];
   lagFactor: number;
@@ -157,20 +162,42 @@ export function EventsOverview({ media, locale = "en" }: EventsOverviewProps) {
 
   const homeHref = locale === "it" || locale === "en" ? `/${locale}#home-sections` : "/#home-sections";
 
-  // Build enriched items with title & year
+  // Build enriched items with one media per event folder:
+  // prefer an image; fallback to the first available media.
   const allItems = useMemo<(ColItem & { year: number; searchText: string })[]>(() => {
-    return media
-      .map((asset, i) => {
-        const title = getEventTitle(asset.src);
-        if (!title) return null;
-        const year = getEventYear(title);
-        const cleanTitle = title.replace(/^\d{2}\./, "").trim();
+    const byEvent = new Map<
+      string,
+      { title: string; year: number; cleanTitle: string; preferredImage?: MediaAsset; image?: MediaAsset; first?: MediaAsset }
+    >();
+
+    for (const asset of media) {
+      const title = getEventTitle(asset.src);
+      if (!title) continue;
+      const year = getEventYear(title);
+      const cleanTitle = title.replace(/^\d{2}\./, "").trim();
+      const existing = byEvent.get(title) ?? { title, year, cleanTitle };
+      if (!existing.first) existing.first = asset;
+      if (asset.type === "image" && isPreferredEventImage(asset.src) && !existing.preferredImage) {
+        existing.preferredImage = asset;
+      }
+      if (asset.type === "image" && !existing.image) existing.image = asset;
+      byEvent.set(title, existing);
+    }
+
+    return Array.from(byEvent.values())
+      .sort((a, b) => {
+        if (b.year !== a.year) return b.year - a.year;
+        return b.title.localeCompare(a.title, undefined, { numeric: true, sensitivity: "base" });
+      })
+      .map((event, i) => {
+        const chosenAsset = event.preferredImage ?? event.image ?? event.first;
+        if (!chosenAsset) return null;
         return {
-          asset,
-          title: cleanTitle,
+          asset: chosenAsset,
+          title: event.cleanTitle,
           priority: i < 10,
-          year,
-          searchText: cleanTitle.toLowerCase(),
+          year: event.year,
+          searchText: event.cleanTitle.toLowerCase(),
         };
       })
       .filter((item): item is NonNullable<typeof item> => item !== null);
