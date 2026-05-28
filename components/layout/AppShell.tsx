@@ -29,7 +29,7 @@ function hasSeenIntro() {
 export function AppShell({ children }: AppShellProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const [introCompleted, setIntroCompleted] = useState(true);
+  const [introCompleted, setIntroCompleted] = useState(false);
   const shouldHideGlobalFooter = pathname?.includes("/contacts");
   const isHomePath = pathname === "/" || pathname === "/it" || pathname === "/en";
   const pathSegments = pathname?.split("/").filter(Boolean) ?? [];

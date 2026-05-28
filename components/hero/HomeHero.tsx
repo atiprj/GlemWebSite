@@ -36,7 +36,7 @@ export function HomeHero({ heroSrc, collageImages = [] }: HomeHeroProps) {
   const hasCollage = collageImages.length > 0;
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-neutral-800">
+    <section className="relative h-[100svh] min-h-[100svh] w-full overflow-hidden bg-neutral-800 md:h-screen md:min-h-screen">
       {hasCollage ? (
         <div
           className="absolute inset-0 grid gap-2 overflow-hidden p-2"

@@ -1,4 +1,3 @@
-import { AppShell } from "@/components/layout/AppShell";
 import { isLocale } from "@/lib/i18n";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
@@ -15,5 +14,5 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  return <AppShell>{children}</AppShell>;
+  return children;
 }
