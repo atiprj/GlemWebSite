@@ -185,41 +185,39 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
     .sort((a, b) => a.src.localeCompare(b.src, undefined, { numeric: true }));
   const mainVideo = videos[0];
   const firstSegment = pathname?.split("/").filter(Boolean)[0] ?? "";
-  const homeHref = isLocale(firstSegment) ? `/${firstSegment}` : "/";
+  const projectsHref = isLocale(firstSegment) ? `/${firstSegment}/projects` : "/projects";
 
   return (
     <div className="bg-[#f6f6f2] text-neutral-900 antialiased min-h-screen">
 
-      {/* back link */}
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pt-8">
-        <Link
-          href={homeHref}
-          className="inline-flex items-center gap-2 text-[11px] tracking-[0.2em] text-neutral-400 hover:text-neutral-900 transition-colors"
-        >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          HOME
-        </Link>
-      </div>
-
       {/* ① hero */}
-      <section aria-label="Project identity" className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pt-8 pb-0">
+      <section aria-label="Project identity" className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pt-4 pb-0">
         <div className="grid lg:grid-cols-12 lg:gap-10 gap-6 items-end">
 
           {/* identity */}
           <div className="lg:col-span-4 pb-2">
-            <p className="text-[10px] tracking-[0.28em] text-neutral-400 mb-5">
-              {project.slug}
-            </p>
-            <h1 className="text-[clamp(2rem,4vw,3.4rem)] font-medium leading-[1.04] tracking-[-0.01em]">
-              {project.title}
-            </h1>
             {project.year > 0 ? (
-              <p className="mt-6 text-[10px] tracking-[0.28em] text-neutral-400">{project.year}</p>
+              <p className="mb-4 text-[10px] tracking-[0.28em] text-neutral-400">{project.year}</p>
             ) : null}
+            <div className="flex items-center gap-4">
+              <Link
+                href={projectsHref}
+                className="inline-block shrink-0 opacity-50 transition hover:opacity-100"
+                aria-label="Back to projects"
+              >
+                <Image
+                  src="/assets/06.Icons/icons8-freccia-sinistra-50.png"
+                  alt=""
+                  width={20}
+                  height={20}
+                />
+              </Link>
+              <h1 className="text-[clamp(2rem,4vw,3.4rem)] font-medium leading-[1.04] tracking-[-0.01em]">
+                {project.title}
+              </h1>
+            </div>
             {resolvedTags.length > 0 ? (
-              <div className="mt-4 flex flex-wrap gap-2">
+              <div className="mt-10 flex flex-wrap gap-2">
                 {resolvedTags.map((tag) => (
                   <span
                     key={tag}
@@ -230,7 +228,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
                 ))}
               </div>
             ) : (
-              <p className="mt-4 text-[11px] text-neutral-500">No tags loaded yet.</p>
+              <p className="mt-10 text-[11px] text-neutral-500">No tags loaded yet.</p>
             )}
           </div>
 
