@@ -8,6 +8,13 @@ interface HomeHeroProps {
   collageImages?: string[];
 }
 
+const FALLBACK_COLUMN_COUNT = 4;
+const GRID_GAP_PX = 8;
+const GRID_HORIZONTAL_PADDING_PX = 16;
+const MIN_BASE_IMAGES_PER_COLUMN = 4;
+const MAX_BASE_IMAGES_PER_COLUMN = 5;
+const IMAGE_HEIGHT_RATIO = 4 / 3;
+
 function getResponsiveColumnCount(width: number) {
   if (width < 640) return 2;
   if (width < 960) return 3;
@@ -16,13 +23,40 @@ function getResponsiveColumnCount(width: number) {
   return 6;
 }
 
+function getBaseImageCount(width: number, height: number, columnCount: number) {
+  if (!width || !height) {
+    return MIN_BASE_IMAGES_PER_COLUMN;
+  }
+
+  const totalGapWidth = (columnCount - 1) * GRID_GAP_PX;
+  const availableWidth = Math.max(width - GRID_HORIZONTAL_PADDING_PX - totalGapWidth, 1);
+  const columnWidth = availableWidth / columnCount;
+  const imageHeight = columnWidth * IMAGE_HEIGHT_RATIO;
+  const imagesNeededToFillViewport = Math.ceil((height + GRID_GAP_PX) / (imageHeight + GRID_GAP_PX));
+
+  return Math.min(
+    MAX_BASE_IMAGES_PER_COLUMN,
+    Math.max(MIN_BASE_IMAGES_PER_COLUMN, imagesNeededToFillViewport)
+  );
+}
+
+function repeatColumnImages(column: string[], imageCount: number) {
+  if (column.length === 0) {
+    return [];
+  }
+
+  return Array.from({ length: imageCount }, (_, index) => column[index % column.length]);
+}
+
 export function HomeHero({ heroSrc, collageImages = [] }: HomeHeroProps) {
-  const [columnCount, setColumnCount] = useState(4);
+  const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
   const maxImagesPerColumn = 4;
+  const columnCount = viewportSize.width ? getResponsiveColumnCount(viewportSize.width) : FALLBACK_COLUMN_COUNT;
+  const baseImageCount = getBaseImageCount(viewportSize.width, viewportSize.height, columnCount);
 
   useEffect(() => {
     const syncColumnsWithViewport = () => {
-      setColumnCount(getResponsiveColumnCount(window.innerWidth));
+      setViewportSize({ width: window.innerWidth, height: window.innerHeight });
     };
 
     syncColumnsWithViewport();
@@ -43,7 +77,8 @@ export function HomeHero({ heroSrc, collageImages = [] }: HomeHeroProps) {
           style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))` }}
         >
           {collageColumns.map((column, columnIndex) => {
-            const doubledColumn = [...column, ...column];
+            const baseColumn = repeatColumnImages(column, baseImageCount);
+            const loopColumn = [...baseColumn, ...baseColumn];
             const duration = 70 + columnIndex * 8;
 
             return (
@@ -54,20 +89,25 @@ export function HomeHero({ heroSrc, collageImages = [] }: HomeHeroProps) {
                     animationDuration: `${duration}s`
                   }}
                 >
-                  {doubledColumn.map((src, index) => (
-                    <div key={`${src}-${columnIndex}-${index}`} className="relative aspect-[3/4] overflow-hidden rounded-sm">
-                      <Image
-                        src={src}
-                        alt={`Project collage image ${index + 1}`}
-                        fill
-                        priority={columnIndex < 2 && index < 2}
-                        loading={columnIndex < 2 && index < 2 ? undefined : "lazy"}
-                        quality={50}
-                        className="object-cover grayscale"
-                        sizes="(max-width: 640px) 50vw, (max-width: 960px) 33vw, (max-width: 1280px) 25vw, (max-width: 1680px) 20vw, 16vw"
-                      />
-                    </div>
-                  ))}
+                  {loopColumn.map((src, index) => {
+                    const isInitiallyVisibleCopy = index >= baseColumn.length && index < baseColumn.length + 2;
+                    const isPriorityImage = columnIndex < 2 && isInitiallyVisibleCopy;
+
+                    return (
+                      <div key={`${src}-${columnIndex}-${index}`} className="relative aspect-[3/4] overflow-hidden rounded-sm">
+                        <Image
+                          src={src}
+                          alt={`Project collage image ${(index % baseColumn.length) + 1}`}
+                          fill
+                          priority={isPriorityImage}
+                          loading={isPriorityImage ? undefined : "lazy"}
+                          quality={50}
+                          className="object-cover grayscale"
+                          sizes="(max-width: 640px) 50vw, (max-width: 960px) 33vw, (max-width: 1280px) 25vw, (max-width: 1680px) 20vw, 16vw"
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             );
