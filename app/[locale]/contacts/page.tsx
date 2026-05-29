@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import ContactForm from "@/components/contact-form";
@@ -16,6 +18,7 @@ export default async function LocaleContactsPage({
   }
 
   const t = dictionaries[locale];
+  const homeHref = `/${locale}#home-sections`;
   const contacts = await getContactsContent();
   const toEmail = contacts.members[0]?.email || "atiproject@legalmail.it";
 
@@ -79,7 +82,21 @@ export default async function LocaleContactsPage({
       <section className="w-full overflow-hidden md:flex md:min-h-[calc(100vh-64px)]">
         <div className="w-full min-w-0 px-6 py-10 md:w-1/2 md:px-12">
           <FadeInView>
-            <h1 className="text-3xl font-semibold tracking-tight">{t.contacts}</h1>
+            <div className="flex items-center gap-4">
+              <Link
+                href={homeHref}
+                className="inline-block shrink-0 opacity-50 transition hover:opacity-100"
+                aria-label="Back to home"
+              >
+                <Image
+                  src="/assets/06.Icons/icons8-freccia-sinistra-50.png"
+                  alt="Back"
+                  width={20}
+                  height={20}
+                />
+              </Link>
+              <h1 className="text-4xl font-semibold tracking-tight md:text-6xl">{t.contacts}</h1>
+            </div>
             <p className="mt-2 text-sm tracking-[0.24em] text-neutral-500">{contacts.title}</p>
 
             <div className="mt-10 space-y-10">
