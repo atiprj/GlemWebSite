@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowUpRight, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -11,6 +11,7 @@ import InfinitePhotoStrip from "@/components/ui/InfinitePhotoStrip";
 import BlurText from "@/components/ui/BlurText";
 import SplitText from "@/components/ui/SplitText";
 import { isLocale } from "@/lib/i18n";
+import { measureTextLines } from "@/lib/measure-text-lines";
 import type { MediaAsset, Project } from "@/lib/site-assets";
 import type { Photo } from "@/types/carousel";
 
@@ -45,14 +46,14 @@ function briefDescription(text: string) {
   return firstSentence.length > 220 ? `${firstSentence.slice(0, 220).trim()}...` : `${firstSentence}.`;
 }
 
-function projectLeadText(project: Project) {
-  const introOnly = project.devText.intro || "";
+function projectLeadText(intro: string) {
+  const introOnly = intro || "";
   const firstParagraph = introOnly
     .split(/\n\s*\n/)
     .map((chunk) => chunk.trim())
     .filter(Boolean)[0];
 
-  return firstParagraph || "";
+  return firstParagraph || introOnly.trim();
 }
 
 function toCarouselPhotos(images: MediaAsset[], title: string): Photo[] {
@@ -66,83 +67,45 @@ function toCarouselPhotos(images: MediaAsset[], title: string): Photo[] {
   }));
 }
 
-function lineLengthByViewport(viewportWidth: number) {
-  if (viewportWidth <= 640) return 42;
-  if (viewportWidth <= 1024) return 68;
-  return 92;
-}
-
-function leadTextForSplitAnimation(text: string, viewportWidth: number) {
-  const normalized = text.replace(/\s+/g, " ").trim();
-  if (!normalized) return "";
-
-  const words = normalized.split(" ");
-  const lines: string[] = [];
-  const maxLines = 5;
-  const minCharsPerLine = lineLengthByViewport(viewportWidth);
-  const requiredCharsPerLine = Math.ceil(normalized.length / maxLines);
-  const maxCharsPerLine = Math.max(minCharsPerLine, requiredCharsPerLine);
-  let currentLine = "";
-
-  for (const word of words) {
-    const candidate = currentLine ? `${currentLine} ${word}` : word;
-    if (candidate.length <= maxCharsPerLine) {
-      currentLine = candidate;
-      continue;
-    }
-
-    if (currentLine) {
-      lines.push(currentLine);
-    }
-    currentLine = word;
-
-  }
-
-  const finalLine = currentLine || "";
-  if (finalLine) {
-    lines.push(finalLine);
-  }
-
-  if (lines.length <= maxLines) {
-    return lines.join("\n");
-  }
-
-  const keptLines = lines.slice(0, maxLines - 1);
-  const lastMergedLine = lines.slice(maxLines - 1).join(" ");
-  return [...keptLines, lastMergedLine].join("\n");
-}
-
 export function ProjectArticle({ project }: ProjectArticleProps) {
   const pathname = usePathname();
-  const [viewportWidth, setViewportWidth] = useState(1440);
+  const leadContainerRef = useRef<HTMLDivElement>(null);
+  const [animatedLeadText, setAnimatedLeadText] = useState<string | null>(null);
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
+  const [liveIntro, setLiveIntro] = useState(project.devText.intro.trim());
   const [liveDescription, setLiveDescription] = useState(project.devText.description.trim());
+  const [liveTeam, setLiveTeam] = useState(project.devText.team.trim());
+  const [liveAwards, setLiveAwards] = useState(project.devText.awards.trim());
   const [liveArticleLink, setLiveArticleLink] = useState(project.articleLink || "");
   const [liveTags, setLiveTags] = useState<string[]>(project.tags || []);
 
   useEffect(() => {
-    const updateViewportWidth = () => {
-      setViewportWidth(window.innerWidth || 1440);
-    };
-
-    updateViewportWidth();
-    window.addEventListener("resize", updateViewportWidth);
-    return () => {
-      window.removeEventListener("resize", updateViewportWidth);
-    };
-  }, []);
-
-  useEffect(() => {
     let isUnmounted = false;
 
-    const fetchDescription = async () => {
+    const fetchProjectContent = async () => {
       try {
         const response = await fetch(`/api/projects/${project.slug}/description`, { cache: "no-store" });
         if (!response.ok) return;
-        const data = (await response.json()) as { description?: string; articleLink?: string; tags?: string[] };
+        const data = (await response.json()) as {
+          intro?: string;
+          description?: string;
+          team?: string;
+          awards?: string;
+          articleLink?: string;
+          tags?: string[];
+        };
         if (!isUnmounted) {
+          if (typeof data.intro === "string") {
+            setLiveIntro(data.intro.trim());
+          }
           if (typeof data.description === "string") {
             setLiveDescription(data.description.trim());
+          }
+          if (typeof data.team === "string") {
+            setLiveTeam(data.team.trim());
+          }
+          if (typeof data.awards === "string") {
+            setLiveAwards(data.awards.trim());
           }
           if (typeof data.articleLink === "string") {
             setLiveArticleLink(data.articleLink.trim());
@@ -152,13 +115,13 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
           }
         }
       } catch {
-        /* keep current description */
+        /* keep current content */
       }
     };
 
-    fetchDescription();
+    fetchProjectContent();
     const intervalMs = process.env.NODE_ENV === "development" ? 2000 : 30000;
-    const intervalId = window.setInterval(fetchDescription, intervalMs);
+    const intervalId = window.setInterval(fetchProjectContent, intervalMs);
 
     return () => {
       isUnmounted = true;
@@ -168,18 +131,43 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
 
   const images = sortedImages(project.devAssets);
   const carouselPhotos = toCarouselPhotos(images, project.title);
-  const leadText = projectLeadText(project);
-  const animatedLeadText = leadTextForSplitAnimation(leadText, viewportWidth);
+  const leadText = projectLeadText(liveIntro || project.devText.intro.trim());
+
+  useLayoutEffect(() => {
+    const container = leadContainerRef.current;
+    if (!container || !leadText) {
+      setAnimatedLeadText(null);
+      return;
+    }
+
+    const updateLines = () => {
+      const styles = window.getComputedStyle(container);
+      const font = `${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`;
+      const maxWidth = container.clientWidth;
+      const lines = measureTextLines(leadText, maxWidth, font);
+      setAnimatedLeadText(lines.join("\n"));
+    };
+
+    updateLines();
+
+    const resizeObserver = new ResizeObserver(updateLines);
+    resizeObserver.observe(container);
+    window.addEventListener("resize", updateLines);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateLines);
+    };
+  }, [leadText]);
+
   const descriptionText =
     liveDescription ||
-    "Il prototipo è il risultato della collaborazione con eccellenze italiane, ognuna protagonista della trasformazione di MIRA in esperienza sensoriale.";
-  const resolvedArticleLink =
-    project.slug === "25.MDW25-MiraConceptAI"
-      ? "https://atiproject.com/news/fuorisalone-2025-ati-presenta-mira-al-dot-materica/"
-      : liveArticleLink || project.articleLink || "";
+    project.devText.description.trim() ||
+    "";
+  const resolvedArticleLink = liveArticleLink || project.articleLink || "";
   const resolvedTags = liveTags.length > 0 ? liveTags : project.tags;
-  const teamLines = textLines(project.devText.team);
-  const awardsLines = textLines(project.devText.awards);
+  const teamLines = textLines(liveTeam || project.devText.team);
+  const awardsLines = textLines(liveAwards || project.devText.awards);
   const videos = project.devAssets
     .filter((asset) => asset.type === "video")
     .sort((a, b) => a.src.localeCompare(b.src, undefined, { numeric: true }));
@@ -262,53 +250,63 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
           )}
         </div>
         {leadText ? (
-          <div className="mt-8 mx-auto max-w-5xl">
-            <SplitText
-              text={animatedLeadText}
-              className="text-[clamp(1.05rem,1.9vw,1.8rem)] font-bold leading-[1.35] text-neutral-800"
-              delay={90}
-              duration={0.95}
-              ease="power3.out"
-              splitType="lines"
-              from={{ opacity: 0, y: 34 }}
-              to={{ opacity: 1, y: 0 }}
-              threshold={0.1}
-              rootMargin="-90px"
-              textAlign="center"
-              showCallback
-              onLetterAnimationComplete={() => {
-                console.log("Lead text lines animation complete");
-              }}
-            />
+          <div
+            ref={leadContainerRef}
+            className="mt-8 w-full text-[clamp(1.05rem,1.2vw,1.15rem)] font-semibold leading-[1.55] text-neutral-800"
+          >
+            {animatedLeadText ? (
+              <SplitText
+                text={animatedLeadText}
+                className=""
+                delay={90}
+                duration={0.95}
+                ease="power3.out"
+                splitType="lines"
+                from={{ opacity: 0, y: 34 }}
+                to={{ opacity: 1, y: 0 }}
+                threshold={0.1}
+                rootMargin="-90px"
+                textAlign="left"
+                showCallback
+                onLetterAnimationComplete={() => {
+                  console.log("Lead text lines animation complete");
+                }}
+              />
+            ) : (
+              <p>{leadText}</p>
+            )}
           </div>
         ) : null}
         {images.length > 0 ? (
-          <div className="mt-6 border-y border-black/[0.07] py-3">
+          <div className="mt-6 w-full border-y border-black/[0.07] py-3">
             <InfinitePhotoStrip
               photos={carouselPhotos}
               autoScrollSeconds={58}
               controlsPlacement="overlay"
-              className="mx-auto max-w-7xl"
             />
           </div>
         ) : null}
 
-        <div className="mt-8 border-t border-black/[0.07] pt-7">
-          <button
-            type="button"
-            onClick={() => setIsDescriptionOpen(true)}
-            className="group block w-full cursor-pointer rounded-lg px-4 py-3 text-left transition duration-300 hover:-translate-y-0.5 hover:bg-black/[0.02]"
-            aria-label="Open project description"
-          >
-            <h2 className="text-[clamp(1.05rem,1.8vw,1.35rem)] font-medium leading-tight underline-offset-4 group-hover:underline">
-              Description
-            </h2>
-            <p className="mt-3 line-clamp-2 max-w-4xl text-[15px] leading-[1.8] text-neutral-700">
-              {descriptionText}
-              ...
-            </p>
-          </button>
-        </div>
+        {descriptionText ? (
+          <div className="mt-8 border-t border-black/[0.07] pt-7">
+            <button
+              type="button"
+              onClick={() => setIsDescriptionOpen(true)}
+              className="group block w-full cursor-pointer rounded-xl border border-black/15 bg-white/80 px-5 py-4 text-left shadow-[0_8px_24px_-20px_rgba(0,0,0,0.45)] transition duration-300 hover:border-black/30 hover:bg-white hover:shadow-[0_14px_30px_-18px_rgba(0,0,0,0.35)]"
+              aria-label="Read more about this project"
+            >
+              <div className="flex items-center justify-between gap-4">
+                <h2 className="text-[clamp(1.05rem,1.2vw,1.15rem)] font-semibold leading-tight text-neutral-800 transition group-hover:text-neutral-950">
+                  Read more
+                </h2>
+                <ArrowUpRight className="h-5 w-5 shrink-0 text-neutral-500 transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-900" />
+              </div>
+              <p className="mt-3 line-clamp-3 text-[clamp(0.75rem,0.85vw,0.8125rem)] font-normal leading-[1.7] text-neutral-800">
+                {descriptionText}
+              </p>
+            </button>
+          </div>
+        ) : null}
       </section>
 
       <section aria-label="Project details" className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pt-10 pb-16">

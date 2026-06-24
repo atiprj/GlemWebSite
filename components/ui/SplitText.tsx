@@ -84,7 +84,7 @@ export default function SplitText({
           {chunks.map((line, index) => (
             <div key={`${line}-${index}`} className="overflow-hidden">
               <motion.span
-                className="block whitespace-nowrap"
+                className="block w-full"
                 initial={from}
                 animate={isInView ? to : from}
                 transition={{ duration, ease: transitionEase, delay: (delay * index) / 1000 }}

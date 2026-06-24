@@ -1,0 +1,9 @@
+INTRO
+Il progetto M.I.R.A. (Modular Integrated Responsive Architecture), ideato dal dipartimento R&D di ATI Project, unisce Intelligenza Artificiale Generativa e micro-architettura. Concepito come sistema flessibile e materia-agnostico, ha consolidato il proprio percorso con la realizzazione di un prototipo fisico in scala 1:1 esposto al Vision Lab di InOut a Rimini. I moduli "plug-and-play" rispondono a esigenze d'uso flessibili come relax, coworking o hospitality.
+
+DESCRIZIONE
+Lo sviluppo ha seguito un workflow assistito da AI articolato in tre fasi: Forma (studi volumetrici su Midjourney), Materia (test di luce su ComfyUI) e Design (traduzione in mesh 3D tramite Trellis 3D per sezionamenti in Blender). Da questo processo è nata una matrice morfologica che associa a quattro geometrie specifiche destinazioni d'uso: Cilindro per CoWorking, Sfera per Wellness, Cubo per Accommodation e Capsula per Food&Drink.
+La validazione ergonomica e strutturale è avvenuta a Rimini con la costruzione del prototipo fisico 1:1, basato su un'intelaiatura in legno combinata a giunti a incastro con spine e raggi smussati per garantire stabilità e rapidità di montaggio. Il rivestimento metallico interno ed esterno è stato realizzato con tecnologie di stampa digitale su acciaio da Cromatica Marcegaglia. L'illuminazione interna sfrutta il sistema lineare modellabile Anaconda di Egoluce (strip LED a emissione diffusa) unito a lampade Tressessanta. La pavimentazione è in legno termotrattato (Termo Pino) di Dakota Living, mentre Binari ha integrato gli arredi complementari in acciaio ossidato e rame.
+
+CONCLUSIONE
+M.I.R.A. dimostra come l’AI agisca da motore geometrico per generare regole parametriche. Il valore industriale è sancito dalla richiesta del partner Marcegaglia di avviare la produzione in serie di una flotta di 100 moduli commerciali destinati al mercato internazionale.

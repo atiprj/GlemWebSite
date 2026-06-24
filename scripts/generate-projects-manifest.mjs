@@ -10,6 +10,8 @@ import { readdir, readFile, access, writeFile, mkdir, stat as stat_fn } from "no
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { findProjectTextFile, parseDevTextSections } from "../lib/project-text-parser.mjs";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const ASSETS_ROOT = path.join(ROOT, "public", "assets", "03.Project");
@@ -56,25 +58,6 @@ function parseYearFromSlug(slug) {
 
 function getCopImages(assets) {
   return assets.filter((a) => a.src.includes("/COP/") && a.type === "image");
-}
-
-function parseDevTextSections(content) {
-  const normalized = content.replaceAll("\r\n", "\n");
-  const readBlock = (labelPattern) => {
-    const pattern = new RegExp(
-      `(?:^|\\n)\\s*(?:${labelPattern})\\s*:?\\s*\\n([\\s\\S]*?)(?=\\n\\s*(?:INTRO|DESCRIZIONE|CONCLUSIONI?|CONCLUSIONE|TEAM|CREDITS?|GRUPPO|AWARDS?|PREMI|RICONOSCIMENTI)\\s*:?\\s*\\n|$)`,
-      "i"
-    );
-    const match = normalized.match(pattern);
-    return (match?.[1] ?? "").trim();
-  };
-  return {
-    intro: readBlock("INTRO"),
-    description: readBlock("DESCRIZIONE"),
-    conclusions: readBlock("CONCLUSIONI?|CONCLUSIONE"),
-    team: readBlock("TEAM|CREDITS?|GRUPPO"),
-    awards: readBlock("AWARDS?|PREMI|RICONOSCIMENTI"),
-  };
 }
 
 async function readSpreadsheetMeta() {
@@ -179,11 +162,7 @@ async function main() {
 
     if (assets.length === 0) continue;
 
-    const devFiles = allFiles.filter((f) => f.includes(`${path.sep}DEV${path.sep}`));
-    const textFile = devFiles.find((f) => {
-      const base = path.basename(f).toLowerCase();
-      return (base === "testo.txt" || base.startsWith("testo")) && base.endsWith(".txt");
-    });
+    const textFile = findProjectTextFile(allFiles, projectPath, path.sep);
     const devText = textFile
       ? parseDevTextSections(await readFile(textFile, "utf8").catch(() => ""))
       : { intro: "", description: "", conclusions: "", team: "", awards: "" };

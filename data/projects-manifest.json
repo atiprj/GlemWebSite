@@ -79,7 +79,7 @@
         "team": "",
         "awards": ""
       },
-      "searchText": "26.mdw26-climax 2026 intro\r\n\r\ni supporti tecnici, elementi indispensabili ma solitamente invisibili, diventano qui la matrice dell'opera. abbiamo invertito il processo tradizionale: non è l’idea a imporre una forma, ma è la materia stessa a guidare il progetto.\r\n\r\ndescrizione\r\n\r\nl’opera nasce dal riuso dei componenti di supporto per pavimenti sopraelevati eterno ivica. \r\ni componenti sono stati riutilizzati in maniera non convenzionale, per creare un'opera che mette in relazione passato e futuro per una visione comune. \r\nl’installazione si compone di due figure, opposte e complementari, che si incontrano in un punto di contatto da cui prende forma un legame materico.\r\nquesto legame si traduce nel rapporto mutevole che coesiste fra progettista e progetto.\r\nla materia degli elementi tecnici, pensata per sostenere e costruire, viene reinterpretata come linguaggio espressivo e simbolico per ricreare un'opera come manifesto, all'interno di architexturexpo, nell'ambito di bdd, foro buonaparte 67, c/o fondazione matalon"
+      "searchText": "26.mdw26-climax 2026 descrizione\r\n\r\nl’opera nasce dal riuso dei componenti di supporto per pavimenti sopraelevati eterno ivica. \r\ni componenti sono stati riutilizzati in maniera non convenzionale, per creare un'opera che mette in relazione passato e futuro per una visione comune. \r\nl’installazione si compone di due figure, opposte e complementari, che si incontrano in un punto di contatto da cui prende forma un legame materico.\r\nquesto legame si traduce nel rapporto mutevole che coesiste fra progettista e progetto.\r\nla materia degli elementi tecnici, pensata per sostenere e costruire, viene reinterpretata come linguaggio espressivo e simbolico per ricreare un'opera come manifesto, all'interno di architexturexpo, nell'ambito di bdd, foro buonaparte 67, c/o fondazione matalon intro\r\n\r\ni supporti tecnici, elementi indispensabili ma solitamente invisibili, diventano qui la matrice dell'opera. abbiamo invertito il processo tradizionale: non è l’idea a imporre una forma, ma è la materia stessa a guidare il progetto.\r\n\r\ndescrizione\r\n\r\nl’opera nasce dal riuso dei componenti di supporto per pavimenti sopraelevati eterno ivica. \r\ni componenti sono stati riutilizzati in maniera non convenzionale, per creare un'opera che mette in relazione passato e futuro per una visione comune. \r\nl’installazione si compone di due figure, opposte e complementari, che si incontrano in un punto di contatto da cui prende forma un legame materico.\r\nquesto legame si traduce nel rapporto mutevole che coesiste fra progettista e progetto.\r\nla materia degli elementi tecnici, pensata per sostenere e costruire, viene reinterpretata come linguaggio espressivo e simbolico per ricreare un'opera come manifesto, all'interno di architexturexpo, nell'ambito di bdd, foro buonaparte 67, c/o fondazione matalon"
     },
     {
       "slug": "25.MDW25-MiraConceptAI",
@@ -182,6 +182,105 @@
         "awards": ""
       },
       "searchText": "25.mdw25-miraconceptai 2025 intro:\r\n\r\nil prototipo è il risultato della collaborazione con eccellenze italiane, ognuna protagonista della trasformazione di mira in esperienza sensoriale. caratterizzata da una sottostruttura in legno, mira è espressione di solidità, versatilità e cura artigianale in ogni dettaglio. \r\nversatile e mutabile, mira si adatta a ogni esigenza: può diventare un angolo per il relax, una postazione di lavoro, un piccolo spazio ristorativo o una lounge temporanea. texture e geometrie dinamiche, sviluppate con il supporto dell’intelligenza artificiale e design generativo, conferiscono al progetto un’identità forte e riconoscibile. i moduli si combinano in configurazioni differenti, ed aggregabili tra di loro, dando vita a esperienze immersive, sempre sostenibili e altamente personalizzabili.\r\n\r\ndescrizione:\r\n\r\nil prototipo è il risultato della collaborazione con eccellenze italiane, ognuna protagonista della trasformazione di mira in esperienza sensoriale. caratterizzata da una sottostruttura in legno, mira è espressione di solidità, versatilità e cura artigianale in ogni dettaglio. cromatica marcegaglia realizza il rivestimento metallico interno ed esterno, con la sua tecnologia di stampa digitale su acciaio, che consente pattern e immagini personalizzate con infinite combinazioni di colori e sfumature. la collaborazione con il dipartimento r&d di ati project ha creato una texture unica che arricchisce l’estetica dell’installazione e interagisce dinamicamente con la luce, trasformando superfici e atmosfere in un’esperienza visiva unica.\r\nl’atmosfera interna e il dialogo con l’ambiente circostante sono valorizzati dall’illuminazione modulare di egoluce, con il sistema lineare modellabile anaconda, che permette di creare giochi di luce e punti focali suggestivi adattabili a qualsiasi configurazione dei moduli. dakota living arricchisce il progetto con pavimentazioni in legno termotrattato eleganti e funzionali, mentre binari realizza l’arredo complementare, integrando funzionalità e stile, contribuendo a rendere mira viva, accogliente e suggestiva.\r\n\r\n\r\nconclusione:\r\n\r\nversatile e mutabile, mira si adatta a ogni esigenza: può diventare un angolo per il relax, una postazione di lavoro, un piccolo spazio ristorativo o una lounge temporanea. texture e geometrie dinamiche, sviluppate con il supporto dell’intelligenza artificiale e design generativo, conferiscono al progetto un’identità forte e riconoscibile. i moduli si combinano in configurazioni differenti, ed aggregabili tra di loro, dando vita a esperienze immersive, sempre sostenibili e altamente personalizzabili."
+    },
+    {
+      "slug": "25.MDW25-MiraProject",
+      "title": "25 MDW25 MiraProject",
+      "year": 2025,
+      "articleLink": "https://atiproject.com/news/mira-al-vision-lab-di-inout-the-hospitality-community/",
+      "tags": [
+        "Materic Design"
+      ],
+      "cover": {
+        "src": "/assets/03.Project/25.MDW25-MiraProject/COP/Image 2025-10-08 at 09.46.53 (14).jpeg",
+        "type": "image",
+        "orientation": "landscape"
+      },
+      "copImages": [
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraProject/COP/Image 2025-10-08 at 09.46.53 (14).jpeg",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
+      "assets": [
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraProject/COP/Image 2025-10-08 at 09.46.53 (14).jpeg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraProject/DEV/0.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraProject/DEV/Image 2025-10-08 at 09.46.53 (10).jpeg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraProject/DEV/Image 2025-10-08 at 09.46.53 (16).jpeg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraProject/DEV/Image 2025-10-08 at 09.46.53 (6).jpeg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraProject/DEV/Image 2025-10-08 at 09.46.53 (8).jpeg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraProject/DEV/Image20251103105527.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
+      "devContentPath": "/assets/03.Project/25.MDW25-MiraProject/DEV",
+      "devAssets": [
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraProject/DEV/0.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraProject/DEV/Image 2025-10-08 at 09.46.53 (10).jpeg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraProject/DEV/Image 2025-10-08 at 09.46.53 (16).jpeg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraProject/DEV/Image 2025-10-08 at 09.46.53 (6).jpeg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraProject/DEV/Image 2025-10-08 at 09.46.53 (8).jpeg",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
+          "src": "/assets/03.Project/25.MDW25-MiraProject/DEV/Image20251103105527.jpg",
+          "type": "image",
+          "orientation": "landscape"
+        }
+      ],
+      "devText": {
+        "intro": "Il progetto M.I.R.A. (Modular Integrated Responsive Architecture), ideato dal dipartimento R&D di ATI Project, unisce Intelligenza Artificiale Generativa e micro-architettura. Concepito come sistema flessibile e materia-agnostico, ha consolidato il proprio percorso con la realizzazione di un prototipo fisico in scala 1:1 esposto al Vision Lab di InOut a Rimini. I moduli \"plug-and-play\" rispondono a esigenze d'uso flessibili come relax, coworking o hospitality.",
+        "description": "Lo sviluppo ha seguito un workflow assistito da AI articolato in tre fasi: Forma (studi volumetrici su Midjourney), Materia (test di luce su ComfyUI) e Design (traduzione in mesh 3D tramite Trellis 3D per sezionamenti in Blender). Da questo processo è nata una matrice morfologica che associa a quattro geometrie specifiche destinazioni d'uso: Cilindro per CoWorking, Sfera per Wellness, Cubo per Accommodation e Capsula per Food&Drink.\nLa validazione ergonomica e strutturale è avvenuta a Rimini con la costruzione del prototipo fisico 1:1, basato su un'intelaiatura in legno combinata a giunti a incastro con spine e raggi smussati per garantire stabilità e rapidità di montaggio. Il rivestimento metallico interno ed esterno è stato realizzato con tecnologie di stampa digitale su acciaio da Cromatica Marcegaglia. L'illuminazione interna sfrutta il sistema lineare modellabile Anaconda di Egoluce (strip LED a emissione diffusa) unito a lampade Tressessanta. La pavimentazione è in legno termotrattato (Termo Pino) di Dakota Living, mentre Binari ha integrato gli arredi complementari in acciaio ossidato e rame.",
+        "conclusions": "M.I.R.A. dimostra come l’AI agisca da motore geometrico per generare regole parametriche. Il valore industriale è sancito dalla richiesta del partner Marcegaglia di avviare la produzione in serie di una flotta di 100 moduli commerciali destinati al mercato internazionale.",
+        "team": "",
+        "awards": ""
+      },
+      "searchText": "25.mdw25-miraproject 2025 intro\nil progetto m.i.r.a. (modular integrated responsive architecture), ideato dal dipartimento r&d di ati project, unisce intelligenza artificiale generativa e micro-architettura. concepito come sistema flessibile e materia-agnostico, ha consolidato il proprio percorso con la realizzazione di un prototipo fisico in scala 1:1 esposto al vision lab di inout a rimini. i moduli \"plug-and-play\" rispondono a esigenze d'uso flessibili come relax, coworking o hospitality.\n\ndescrizione\nlo sviluppo ha seguito un workflow assistito da ai articolato in tre fasi: forma (studi volumetrici su midjourney), materia (test di luce su comfyui) e design (traduzione in mesh 3d tramite trellis 3d per sezionamenti in blender). da questo processo è nata una matrice morfologica che associa a quattro geometrie specifiche destinazioni d'uso: cilindro per coworking, sfera per wellness, cubo per accommodation e capsula per food&drink.\nla validazione ergonomica e strutturale è avvenuta a rimini con la costruzione del prototipo fisico 1:1, basato su un'intelaiatura in legno combinata a giunti a incastro con spine e raggi smussati per garantire stabilità e rapidità di montaggio. il rivestimento metallico interno ed esterno è stato realizzato con tecnologie di stampa digitale su acciaio da cromatica marcegaglia. l'illuminazione interna sfrutta il sistema lineare modellabile anaconda di egoluce (strip led a emissione diffusa) unito a lampade tressessanta. la pavimentazione è in legno termotrattato (termo pino) di dakota living, mentre binari ha integrato gli arredi complementari in acciaio ossidato e rame.\n\nconclusione\nm.i.r.a. dimostra come l’ai agisca da motore geometrico per generare regole parametriche. il valore industriale è sancito dalla richiesta del partner marcegaglia di avviare la produzione in serie di una flotta di 100 moduli commerciali destinati al mercato internazionale."
     },
     {
       "slug": "24.Lubica24-CardboardPavillion",
@@ -693,13 +792,13 @@
         }
       ],
       "devText": {
-        "intro": "",
-        "description": "",
-        "conclusions": "",
+        "intro": "Il Progetto Fuori Salone - Milano 2022, si focalizza sull'ideazione e sulla strategia promozionale aziendale in occasione della Milano Design Week. Il cuore della ricerca risiede nella progettazione e nella prototipazione di un'installazione o struttura temporanea \"plug-and-play\" concepita per rispondere in modo flessibile e dinamico al tema conduttore dell'edizione, \"Tra Spazio e Tempo\", stimolando soluzioni di design sostenibili e innovative.",
+        "description": "Lo sviluppo ha seguito un workflow tecnico rigoroso articolato sull'analisi di fattibilità costruttiva, lo studio dei materiali e l'ottimizzazione dei processi produttivi. La matrice morfologica prevede moduli con un'altezza minima di 1,50 metri, una dimensione critica che ha richiesto la valutazione di molteplici modalità di produzione e l'interfacciamento con ben 10 aziende specializzate per la formulazione dei preventivi. \nLa validazione tecnologica ha preso in esame una vasta gamma di materiali, tra cui PLA, ABS, PETG, cartone, polistirolo rivestito, legno, gel polimerizzante e MDF. A causa delle dimensioni dei moduli e dei limiti dei macchinari in commercio, è stata studiata l'ipotesi di una suddivisione strutturale in due parti per garantire stabilità e facilità di assemblaggio. Il monitoraggio economico ha messo a confronto i costi della stampa 3D (stimati tra i 950 e i 1200 € per pezzo, esclusa finitura) rispetto all'impiego di pannelli MDF lavorati a pantografo, ottimizzando i pesi e i tempi di realizzazione per i modelli di mockup (Base e Modulo Y).",
+        "conclusions": "Il progetto RD.021.21 dimostra come la ricerca applicata possa tradurre un concept artistico in regole parametriche e costruttive precise. Il valore industriale ed espositivo dell'opera è supportato da un approfondito studio sul contesto culturale del Fuorisalone e sull'analisi delle installazioni di grandi studi internazionali, garantendo ad ATI Project un posizionamento di rilievo nel panorama del design internazionale e ponendo le basi per future produzioni flessibili.",
         "team": "",
         "awards": ""
       },
-      "searchText": "22.mdw22-y 2022 "
+      "searchText": "22.mdw22-y 2022 intro\nil progetto fuori salone - milano 2022, si focalizza sull'ideazione e sulla strategia promozionale aziendale in occasione della milano design week. il cuore della ricerca risiede nella progettazione e nella prototipazione di un'installazione o struttura temporanea \"plug-and-play\" concepita per rispondere in modo flessibile e dinamico al tema conduttore dell'edizione, \"tra spazio e tempo\", stimolando soluzioni di design sostenibili e innovative.\n\ndescrizione\nlo sviluppo ha seguito un workflow tecnico rigoroso articolato sull'analisi di fattibilità costruttiva, lo studio dei materiali e l'ottimizzazione dei processi produttivi. la matrice morfologica prevede moduli con un'altezza minima di 1,50 metri, una dimensione critica che ha richiesto la valutazione di molteplici modalità di produzione e l'interfacciamento con ben 10 aziende specializzate per la formulazione dei preventivi. \nla validazione tecnologica ha preso in esame una vasta gamma di materiali, tra cui pla, abs, petg, cartone, polistirolo rivestito, legno, gel polimerizzante e mdf. a causa delle dimensioni dei moduli e dei limiti dei macchinari in commercio, è stata studiata l'ipotesi di una suddivisione strutturale in due parti per garantire stabilità e facilità di assemblaggio. il monitoraggio economico ha messo a confronto i costi della stampa 3d (stimati tra i 950 e i 1200 € per pezzo, esclusa finitura) rispetto all'impiego di pannelli mdf lavorati a pantografo, ottimizzando i pesi e i tempi di realizzazione per i modelli di mockup (base e modulo y).\n\nconclusione\nil progetto rd.021.21 dimostra come la ricerca applicata possa tradurre un concept artistico in regole parametriche e costruttive precise. il valore industriale ed espositivo dell'opera è supportato da un approfondito studio sul contesto culturale del fuorisalone e sull'analisi delle installazioni di grandi studi internazionali, garantendo ad ati project un posizionamento di rilievo nel panorama del design internazionale e ponendo le basi per future produzioni flessibili."
     }
   ],
   "collageImages": [
@@ -708,18 +807,21 @@
     "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (2).JPG",
     "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9764.jpg",
     "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/05.jpg",
+    "/assets/03.Project/25.MDW25-MiraProject/DEV/0.jpg",
     "/assets/03.Project/26.MDW26-CLIMAX/DEV/Image20260528103551.jpg",
     "/assets/03.Project/22.MDW22-Y/DEV/01.PercorsoParole.png",
     "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1630.JPG",
     "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (1).JPG",
     "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9763.jpg",
     "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/04.JPG",
+    "/assets/03.Project/25.MDW25-MiraProject/DEV/Image 2025-10-08 at 09.46.53 (8).jpeg",
     "/assets/03.Project/26.MDW26-CLIMAX/DEV/Image20260528103539.jpg",
     "/assets/03.Project/22.MDW22-Y/DEV/03.Gabriele Giussani (16).jpg",
     "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1633.JPG",
     "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (52).jpg",
     "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9746.jpg",
     "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/01.jpg",
+    "/assets/03.Project/25.MDW25-MiraProject/DEV/Image20251103105527.jpg",
     "/assets/03.Project/26.MDW26-CLIMAX/DEV/1777287620799.jpg"
   ],
   "projectMenuImage": "/assets/03.Project/Immagine menu home.jpg"

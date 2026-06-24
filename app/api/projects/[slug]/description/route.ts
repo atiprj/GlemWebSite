@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { readProjectDevText } from "@/lib/project-dev-text";
 import { getProjects } from "@/lib/projects-assets";
 
 export const dynamic = "force-dynamic";
@@ -17,11 +18,17 @@ export async function GET(
     return NextResponse.json({ error: "Project not found" }, { status: 404 });
   }
 
+  const devText = await readProjectDevText(slug);
+
   return NextResponse.json(
     {
       slug: project.slug,
       title: project.title,
-      description: project.devText.description.trim(),
+      intro: devText.intro.trim(),
+      description: devText.description.trim(),
+      conclusions: devText.conclusions.trim(),
+      team: devText.team.trim(),
+      awards: devText.awards.trim(),
       articleLink: project.articleLink,
       tags: project.tags
     },
