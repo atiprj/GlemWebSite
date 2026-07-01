@@ -124,7 +124,7 @@ export function ProjectsOverview({ projects, locale = "en" }: ProjectsOverviewPr
                 return {
                   project,
                   imageSrc: copSrc,
-                  href: `${localizedProjectsPath}/${project.slug}`,
+                  href: `${localizedProjectsPath}/${encodeURIComponent(project.slug)}`,
                 };
               })
               .filter((item): item is NonNullable<typeof item> => item !== null)}

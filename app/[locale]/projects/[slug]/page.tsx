@@ -14,7 +14,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { locale, slug } = await params;
+  const { locale, slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
   if (!isLocale(locale)) return {};
 
   const t = dictionaries[locale];
@@ -34,7 +35,8 @@ export default async function LocaleProjectDetailPage({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { locale, slug } = await params;
+  const { locale, slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
   if (!isLocale(locale)) {
     notFound();
   }

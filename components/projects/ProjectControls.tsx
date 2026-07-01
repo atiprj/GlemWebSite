@@ -38,7 +38,7 @@ function ProjectGridCard({
       className="group relative overflow-hidden rounded-sm border border-black/10 bg-neutral-200 shadow-sm"
     >
       <Link
-        href={`${localizedProjectsPath}/${project.slug}`}
+        href={`${localizedProjectsPath}/${encodeURIComponent(project.slug)}`}
         aria-label={`${ui.openProjectLabel} ${project.title}`}
         className="absolute inset-0 z-20"
       />

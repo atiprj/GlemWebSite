@@ -13,7 +13,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
   const projects = await getProjects();
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
@@ -29,7 +30,8 @@ export default async function ProjectDetailPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
   const projects = await getProjects();
   const project = await getProjectWithLiveText(slug, projects);
   if (!project) notFound();

@@ -71,7 +71,7 @@ function ProjectStackCard({
           )}
         </ProjectCoverParallax>
         <Link
-          href={`${localizedProjectsPath}/${project.slug}`}
+          href={`${localizedProjectsPath}/${encodeURIComponent(project.slug)}`}
           aria-label={`${isItalian ? "Apri pagina di" : "Open"} ${project.title}`}
           className="absolute inset-0 z-20"
         />

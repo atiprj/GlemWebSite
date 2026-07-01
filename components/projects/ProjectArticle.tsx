@@ -84,7 +84,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
 
     const fetchProjectContent = async () => {
       try {
-        const response = await fetch(`/api/projects/${project.slug}/description`, { cache: "no-store" });
+        const response = await fetch(`/api/projects/${encodeURIComponent(project.slug)}/description`, { cache: "no-store" });
         if (!response.ok) return;
         const data = (await response.json()) as {
           intro?: string;
@@ -223,7 +223,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
           {/* cover */}
           {project.cover ? (
             <figure className="lg:col-span-8 overflow-hidden group">
-              <div className="relative w-full aspect-[2/1]">
+              <div className="relative w-full pb-[calc(50%+1.5cm)]">
                 {project.cover.type === "image" ? (
                   <Image
                     src={project.cover.src}
@@ -246,7 +246,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
               </div>
             </figure>
           ) : (
-            <div className="lg:col-span-8 bg-neutral-200 aspect-[2/1]" />
+            <div className="lg:col-span-8 bg-neutral-200 pb-[calc(50%+1.5cm)]" />
           )}
         </div>
         {leadText ? (
@@ -311,8 +311,12 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
 
       <section aria-label="Project details" className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pt-10 pb-16">
         {mainVideo ? (
-          <div className="mt-8">
-            <video src={mainVideo.src} controls className="w-full rounded-xl bg-neutral-900" />
+          <div className="mt-8 w-full">
+            <video
+              src={mainVideo.src}
+              controls
+              className="mx-auto block h-auto max-h-[85vh] w-full rounded-xl bg-neutral-900"
+            />
           </div>
         ) : null}
 

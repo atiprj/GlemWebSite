@@ -10,7 +10,8 @@ export async function GET(
   _request: Request,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
   const projects = await getProjects();
   const project = projects.find((item) => item.slug === slug);
 
