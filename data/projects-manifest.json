@@ -380,79 +380,79 @@
       "searchText": "25.mdw25-miraproject 2025 intro\nil progetto m.i.r.a. (modular integrated responsive architecture), ideato dal dipartimento r&d di ati project, unisce intelligenza artificiale generativa e micro-architettura. concepito come sistema flessibile e materia-agnostico, ha consolidato il proprio percorso con la realizzazione di un prototipo fisico in scala 1:1 esposto al vision lab di inout a rimini. i moduli \"plug-and-play\" rispondono a esigenze d'uso flessibili come relax, coworking o hospitality.\n\ndescrizione\nlo sviluppo ha seguito un workflow assistito da ai articolato in tre fasi: forma (studi volumetrici su midjourney), materia (test di luce su comfyui) e design (traduzione in mesh 3d tramite trellis 3d per sezionamenti in blender). da questo processo è nata una matrice morfologica che associa a quattro geometrie specifiche destinazioni d'uso: cilindro per coworking, sfera per wellness, cubo per accommodation e capsula per food&drink.\nla validazione ergonomica e strutturale è avvenuta a rimini con la costruzione del prototipo fisico 1:1, basato su un'intelaiatura in legno combinata a giunti a incastro con spine e raggi smussati per garantire stabilità e rapidità di montaggio. il rivestimento metallico interno ed esterno è stato realizzato con tecnologie di stampa digitale su acciaio da cromatica marcegaglia. l'illuminazione interna sfrutta il sistema lineare modellabile anaconda di egoluce (strip led a emissione diffusa) unito a lampade tressessanta. la pavimentazione è in legno termotrattato (termo pino) di dakota living, mentre binari ha integrato gli arredi complementari in acciaio ossidato e rame.\n\nconclusione\nm.i.r.a. dimostra come l’ai agisca da motore geometrico per generare regole parametriche. il valore industriale è sancito dalla richiesta del partner marcegaglia di avviare la produzione in serie di una flotta di 100 moduli commerciali destinati al mercato internazionale."
     },
     {
-      "slug": "25.ROMA-Micro Mega LAB",
-      "title": "25 ROMA Micro Mega LAB",
+      "slug": "25.ROMA-MicroMegaLAB",
+      "title": "25 ROMA MicroMegaLAB",
       "year": 2025,
       "articleLink": "",
       "tags": [],
       "cover": {
-        "src": "/assets/03.Project/25.ROMA-Micro Mega LAB/COP/2025.06.04_Draft.jpg",
+        "src": "/assets/03.Project/25.ROMA-MicroMegaLAB/COP/2025.06.04_Draft.jpg",
         "type": "image",
         "orientation": "landscape"
       },
       "copImages": [
         {
-          "src": "/assets/03.Project/25.ROMA-Micro Mega LAB/COP/2025.06.04_Draft.jpg",
+          "src": "/assets/03.Project/25.ROMA-MicroMegaLAB/COP/2025.06.04_Draft.jpg",
           "type": "image",
           "orientation": "landscape"
         }
       ],
       "assets": [
         {
-          "src": "/assets/03.Project/25.ROMA-Micro Mega LAB/COP/2025.06.04_Draft.jpg",
+          "src": "/assets/03.Project/25.ROMA-MicroMegaLAB/COP/2025.06.04_Draft.jpg",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/25.ROMA-Micro Mega LAB/DEV/atiprj_Architectural_blueprint_style__blend_of_architectural__02d0c063-d7ad-4da4-a2c5-4f50dd075856_1.png",
+          "src": "/assets/03.Project/25.ROMA-MicroMegaLAB/DEV/atiprj_Architectural_blueprint_style__blend_of_architectural__02d0c063-d7ad-4da4-a2c5-4f50dd075856_1.png",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/25.ROMA-Micro Mega LAB/DEV/atiprj_schematica_city_mobility_diagram__Architectural_bluepr_38be38ba-2e21-4fb9-99e6-b12f013fcf15_2.png",
+          "src": "/assets/03.Project/25.ROMA-MicroMegaLAB/DEV/atiprj_schematica_city_mobility_diagram__Architectural_bluepr_38be38ba-2e21-4fb9-99e6-b12f013fcf15_2.png",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/25.ROMA-Micro Mega LAB/DEV/atiprj_top-down_planimetric_map_view__highly_detailed_top-dow_2d70aa1d-9170-438f-ad30-71bf0a27e2d9_2.png",
+          "src": "/assets/03.Project/25.ROMA-MicroMegaLAB/DEV/atiprj_top-down_planimetric_map_view__highly_detailed_top-dow_2d70aa1d-9170-438f-ad30-71bf0a27e2d9_2.png",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/25.ROMA-Micro Mega LAB/DEV/DiagramConcept.png",
+          "src": "/assets/03.Project/25.ROMA-MicroMegaLAB/DEV/DiagramConcept.png",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/25.ROMA-Micro Mega LAB/DEV/Roma_MML-video_23-06-2025.mp4",
+          "src": "/assets/03.Project/25.ROMA-MicroMegaLAB/DEV/Roma_MML-video_23-06-2025.mp4",
           "type": "video",
           "orientation": "landscape"
         }
       ],
-      "devContentPath": "/assets/03.Project/25.ROMA-Micro Mega LAB/DEV",
+      "devContentPath": "/assets/03.Project/25.ROMA-MicroMegaLAB/DEV",
       "devAssets": [
         {
-          "src": "/assets/03.Project/25.ROMA-Micro Mega LAB/DEV/atiprj_Architectural_blueprint_style__blend_of_architectural__02d0c063-d7ad-4da4-a2c5-4f50dd075856_1.png",
+          "src": "/assets/03.Project/25.ROMA-MicroMegaLAB/DEV/atiprj_Architectural_blueprint_style__blend_of_architectural__02d0c063-d7ad-4da4-a2c5-4f50dd075856_1.png",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/25.ROMA-Micro Mega LAB/DEV/atiprj_schematica_city_mobility_diagram__Architectural_bluepr_38be38ba-2e21-4fb9-99e6-b12f013fcf15_2.png",
+          "src": "/assets/03.Project/25.ROMA-MicroMegaLAB/DEV/atiprj_schematica_city_mobility_diagram__Architectural_bluepr_38be38ba-2e21-4fb9-99e6-b12f013fcf15_2.png",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/25.ROMA-Micro Mega LAB/DEV/atiprj_top-down_planimetric_map_view__highly_detailed_top-dow_2d70aa1d-9170-438f-ad30-71bf0a27e2d9_2.png",
+          "src": "/assets/03.Project/25.ROMA-MicroMegaLAB/DEV/atiprj_top-down_planimetric_map_view__highly_detailed_top-dow_2d70aa1d-9170-438f-ad30-71bf0a27e2d9_2.png",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/25.ROMA-Micro Mega LAB/DEV/DiagramConcept.png",
+          "src": "/assets/03.Project/25.ROMA-MicroMegaLAB/DEV/DiagramConcept.png",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/25.ROMA-Micro Mega LAB/DEV/Roma_MML-video_23-06-2025.mp4",
+          "src": "/assets/03.Project/25.ROMA-MicroMegaLAB/DEV/Roma_MML-video_23-06-2025.mp4",
           "type": "video",
           "orientation": "landscape"
         }
@@ -461,10 +461,10 @@
         "intro": "Micromega Lab (MML) è un laboratorio urbano continuo, che guarda al futuro di Roma attraverso una molteplicità di scale, discipline, strategie e attori. Volutamente ispirato al racconto filosofico di Voltaire – un trattato sulla relatività delle differenze tra mondi alieni -  il laboratorio si approccia alla complessità della Capitale come pianeti di un’unica galassia, di cui conosciamo il passato, analizziamo il presente e programmiamo il futuro esperibile al 2050 (MML), in un dialogo continuo tra storia, memoria e innovazione.",
         "description": "MicroMega Lab (MML) è anche metafora di uno sguardo «gigantesco» e «piccolissimo» sulla città di Roma, capace di cogliere la vastità del suo potenziale e al contempo percepirne i dettagli più nascosti. Come i protagonisti del trattato di Voltaire, i grandi sistemi urbani, di rilievo marcatamente sovralocale, dialogano con la dimensione ‘micro’ della quotidianità, dei quartieri e delle persone, in uno scambio complesso che riflette sul ruolo delle centralità dell’area metropolitana romana e affronta i disequilibri socio-spaziali esistenti. \nLa navicella con cui ci impegniamo a navigare l’universo romano è una metodologia solida e innovativa, fondata su due strumenti complessi: i dati e la partecipazione. Con i primi interroghiamo la realtà, nel tentativo di decostruire narrazioni stereotipate e proporre soluzioni fondate sull’evidenza scientifica; con la seconda monitoriamo i bisogni, i desideri e le aspirazioni dei cittadini, rendendoli partecipi e protagonisti dei territori in cui vivono. Ci approcciamo a questi strumenti in modo radicale, proponendo un circolo virtuoso di apprendimento che sfrutta il potenziale dell’intelligenza artificiale per costruire sistemi informativi complessi e aggiornati, dove approcci quantitativi e qualitativi concorrono alla continua ridefinizione dei problemi e alla ricerca di soluzioni.\nMML è quindi acronimo e sintesi del tempo e dello spazio che verrà, declinazione di mondi, territori e linguaggi diversi, sintesi di scelte collettive fondate sull’interazione e sull’apprendimento continuo quale strumento di valorizzazione territoriale.",
         "conclusions": "",
-        "team": "",
-        "awards": ""
+        "team": "Mattia Giannetti",
+        "awards": "https://romaregeneration.it/concorso-di-idee/"
       },
-      "searchText": "25.roma-micro mega lab 2025 intro\n\nmicromega lab (mml) è un laboratorio urbano continuo, che guarda al futuro di roma attraverso una molteplicità di scale, discipline, strategie e attori. volutamente ispirato al racconto filosofico di voltaire – un trattato sulla relatività delle differenze tra mondi alieni -  il laboratorio si approccia alla complessità della capitale come pianeti di un’unica galassia, di cui conosciamo il passato, analizziamo il presente e programmiamo il futuro esperibile al 2050 (mml), in un dialogo continuo tra storia, memoria e innovazione.\n\ndescrizione\n\nmicromega lab (mml) è anche metafora di uno sguardo «gigantesco» e «piccolissimo» sulla città di roma, capace di cogliere la vastità del suo potenziale e al contempo percepirne i dettagli più nascosti. come i protagonisti del trattato di voltaire, i grandi sistemi urbani, di rilievo marcatamente sovralocale, dialogano con la dimensione ‘micro’ della quotidianità, dei quartieri e delle persone, in uno scambio complesso che riflette sul ruolo delle centralità dell’area metropolitana romana e affronta i disequilibri socio-spaziali esistenti. \nla navicella con cui ci impegniamo a navigare l’universo romano è una metodologia solida e innovativa, fondata su due strumenti complessi: i dati e la partecipazione. con i primi interroghiamo la realtà, nel tentativo di decostruire narrazioni stereotipate e proporre soluzioni fondate sull’evidenza scientifica; con la seconda monitoriamo i bisogni, i desideri e le aspirazioni dei cittadini, rendendoli partecipi e protagonisti dei territori in cui vivono. ci approcciamo a questi strumenti in modo radicale, proponendo un circolo virtuoso di apprendimento che sfrutta il potenziale dell’intelligenza artificiale per costruire sistemi informativi complessi e aggiornati, dove approcci quantitativi e qualitativi concorrono alla continua ridefinizione dei problemi e alla ricerca di soluzioni.\nmml è quindi acronimo e sintesi del tempo e dello spazio che verrà, declinazione di mondi, territori e linguaggi diversi, sintesi di scelte collettive fondate sull’interazione e sull’apprendimento continuo quale strumento di valorizzazione territoriale. nome folder principale: [aa].[event]-[description]\r\n\r\nfolder cop\r\n\r\ninserire immagine principale\r\n\r\nfolder dev\r\n\r\ninserire immagini varie ( numero non definito)\r\n\r\nun solo video\r\n\r\ncompilare il documento di testo con le informazioni base"
+      "searchText": "25.roma-micromegalab 2025 intro\n\nmicromega lab (mml) è un laboratorio urbano continuo, che guarda al futuro di roma attraverso una molteplicità di scale, discipline, strategie e attori. volutamente ispirato al racconto filosofico di voltaire – un trattato sulla relatività delle differenze tra mondi alieni -  il laboratorio si approccia alla complessità della capitale come pianeti di un’unica galassia, di cui conosciamo il passato, analizziamo il presente e programmiamo il futuro esperibile al 2050 (mml), in un dialogo continuo tra storia, memoria e innovazione.\n\ndescrizione\n\nmicromega lab (mml) è anche metafora di uno sguardo «gigantesco» e «piccolissimo» sulla città di roma, capace di cogliere la vastità del suo potenziale e al contempo percepirne i dettagli più nascosti. come i protagonisti del trattato di voltaire, i grandi sistemi urbani, di rilievo marcatamente sovralocale, dialogano con la dimensione ‘micro’ della quotidianità, dei quartieri e delle persone, in uno scambio complesso che riflette sul ruolo delle centralità dell’area metropolitana romana e affronta i disequilibri socio-spaziali esistenti. \nla navicella con cui ci impegniamo a navigare l’universo romano è una metodologia solida e innovativa, fondata su due strumenti complessi: i dati e la partecipazione. con i primi interroghiamo la realtà, nel tentativo di decostruire narrazioni stereotipate e proporre soluzioni fondate sull’evidenza scientifica; con la seconda monitoriamo i bisogni, i desideri e le aspirazioni dei cittadini, rendendoli partecipi e protagonisti dei territori in cui vivono. ci approcciamo a questi strumenti in modo radicale, proponendo un circolo virtuoso di apprendimento che sfrutta il potenziale dell’intelligenza artificiale per costruire sistemi informativi complessi e aggiornati, dove approcci quantitativi e qualitativi concorrono alla continua ridefinizione dei problemi e alla ricerca di soluzioni.\nmml è quindi acronimo e sintesi del tempo e dello spazio che verrà, declinazione di mondi, territori e linguaggi diversi, sintesi di scelte collettive fondate sull’interazione e sull’apprendimento continuo quale strumento di valorizzazione territoriale.\n\n\nteam\nmattia giannetti\n\nawards\n\nhttps://romaregeneration.it/concorso-di-idee/ nome folder principale: [aa].[event]-[description]\r\n\r\nfolder cop\r\n\r\ninserire immagine principale\r\n\r\nfolder dev\r\n\r\ninserire immagini varie ( numero non definito)\r\n\r\nun solo video\r\n\r\ncompilare il documento di testo con le informazioni base"
     },
     {
       "slug": "24.Lubica24-CardboardPavillion",
@@ -586,8 +586,8 @@
       "searchText": "24.lubica24-cardboardpavillion 2024 intro\n\n[inserire qui il testo introduttivo del progetto 24.lubica24-cardboardpavillion]\n\ndescrizione\n\n[inserire qui la descrizione dettagliata del progetto: materiali, processo, collaborazioni, workflow tecnico]\n\nconclusione\n\n[inserire qui la conclusione del progetto: valore industriale, posizionamento, risultati ottenuti]"
     },
     {
-      "slug": "24.MDW24-Material&Data",
-      "title": "24 MDW24 Material&Data",
+      "slug": "24.MDW24-MaterialData",
+      "title": "24 MDW24 MaterialData",
       "year": 2024,
       "articleLink": "https://docs.google.com/document/d/1P_Rz1wsGO_hJDB4sySPeD39kfcspmeyB/edit",
       "tags": [
@@ -595,103 +595,103 @@
         "Data Analysis"
       ],
       "cover": {
-        "src": "/assets/03.Project/24.MDW24-Material&Data/COP/_DSC9674.jpg",
+        "src": "/assets/03.Project/24.MDW24-MaterialData/COP/_DSC9674.jpg",
         "type": "image",
         "orientation": "landscape"
       },
       "copImages": [
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/COP/_DSC9674.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/COP/_DSC9674.jpg",
           "type": "image",
           "orientation": "landscape"
         }
       ],
       "assets": [
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/COP/_DSC9674.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/COP/_DSC9674.jpg",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/2024.05_PULSE_MakingOf.mp4",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/2024.05_PULSE_MakingOf.mp4",
           "type": "video",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9669.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9669.jpg",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9670.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9670.jpg",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9682.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9682.jpg",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9745.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9745.jpg",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9746.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9746.jpg",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9763.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9763.jpg",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9764.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9764.jpg",
           "type": "image",
           "orientation": "landscape"
         }
       ],
-      "devContentPath": "/assets/03.Project/24.MDW24-Material&Data/DEV",
+      "devContentPath": "/assets/03.Project/24.MDW24-MaterialData/DEV",
       "devAssets": [
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/2024.05_PULSE_MakingOf.mp4",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/2024.05_PULSE_MakingOf.mp4",
           "type": "video",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9669.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9669.jpg",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9670.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9670.jpg",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9682.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9682.jpg",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9745.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9745.jpg",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9746.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9746.jpg",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9763.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9763.jpg",
           "type": "image",
           "orientation": "landscape"
         },
         {
-          "src": "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9764.jpg",
+          "src": "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9764.jpg",
           "type": "image",
           "orientation": "landscape"
         }
@@ -703,7 +703,7 @@
         "team": "",
         "awards": ""
       },
-      "searchText": "24.mdw24-material&data 2024 intro\n\n[inserire qui il testo introduttivo del progetto 24.mdw24-material&data]\n\ndescrizione\n\n[inserire qui la descrizione dettagliata del progetto: materiali, processo, collaborazioni, workflow tecnico]\n\nconclusione\n\n[inserire qui la conclusione del progetto: valore industriale, posizionamento, risultati ottenuti]"
+      "searchText": "24.mdw24-materialdata 2024 intro\n\n[inserire qui il testo introduttivo del progetto 24.mdw24-material&data]\n\ndescrizione\n\n[inserire qui la descrizione dettagliata del progetto: materiali, processo, collaborazioni, workflow tecnico]\n\nconclusione\n\n[inserire qui la conclusione del progetto: valore industriale, posizionamento, risultati ottenuti]"
     },
     {
       "slug": "23.MDW23-AIGen",
@@ -989,28 +989,28 @@
     "/assets/03.Project/22.MDW22-Y/DEV/02.PercorsoParole (2).png",
     "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1624.JPG",
     "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (2).JPG",
-    "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9764.jpg",
+    "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9764.jpg",
     "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/05.jpg",
     "/assets/03.Project/25.MDW25-MiraProject/DEV/0.jpg",
-    "/assets/03.Project/25.ROMA-Micro Mega LAB/DEV/DiagramConcept.png",
+    "/assets/03.Project/25.ROMA-MicroMegaLAB/DEV/DiagramConcept.png",
     "/assets/03.Project/26.MDW26-CLIMAX/DEV/Image20260528103551.jpg",
     "/assets/03.Project/26.MDW26-KENOSIS/DEV/Copia di 5J1A5891.jpg",
     "/assets/03.Project/22.MDW22-Y/DEV/01.PercorsoParole.png",
     "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1630.JPG",
     "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (1).JPG",
-    "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9763.jpg",
+    "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9763.jpg",
     "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/04.JPG",
     "/assets/03.Project/25.MDW25-MiraProject/DEV/Image 2025-10-08 at 09.46.53 (8).jpeg",
-    "/assets/03.Project/25.ROMA-Micro Mega LAB/DEV/atiprj_Architectural_blueprint_style__blend_of_architectural__02d0c063-d7ad-4da4-a2c5-4f50dd075856_1.png",
+    "/assets/03.Project/25.ROMA-MicroMegaLAB/DEV/atiprj_Architectural_blueprint_style__blend_of_architectural__02d0c063-d7ad-4da4-a2c5-4f50dd075856_1.png",
     "/assets/03.Project/26.MDW26-CLIMAX/DEV/Image20260528103539.jpg",
     "/assets/03.Project/26.MDW26-KENOSIS/DEV/IMG_6609.jpg",
     "/assets/03.Project/22.MDW22-Y/DEV/03.Gabriele Giussani (16).jpg",
     "/assets/03.Project/23.MDW23-HumanMovements/DEV/DSC_1633.JPG",
     "/assets/03.Project/24.Lubica24-CardboardPavillion/DEV/240626 (52).jpg",
-    "/assets/03.Project/24.MDW24-Material&Data/DEV/_DSC9746.jpg",
+    "/assets/03.Project/24.MDW24-MaterialData/DEV/_DSC9746.jpg",
     "/assets/03.Project/25.MDW25-MiraConceptAI/DEV/01.jpg",
     "/assets/03.Project/25.MDW25-MiraProject/DEV/Image20251103105527.jpg",
-    "/assets/03.Project/25.ROMA-Micro Mega LAB/DEV/atiprj_top-down_planimetric_map_view__highly_detailed_top-dow_2d70aa1d-9170-438f-ad30-71bf0a27e2d9_2.png",
+    "/assets/03.Project/25.ROMA-MicroMegaLAB/DEV/atiprj_top-down_planimetric_map_view__highly_detailed_top-dow_2d70aa1d-9170-438f-ad30-71bf0a27e2d9_2.png",
     "/assets/03.Project/26.MDW26-CLIMAX/DEV/1777287620799.jpg",
     "/assets/03.Project/26.MDW26-KENOSIS/DEV/IMG_6621.jpg"
   ],
