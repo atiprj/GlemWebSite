@@ -134,7 +134,7 @@ export function IntroOverlay({ onComplete }: IntroOverlayProps) {
       ref={rootRef}
       className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center"
       style={{
-        backgroundColor: "rgba(255,255,255,0.55)",
+        backgroundColor: "#ffffff",
         willChange: "opacity",
         transform: "translateZ(0)"
       }}

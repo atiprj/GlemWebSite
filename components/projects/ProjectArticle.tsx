@@ -177,7 +177,6 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
 
   return (
     <div className="bg-[#f6f6f2] text-neutral-900 antialiased min-h-screen">
-
       {/* ① hero */}
       <section aria-label="Project identity" className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pt-4 pb-0">
         <div className="grid lg:grid-cols-12 lg:gap-10 gap-6 items-end">
@@ -200,7 +199,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
                   height={20}
                 />
               </Link>
-              <h1 className="text-[clamp(2rem,4vw,3.4rem)] font-medium leading-[1.04] tracking-[-0.01em]">
+              <h1 className="text-[clamp(1.6rem,3.2vw,2.7rem)] font-medium leading-[1.04] tracking-[-0.01em]">
                 {project.title}
               </h1>
             </div>
@@ -253,7 +252,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
         {leadText ? (
           <div
             ref={leadContainerRef}
-            className="mt-8 w-full text-[clamp(1.05rem,1.2vw,1.15rem)] font-semibold leading-[1.55] text-neutral-800"
+            className="mt-8 w-full text-[clamp(0.85rem,1vw,0.95rem)] font-semibold leading-[1.55] text-neutral-800"
           >
             {animatedLeadText ? (
               <SplitText
@@ -297,12 +296,12 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
               aria-label="Read more about this project"
             >
               <div className="flex items-center justify-between gap-4">
-                <h2 className="text-[clamp(1.05rem,1.2vw,1.15rem)] font-semibold leading-tight text-neutral-800 transition group-hover:text-neutral-950">
+                <h2 className="text-[clamp(0.85rem,1vw,0.95rem)] font-semibold leading-tight text-neutral-800 transition group-hover:text-neutral-950">
                   Read more
                 </h2>
                 <ArrowUpRight className="h-5 w-5 shrink-0 text-neutral-500 transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-900" />
               </div>
-              <p className="mt-3 line-clamp-3 text-[clamp(0.75rem,0.85vw,0.8125rem)] font-normal leading-[1.7] text-neutral-800">
+              <p className="mt-3 line-clamp-3 text-[clamp(0.65rem,0.7vw,0.7rem)] font-normal leading-[1.7] text-neutral-800">
                 {descriptionText}
               </p>
             </button>
@@ -343,7 +342,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
         </div>
 
         <div className="mt-12 border-t border-black/[0.07] py-8 grid lg:grid-cols-12 gap-6 lg:gap-14">
-          <h2 className="lg:col-span-4 text-[clamp(1.05rem,1.8vw,1.35rem)] font-medium leading-tight">Team</h2>
+          <h2 className="lg:col-span-4 text-[clamp(0.85rem,1.4vw,1.1rem)] font-medium leading-tight">Team</h2>
           <div className="lg:col-span-8">
             {teamLines.length > 0 ? (
               <ul className="space-y-2 text-[14px] leading-relaxed text-neutral-700">
@@ -358,7 +357,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
         </div>
 
         <div className="border-t border-black/[0.07] py-8 grid lg:grid-cols-12 gap-6 lg:gap-14">
-          <h2 className="lg:col-span-4 text-[clamp(1.05rem,1.8vw,1.35rem)] font-medium leading-tight">Award</h2>
+          <h2 className="lg:col-span-4 text-[clamp(0.85rem,1.4vw,1.1rem)] font-medium leading-tight">Award</h2>
           <div className="lg:col-span-8">
             {awardsLines.length > 0 ? (
               <ul className="space-y-2 text-[14px] leading-relaxed text-neutral-700">
@@ -397,7 +396,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
               <div className="mb-6 flex items-start justify-between gap-3">
                 <div>
                   <p className="text-[10px] tracking-[0.24em] text-neutral-500">PROJECT</p>
-                  <h3 className="mt-2 text-[clamp(1.2rem,2vw,1.7rem)] font-semibold leading-tight">{project.title}</h3>
+                  <h3 className="mt-2 text-[clamp(1rem,1.6vw,1.35rem)] font-semibold leading-tight">{project.title}</h3>
                 </div>
                 <button
                   type="button"
