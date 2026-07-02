@@ -3,6 +3,8 @@
 import Lenis from "lenis";
 import { useEffect, type ReactNode } from "react";
 
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+
 import "lenis/dist/lenis.css";
 
 interface LenisProviderProps {
@@ -10,8 +12,9 @@ interface LenisProviderProps {
 }
 
 export function LenisProvider({ children }: LenisProviderProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
     window.scrollTo(0, 0);
@@ -43,7 +46,7 @@ export function LenisProvider({ children }: LenisProviderProps) {
       document.documentElement.classList.remove("lenis", "lenis-smooth");
       document.documentElement.style.scrollBehavior = "";
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   return children;
 }

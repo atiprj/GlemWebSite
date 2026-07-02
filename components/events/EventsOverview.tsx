@@ -83,7 +83,7 @@ function ElasticCol({ items, lagFactor, springVelocity }: ElasticColProps) {
         ) : (
           <div key={asset.src}>
             <div className="relative aspect-[4/5] overflow-hidden bg-neutral-900">
-              <video src={asset.src} controls className="h-full w-full object-cover" />
+              <video src={asset.src} controls preload="metadata" className="h-full w-full object-cover" />
             </div>
             <p className="mt-2 text-[11px] font-bold leading-tight text-neutral-700">{title}</p>
           </div>
@@ -237,7 +237,7 @@ export function EventsOverview({ media, locale = "en" }: EventsOverviewProps) {
                 height={20}
               />
             </Link>
-            <h1 className="text-4xl font-semibold tracking-tight md:text-6xl">{ui.title}</h1>
+            <h1 className="text-[clamp(1.9rem,7vw,3.75rem)] font-semibold tracking-tight">{ui.title}</h1>
           </div>
 
           {/* filters row */}

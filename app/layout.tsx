@@ -1,11 +1,17 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { AppShell } from "@/components/layout/AppShell";
 
 export const metadata: Metadata = {
   title: "Glem Website",
   description: "Studio website with projects, events and contacts."
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover"
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

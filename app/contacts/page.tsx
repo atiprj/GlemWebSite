@@ -82,7 +82,7 @@ export default async function ContactsPage() {
                   height={20}
                 />
               </Link>
-              <h1 className="text-4xl font-semibold tracking-tight md:text-6xl">Contacts</h1>
+              <h1 className="text-[clamp(1.9rem,7vw,3.75rem)] font-semibold tracking-tight">Contacts</h1>
             </div>
             <p className="mt-2 text-sm tracking-[0.24em] text-neutral-500">{contacts.title}</p>
 

@@ -1,7 +1,9 @@
 "use client";
 
 import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
-import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import { useRef, type ReactNode, type RefObject } from "react";
+
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 type ScrollOffset = NonNullable<Parameters<typeof useScroll>[0]>["offset"];
 
@@ -32,15 +34,7 @@ export function ProjectCoverParallax({
   });
 
   const progress = externalProgress ?? internalProgress;
-  const [reducedMotion, setReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReducedMotion(media.matches);
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
+  const reducedMotion = useReducedMotion();
 
   const y = useTransform(progress, [0, 1], reducedMotion ? ["0%", "0%"] : ["0%", `-${range}%`]);
 

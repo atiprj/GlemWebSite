@@ -240,6 +240,7 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
                     muted
                     loop
                     playsInline
+                    preload="metadata"
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                 )}
@@ -315,6 +316,8 @@ export function ProjectArticle({ project }: ProjectArticleProps) {
             <video
               src={mainVideo.src}
               controls
+              preload="metadata"
+              poster={project.cover?.type === "image" ? project.cover.src : undefined}
               className="mx-auto block h-auto max-h-[85vh] w-full rounded-xl bg-neutral-900"
             />
           </div>

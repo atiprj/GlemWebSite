@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Link from "next/link";
 
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+
 import styles from "./FlowingMenu.module.css";
 
 interface FlowingMenuItem {
@@ -73,6 +75,7 @@ function MenuItem({
   const marqueeInnerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<gsap.core.Tween | null>(null);
   const [repetitions, setRepetitions] = useState(4);
+  const isCoarsePointer = useMediaQuery("(pointer: coarse)");
 
   useEffect(() => {
     const calculateRepetitions = () => {
@@ -93,6 +96,8 @@ function MenuItem({
   }, [image, text]);
 
   useEffect(() => {
+    if (isCoarsePointer) return;
+
     const setupMarquee = () => {
       if (!marqueeInnerRef.current) return;
 
@@ -117,7 +122,7 @@ function MenuItem({
       window.clearTimeout(timer);
       animationRef.current?.kill();
     };
-  }, [image, repetitions, speed, text]);
+  }, [image, repetitions, speed, text, isCoarsePointer]);
 
   const distMetric = (x: number, y: number, x2: number, y2: number) => {
     const xDiff = x - x2;
@@ -132,7 +137,7 @@ function MenuItem({
   };
 
   const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
-    if (!itemRef.current || !marqueeRef.current || !marqueeInnerRef.current) return;
+    if (isCoarsePointer || !itemRef.current || !marqueeRef.current || !marqueeInnerRef.current) return;
     const rect = itemRef.current.getBoundingClientRect();
     const edge = findClosestEdge(event.clientX - rect.left, event.clientY - rect.top, rect.width, rect.height);
 
@@ -144,7 +149,7 @@ function MenuItem({
   };
 
   const handleMouseLeave = (event: React.MouseEvent<HTMLElement>) => {
-    if (!itemRef.current || !marqueeRef.current || !marqueeInnerRef.current) return;
+    if (isCoarsePointer || !itemRef.current || !marqueeRef.current || !marqueeInnerRef.current) return;
     const rect = itemRef.current.getBoundingClientRect();
     const edge = findClosestEdge(event.clientX - rect.left, event.clientY - rect.top, rect.width, rect.height);
 

@@ -39,6 +39,19 @@
   letter-spacing: 0.16em;
 }
 
+@media (pointer: coarse) {
+  .menuItem {
+    flex: none;
+    min-height: 56px;
+  }
+
+  .menuItemLink {
+    height: auto;
+    min-height: 56px;
+    padding: 0.75rem 1rem;
+  }
+}
+
 .marquee {
   position: absolute;
   top: 0;

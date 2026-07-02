@@ -5,6 +5,8 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { SplitText as GSAPSplitText } from "gsap/SplitText";
 
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+
 interface IntroOverlayProps {
   onComplete: () => void;
 }
@@ -20,6 +22,7 @@ export function IntroOverlay({ onComplete }: IntroOverlayProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const wordRef = useRef<HTMLDivElement | null>(null);
   const onCompleteRef = useRef(onComplete);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     onCompleteRef.current = onComplete;
@@ -30,6 +33,11 @@ export function IntroOverlay({ onComplete }: IntroOverlayProps) {
       const root = rootRef.current;
       const word = wordRef.current;
       if (!root || !word) return;
+
+      if (prefersReducedMotion) {
+        onCompleteRef.current();
+        return;
+      }
 
       const getTarget = () => {
         const wordRect = word.getBoundingClientRect();
@@ -118,7 +126,7 @@ export function IntroOverlay({ onComplete }: IntroOverlayProps) {
         window.clearTimeout(safetyTimer);
       };
     },
-    { scope: rootRef }
+    { scope: rootRef, dependencies: [prefersReducedMotion] }
   );
 
   return (

@@ -14,7 +14,7 @@ export default async function EntryPage() {
       <HomeHero heroSrc={hero?.src ?? null} collageImages={collageImages} />
 
       <section id="home-sections" className="w-full scroll-mt-16 pb-20">
-        <div className="h-[420px] w-full overflow-hidden border border-neutral-300 bg-[#f6f6f2]">
+        <div className="h-auto w-full overflow-hidden border border-neutral-300 bg-[#f6f6f2] md:h-[420px]">
           <FlowingMenu
             items={[
               {

@@ -75,7 +75,7 @@ export function ProjectsOverview({ projects, locale = "en" }: ProjectsOverviewPr
             >
               <Image src="/assets/06.Icons/icons8-freccia-sinistra-50.png" alt="Back" width={20} height={20} />
             </Link>
-            <h1 className="text-4xl font-semibold tracking-tight md:text-6xl">{ui.title}</h1>
+            <h1 className="text-[clamp(1.9rem,7vw,3.75rem)] font-semibold tracking-tight">{ui.title}</h1>
           </div>
 
           <div className="mt-10 flex flex-col gap-6 md:mt-12 md:flex-row md:items-center md:justify-between">

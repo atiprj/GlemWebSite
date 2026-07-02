@@ -139,10 +139,10 @@ export default function StaggeredMenu({
 
             <motion.aside
               ref={menuPanelRef}
-              className={`fixed top-0 z-[70] h-screen w-[320px] border-white/15 p-6 text-white backdrop-blur-md ${sideClasses}`}
-              initial={{ x: position === "left" ? -340 : 340, opacity: 0.94 }}
+              className={`fixed top-0 z-[70] h-screen w-[min(88vw,320px)] border-white/15 p-6 text-white backdrop-blur-md ${sideClasses}`}
+              initial={{ x: position === "left" ? "-110%" : "110%", opacity: 0.94 }}
               animate={{ x: 0, opacity: 1 }}
-              exit={{ x: position === "left" ? -340 : 340, opacity: 0.94 }}
+              exit={{ x: position === "left" ? "-110%" : "110%", opacity: 0.94 }}
               transition={{ duration: 0.38, ease: "easeOut" }}
               style={{ background: "#000000" }}
               onMouseLeave={() => setIsOpen(false)}

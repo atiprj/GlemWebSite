@@ -24,7 +24,7 @@ export default async function AboutPage() {
             </FadeInView>
           ) : (
             <FadeInView key={asset.src} className="overflow-hidden rounded-lg border border-neutral-200 bg-black">
-              <video src={asset.src} controls className="h-auto w-full" />
+              <video src={asset.src} controls preload="metadata" className="h-auto w-full" />
             </FadeInView>
           )
         )}
