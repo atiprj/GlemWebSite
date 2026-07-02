@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { readProjectDevText } from "@/lib/project-dev-text";
 import { getProjects } from "@/lib/projects-assets";
+import { hasDevText } from "@/lib/project-with-live-text";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -19,7 +20,8 @@ export async function GET(
     return NextResponse.json({ error: "Project not found" }, { status: 404 });
   }
 
-  const devText = await readProjectDevText(slug);
+  const liveDevText = await readProjectDevText(slug);
+  const devText = hasDevText(liveDevText) ? liveDevText : project.devText;
 
   return NextResponse.json(
     {
