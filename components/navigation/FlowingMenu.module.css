@@ -51,14 +51,17 @@
   .menuItem {
     flex: none;
     min-height: 56px;
-    background: rgba(0, 0, 0, 0.32);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
   }
 
   .menuItemLink {
     height: auto;
     min-height: 56px;
     padding: 0.75rem 1rem;
+  }
+
+  .menuItemLink:active {
+    background-color: rgba(0, 0, 0, 0.32);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
 }

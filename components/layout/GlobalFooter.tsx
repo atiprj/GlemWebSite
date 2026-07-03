@@ -62,25 +62,22 @@ export function GlobalFooter() {
 
   return (
     <motion.footer
-      className="fixed bottom-0 left-0 z-30 w-full bg-black px-8 py-16 text-white"
-      initial={{ opacity: 0, y: 80 }}
-      animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 80 }}
+      className="fixed bottom-0 left-0 z-30 w-full bg-black px-6 py-8 text-white"
+      initial={{ opacity: 0, y: 40 }}
+      animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{ duration: 0.45, ease: "easeOut" }}
       style={{ pointerEvents: isRevealed ? "auto" : "none" }}
     >
-      <div className="mx-auto max-w-7xl">
-        <h2 className="mb-12 text-xs tracking-[0.35em] text-white/85">
+      <div className="mx-auto flex max-w-7xl flex-col gap-3 overflow-x-auto">
+        <h2 className="shrink-0 text-[9px] tracking-[0.3em] text-white/70">
           {contacts.title}
         </h2>
-        <div className="grid grid-cols-1 gap-x-10 gap-y-16 md:grid-cols-2 xl:grid-cols-4">
+        <div className="flex flex-nowrap items-start justify-start gap-x-8 whitespace-nowrap">
           {contacts.members.map((member) => (
-            <div key={member.email} className="space-y-3 pb-6 last:pb-0">
-              <p className="text-xl font-bold">{member.name}</p>
-              {member.role ? <p className="text-sm italic text-gray-300">{member.role}</p> : null}
-              <a href={`mailto:${member.email}`} className="block text-sm text-white underline-offset-4 hover:underline">
-                {member.email}
-              </a>
-            </div>
+            <span key={member.email} className="flex flex-col items-start leading-tight">
+              <span className="text-xs font-semibold">{member.name}</span>
+              {member.role ? <span className="text-[10px] italic text-white/60">{member.role}</span> : null}
+            </span>
           ))}
         </div>
       </div>

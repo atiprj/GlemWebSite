@@ -155,7 +155,7 @@ export function AppShell({ children }: AppShellProps) {
       </header>
 
       <main
-        className={`${shouldHideGlobalFooter ? "pb-0" : "pb-[clamp(18rem,35vh,34rem)]"} ${isHomePath ? "pt-0" : "pt-16"}`}
+        className={`${shouldHideGlobalFooter ? "pb-0" : "pb-32"} ${isHomePath ? "pt-0" : "pt-16"}`}
       >
         {children}
       </main>

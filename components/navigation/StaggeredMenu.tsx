@@ -107,7 +107,7 @@ export default function StaggeredMenu({
         type="button"
         aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
         onClick={() => setIsOpen((prev) => !prev)}
-        className="rounded-md border border-black/15 bg-[#f6f6f2]/90 p-2 shadow-sm transition hover:bg-black/10"
+        className="p-2 transition hover:opacity-70"
         style={{ color: buttonColor }}
       >
         <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none">
@@ -139,7 +139,7 @@ export default function StaggeredMenu({
 
             <motion.aside
               ref={menuPanelRef}
-              className={`fixed top-0 z-[70] h-screen w-[min(88vw,320px)] border-white/15 p-6 text-white backdrop-blur-md ${sideClasses}`}
+              className={`fixed top-0 z-[70] h-screen w-[min(75vw,240px)] border-white/15 p-6 text-white backdrop-blur-md ${sideClasses}`}
               initial={{ x: position === "left" ? "-110%" : "110%", opacity: 0.94 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: position === "left" ? "-110%" : "110%", opacity: 0.94 }}
@@ -151,7 +151,7 @@ export default function StaggeredMenu({
                 {logoUrl ? (
                   <Image src={logoUrl} alt="Menu logo" width={96} height={28} className="h-auto w-auto" />
                 ) : (
-                  <p className="text-xs tracking-[0.35em] text-white/85">MENU</p>
+                  <p className="text-[9.6px] tracking-[0.35em] text-white/85">MENU</p>
                 )}
                 <button
                   type="button"
@@ -179,9 +179,9 @@ export default function StaggeredMenu({
                       className="group flex items-baseline gap-3 rounded-md px-2 py-1.5 transition hover:bg-white/10"
                     >
                       {displayItemNumbering ? (
-                        <span className="text-[11px] tracking-[0.2em] text-white/70">{String(index + 1).padStart(2, "0")}</span>
+                        <span className="text-[8.8px] tracking-[0.2em] text-white/70">{String(index + 1).padStart(2, "0")}</span>
                       ) : null}
-                      <span className="text-base tracking-[0.16em] uppercase">{item.label}</span>
+                      <span className="text-[12.8px] tracking-[0.16em] uppercase">{item.label}</span>
                     </Link>
                   </motion.div>
                 ))}
@@ -189,7 +189,7 @@ export default function StaggeredMenu({
 
               {displaySocials && socialItems.length > 0 ? (
                 <div className="mt-12 border-t border-white/25 pt-6">
-                  <p className="mb-4 text-[11px] tracking-[0.28em] text-white/75">SOCIAL</p>
+                  <p className="mb-4 text-[8.8px] tracking-[0.28em] text-white/75">SOCIAL</p>
                   <div className="flex flex-wrap items-center gap-3">
                     {socialItems.map((social) => (
                       <a
