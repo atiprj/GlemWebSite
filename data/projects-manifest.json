@@ -54,6 +54,11 @@
           "orientation": "landscape"
         },
         {
+          "src": "/assets/03.Project/26.MDW26-CLIMAX/DEV/IMG_2804 (2).JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
           "src": "/assets/03.Project/26.MDW26-CLIMAX/DEV/IMG_6342.jpg",
           "type": "image",
           "orientation": "landscape"
@@ -87,6 +92,11 @@
           "orientation": "landscape"
         },
         {
+          "src": "/assets/03.Project/26.MDW26-CLIMAX/DEV/IMG_2804 (2).JPG",
+          "type": "image",
+          "orientation": "landscape"
+        },
+        {
           "src": "/assets/03.Project/26.MDW26-CLIMAX/DEV/IMG_6342.jpg",
           "type": "image",
           "orientation": "landscape"
@@ -105,8 +115,12 @@
       "slug": "26.MDW26-KENOSIS",
       "title": "26 MDW26 KENOSIS",
       "year": 2026,
-      "articleLink": "",
-      "tags": [],
+      "articleLink": "https://atiproject.com/news/kenosis-fuorisalone-2026/",
+      "tags": [
+        "Generative Design",
+        "AI",
+        "Video"
+      ],
       "cover": {
         "src": "/assets/03.Project/26.MDW26-KENOSIS/COP/Copia di 5J1A6034.jpg",
         "type": "image",
